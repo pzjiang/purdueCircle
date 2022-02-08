@@ -21,4 +21,12 @@ Things you may want to cover:
 
 * Deployment instructions
 
+1) Make sure you go to https://www.postgresql.org/ and download the latest version.
+
+2) create a role named purduecircle, with the password 'password1' (information about this can be found in config/database.yml)
+
+3) run with rails s(erver)
+
+if any issues arise, let me know, theoretically that should let it run on your machine.
+
 * ...
