@@ -6,4 +6,4 @@ function FollowTopics() {
     )
 }
 
-export default FollowTopicsPage;
+export default FollowTopics;

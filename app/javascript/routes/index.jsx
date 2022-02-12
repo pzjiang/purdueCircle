@@ -5,6 +5,7 @@ import Home from "../components/Home";
 import NotFound from "../components/NotFound";
 import Login from "../authentication/Login";
 import Signup from "../authentication/Signup";
+import Topics from "../components/FollowTopics";
 import PrivateRoute from "./PrivateRoute";
 //import NotFound from "../components/NotFound"
 
@@ -33,6 +34,7 @@ const Routing = props => {
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/signup" element={<Signup />} />
+                <Route exact path="/topics" element={<Topics />} />
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>
         </Router>
