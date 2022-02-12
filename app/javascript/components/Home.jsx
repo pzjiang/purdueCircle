@@ -18,7 +18,10 @@ export default () => (
 
         <br></br>
         <Link to="/randompage">not found </Link>
-
+        <br />
+        <Link to="/login">Login</Link>
+        <br />
+        <Link to="/signup">Sign up</Link>
     </div >
 
 )
