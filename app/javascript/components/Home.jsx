@@ -1,5 +1,6 @@
 import React from "react";
 import "../styling/Home";
+import "../components/FollowTopics";
 import {
     BrowserRouter as Router,
     Switch,
@@ -22,6 +23,8 @@ export default () => (
         <Link to="/login">Login</Link>
         <br />
         <Link to="/signup">Sign up</Link>
+        <br />
+        <Link to="/topics">Follow Topics</Link>
     </div >
 
 )
