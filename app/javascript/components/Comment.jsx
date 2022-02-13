@@ -3,6 +3,14 @@
  */
 
  const Comment = () => { 
+
+    const tagUser = () => {
+
+    };
+
+    const deleteComment = () => {
+
+    };
  
     return (
         <div>
