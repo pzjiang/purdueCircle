@@ -36,8 +36,7 @@ export default () => (
 			    sign up
         	</button>
 	    </Link>
-        
-        <Link to="/topics">Follow Topics</Link>
+       
 
     </div >
 
