@@ -31,7 +31,7 @@ class App extends React.Component {
             <AuthProvider>
                 <UserProvider>
                     <div>
-                        <p>header placer</p>
+
                         <Routing />
                     </div>
                 </UserProvider>
