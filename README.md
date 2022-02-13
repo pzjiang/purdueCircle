@@ -59,5 +59,3 @@ rails db:migrate
 
 5) Access site with URL localhost:3000
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
