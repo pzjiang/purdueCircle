@@ -1,15 +1,15 @@
 # CS 307 Project - PurdueCircle
 ### Derek Lee, Maitri Parikh, Peter Jiang, Sylvia Liu, Vee Anog
 
-* System Dependencies
+## System Dependencies
     ruby 3.0.3p157
     postgres
     rails
 
-* Configuration
+## Configuration
 In order to run the server locally, you will need to create a role in postgres called "purduecircle".
 
-* Database Creation
+## Database Creation
 A Database called purdueCircle_development and purdueCircle_team are required.
 
 Create database using rails:
@@ -18,15 +18,15 @@ rails db:create
 rails db:migrate
 ```
 
-* Database initialization
+## Database initialization
 
-* How to run the test suite
-### N/A
+## How to run the test suite
+N/A
 
-* Services (job queues, cache servers, search engines, etc.)
-### N/A
+## Services (job queues, cache servers, search engines, etc.)
+N/A
 
-* Installation - Postgres, Ruby on Rails
+## Installation - Postgres, Ruby on Rails
 
 Use the package manager [homebrew](https://brew.sh) to install homebrew.
 ```bash /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"```
@@ -38,7 +38,7 @@ brew install rbenv ruby-build
 brew install postgresql
 ```
 
-* Deployment Instructions
+## Deployment Instructions
 
 1) Make sure you go to https://www.postgresql.org/ and download the latest version.
 
