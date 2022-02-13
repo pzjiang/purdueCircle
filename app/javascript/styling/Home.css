@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
-/* Change to name of div class name in Home.jsx <div className="Home">
 .Home {
   text-align: center;
   min-height: 100vh;
@@ -11,7 +10,6 @@
   align-items: center;
   justify-content: center;
 }
-*/
 
 body {
   margin: 0;
