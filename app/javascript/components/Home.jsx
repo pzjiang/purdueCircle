@@ -1,5 +1,5 @@
 import React from "react";
-import "../styling/Home";
+import "../styling/Home.css";
 import "../components/FollowTopics";
 import {
     BrowserRouter as Router,
@@ -11,20 +11,34 @@ import {
 
 export default () => (
 
-    <div>
-        This is the home page
-        <br></br>
+    <div className="Home">
 
-        <button className="testbutton">Test button </button>
+	    <h1>
+          PurdueCircle
+        </h1>
 
-        <br></br>
-        <Link to="/randompage">not found </Link>
-        <br />
-        <Link to="/login">Login</Link>
-        <br />
-        <Link to="/signup">Sign up</Link>
-        <br />
+        <h2>
+          returning user? sign back in!
+        </h2>
+
+     	<Link to="/login">
+		    <button>
+			    sign in
+		    </button>
+	    </Link>
+
+        <h2>
+          don't have an account? get started! 
+        </h2>
+  
+         <Link to="/signup">
+		    <button>
+			    sign up
+        	</button>
+	    </Link>
+        
         <Link to="/topics">Follow Topics</Link>
+
     </div >
 
 )
