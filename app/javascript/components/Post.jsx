@@ -4,21 +4,14 @@
 
 import React from "react";
 
-class Post extends React.Component {
+const Post = () => { 
 
-    render() {
-        return (
-            <AuthProvider>
-                <UserProvider>
-                    <div>
-                        <p>header placer</p>
-                        <Routing />
-                    </div>
-                </UserProvider>
-            </AuthProvider>
-        )
-    }
+    return (
+        <div>
+
+        </div>
+    );
 }
 
 
-export default App;
+export default Post;
