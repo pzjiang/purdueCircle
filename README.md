@@ -7,12 +7,12 @@
     rails
 
 * Configuration
-### In order to run the server locally, you will need to create a role in postgres called "purduecircle".
+In order to run the server locally, you will need to create a role in postgres called "purduecircle".
 
 * Database Creation
-### A Database called purdueCircle_development and purdueCircle_team are required.
+A Database called purdueCircle_development and purdueCircle_team are required.
 
-### Create database using rails:
+Create database using rails:
 ```
 rails db:create
 rails db:migrate
