@@ -3,7 +3,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useNavigate
 } from "react-router-dom";
 import PropTypes from 'prop-types';
 
@@ -27,6 +28,7 @@ const Signup = ({ history }) => {
     const [loading, setLoading] = useState(false);
     const authDispatch = useAuthDispatch();
     const userDispatch = useUserDispatch();
+    const navigate = useNavigate();
 
 
     const handleSubmit = async (event) => {
@@ -53,16 +55,18 @@ const Signup = ({ history }) => {
                     password_confirmation: inputValues.passwordConfirmation,
                 },
             })
-            console.log("checkpoint 1");
+            //console.log("checkpoint 1");
             authDispatch({
                 type: 'LOGIN',
                 payload: { auth_token, email: inputValues.email },
             });
-            console.log("checkpoint 2");
+            //console.log("checkpoint 2");
             userDispatch({ type: 'SET_USER', payload: { user } });
-            console.log("checkpoint3");
+            //console.log("checkpoint3");
             //history.push('/');
-            console.log("success");
+            //console.log("success");
+            setLoading(false);
+            navigate('/main');
         } catch (error) {
             console.log("failure to sign in");
             console.log(error.toString());

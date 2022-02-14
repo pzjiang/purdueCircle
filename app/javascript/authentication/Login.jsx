@@ -39,20 +39,21 @@ const Login = () => {
 
         try {
             setLoading(true);
-            console.log("starting tests");
+            //console.log("starting tests");
             const {
                 data: { auth_token, user },
             } = await authenticationApi.login({ user: { email: inputValues.email, password: inputValues.password } });
 
-            console.log("checkpoint 4");
+            //console.log("checkpoint 4");
             authDispatch({ type: 'LOGIN', payload: { auth_token, email: inputValues.email } });
-            console.log("checkpoint 3");
+            //console.log("checkpoint 3");
             userDispatch({ type: 'SET_USER', payload: { user } });
-            console.log("checkpoint 2");
+            //console.log("checkpoint 2");
             setAuthHeaders();
-            console.log("checkpoint 1");
+            //console.log("checkpoint 1");
             //history.push('/');
             console.log("successful login");
+            setLoading(false);
             navigate('/main');
         } catch (error) {
             console.log("some sort of error occurred");
