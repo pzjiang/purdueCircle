@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 import { setAuthHeaders } from '../apis/axios';
 import authenticationApi from '../apis/authentication';
@@ -10,7 +11,7 @@ import { validateEmail, validatePassword, validateName } from './validations';
 
 
 
-const Login = ({ history }) => {
+const Login = () => {
     const [inputValues, setInputValues] = useState({
         email: '',
         password: '',
@@ -19,6 +20,7 @@ const Login = ({ history }) => {
     const [loading, setLoading] = useState(false);
     const authDispatch = useAuthDispatch();
     const userDispatch = useUserDispatch();
+    const navigate = useNavigate();
     /*
     const handleChangePass = (event) => {
         this.setState({ password: event.target.value })
@@ -51,6 +53,7 @@ const Login = ({ history }) => {
             console.log("checkpoint 1");
             //history.push('/');
             console.log("successful login");
+            navigate('/main');
         } catch (error) {
             console.log("some sort of error occurred");
             console.log(error.toString());
@@ -129,9 +132,10 @@ const Login = ({ history }) => {
 
 };
 
-
+/*
 Login.propTypes = {
     history: PropTypes.object,
 };
+*/
 
 export default Login;

@@ -3,20 +3,20 @@
  */
 
 import React from "react";
-import Layout from "./Layout.jsx";
+import Layout from "../objs/Layout.jsx";
 
- const CreatePost = () => { 
+const CreatePost = () => {
 
     const newPost = async (event) => {
 
     };
- 
+
     return (
         <Layout>
             <div class="">Post topic</div>
 
             <div class="">Text</div>
-            
+
             <div class="options">
                 <p>bold</p>
                 <p>italics</p>

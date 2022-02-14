@@ -2,8 +2,8 @@
  * Navigation bar
  */
 
- const Navigation = () => { 
- 
+const Navigation = () => {
+
     return (
         <div>
 
