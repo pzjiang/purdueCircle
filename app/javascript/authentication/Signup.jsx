@@ -13,6 +13,7 @@ import authenticationApi from '../apis/authentication';
 import { useAuthDispatch } from '../contexts/auth';
 import { useUserDispatch } from '../contexts/user';
 import { validateEmail, validatePassword, validateName } from './validations';
+import { useToasts } from 'react-toast-notifications';
 
 
 const Signup = ({ history }) => {
@@ -29,6 +30,7 @@ const Signup = ({ history }) => {
     const authDispatch = useAuthDispatch();
     const userDispatch = useUserDispatch();
     const navigate = useNavigate();
+    const { addToast } = useToasts();
 
 
     const handleSubmit = async (event) => {
@@ -67,9 +69,11 @@ const Signup = ({ history }) => {
             //console.log("success");
             setLoading(false);
             navigate('/main');
+            addToast("User successfully created!", { appearance: 'success', autoDismissTimeout: 1500, });
         } catch (error) {
             console.log("failure to sign in");
             console.log(error.toString());
+            addToast("A critical error occurred!", { appearance: 'error', autoDismissTimeout: 1500, });
         } finally {
             setLoading(false);
         }

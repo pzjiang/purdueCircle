@@ -8,7 +8,7 @@ import authenticationApi from '../apis/authentication';
 import { useAuthDispatch } from '../contexts/auth';
 import { useUserDispatch } from '../contexts/user';
 import { validateEmail, validatePassword, validateName } from './validations';
-
+import { useToasts } from 'react-toast-notifications';
 
 
 const Login = () => {
@@ -21,6 +21,7 @@ const Login = () => {
     const authDispatch = useAuthDispatch();
     const userDispatch = useUserDispatch();
     const navigate = useNavigate();
+    const { addToast } = useToasts();
     /*
     const handleChangePass = (event) => {
         this.setState({ password: event.target.value })
@@ -55,9 +56,11 @@ const Login = () => {
             console.log("successful login");
             setLoading(false);
             navigate('/main');
+            addToast('Success Login', { appearance: 'success', duration: 1500, });
         } catch (error) {
             console.log("some sort of error occurred");
             console.log(error.toString());
+            addToast('Login information incorrect', { appearance: 'error', duration: 1500, });
         } finally {
             setLoading(false);
         }

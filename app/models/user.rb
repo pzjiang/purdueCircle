@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable #, authentication_keys: [:login]
+
+         has_one :profile
   
   before_save :ensure_authentication_token_is_present
 

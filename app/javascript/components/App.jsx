@@ -3,6 +3,7 @@ import Routing from "../routes/index";
 
 import { AuthProvider } from '../contexts/auth';
 import { UserProvider } from '../contexts/user';
+import { ToastProvider } from 'react-toast-notifications';
 
 /*
 const App = () => {
@@ -30,10 +31,11 @@ class App extends React.Component {
         return (
             <AuthProvider>
                 <UserProvider>
-                    <div>
-
-                        <Routing />
-                    </div>
+                    <ToastProvider>
+                        <div>
+                            <Routing />
+                        </div>
+                    </ToastProvider>
                 </UserProvider>
             </AuthProvider>
         )
