@@ -60,7 +60,7 @@ const Login = () => {
         } catch (error) {
             console.log("some sort of error occurred");
             console.log(error.toString());
-            addToast('Login information incorrect', { appearance: 'error', duration: 1500, });
+            addToast("Incorrect email or password", { appearance: 'error', duration: 1500, });
         } finally {
             setLoading(false);
         }

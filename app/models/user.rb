@@ -11,7 +11,7 @@ class User < ApplicationRecord
   
   validates_uniqueness_of :username
   validates :username, :email, presence: true
-  validates:username, length: {in: 4..20}
+  validates :username, length: {in: 4..20}
   validates :username, uniqueness: { case_sensitive: false }, presence: true, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
   #validates :username, presence: true, uniqueness: { case_sensitive: false }
 
