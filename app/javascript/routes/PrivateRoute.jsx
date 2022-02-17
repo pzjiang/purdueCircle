@@ -1,33 +1,24 @@
 import React from "react";
 import { Navigate, Route } from "react-router-dom";
 import PropTypes from "prop-types";
+//import { useAuthState } from "../contexts/auth";
 
-const PrivateRoute = ({
-    component: Component,
-    condition,
-    path,
-    redirectRoute,
-    ...props
-}) => {
-    if (!condition) {
-        return (
-            <Navigate
-                to={{
-                    pathname: redirectRoute,
-                    from: props.location,
-                }}
-            />
-        );
+
+const PrivateRoute = props => {
+
+    if (props.condition) {
+        return (<Navigate to={props.redirectRoute} />);
     }
-    return <Route path={path} component={Component} {...props} />;
-};
+
+    {/*console.log("gets to here");*/ }
+    return (props.children);
+
+}
 
 PrivateRoute.propTypes = {
-    component: PropTypes.func,
     condition: PropTypes.bool,
-    path: PropTypes.string,
     redirectRoute: PropTypes.string,
-    location: PropTypes.object,
-};
+}
+
 
 export default PrivateRoute;

@@ -55,12 +55,12 @@ const Login = () => {
             //history.push('/');
             console.log("Logged in successfully!");
             setLoading(false);
-            navigate('/main');
-            addToast('Logged in successfully', { appearance: 'success', AutoDismissTimeout: 1500, });
+            navigate('/');
+            addToast('Logged in successfully', { appearance: 'success', /*AutoDismissTimeout: 1500,*/ });
         } catch (error) {
             console.log("some sort of error occurred");
             console.log(error.toString());
-            addToast(error.response.data.error, { appearance: 'error', autoDismissTimeout: 1500, });
+            addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
         } finally {
             setLoading(false);
         }

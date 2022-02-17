@@ -16,7 +16,7 @@ import { validateEmail, validatePassword, validateName } from './validations';
 import { useToasts } from 'react-toast-notifications';
 
 
-const Signup = ({ history }) => {
+const Signup = () => {
     const [inputValues, setInputValues] = useState({
         email: '',
         username: '',
@@ -68,12 +68,12 @@ const Signup = ({ history }) => {
             //history.push('/');
             //console.log("success");
             setLoading(false);
-            navigate('/main');
-            addToast("User successfully created!", { appearance: 'success', autoDismissTimeout: 1500, });
+            navigate('/');
+            addToast("User successfully created!", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
         } catch (error) {
             console.log("failure to sign in");
-            console.log(error.toString());
-            addToast(error.response.data.error, { appearance: 'error', autoDismissTimeout: 1500, });
+            //console.log(error.toString());
+            addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
         } finally {
             setLoading(false);
         }
