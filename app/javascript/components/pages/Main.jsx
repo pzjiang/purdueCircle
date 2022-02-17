@@ -12,7 +12,7 @@ import { resetAuthTokens } from "../../apis/axios";
 import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 
-
+import Layout from "../objs/Layout";
 
 const Main = () => {
 
@@ -38,14 +38,14 @@ const Main = () => {
     }
 
     return (
-        <div>
+        <Layout>
             logout button testing
             <button onClick={handleSubmit}> logout</button>
             <br />
 
             <Link to='/'>Back home</Link>
 
-        </div>
+        </Layout>
     )
 
 }
