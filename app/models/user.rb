@@ -5,13 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable #, authentication_keys: [:login]
 
          has_one :profile
+         
   
   before_save :ensure_authentication_token_is_present
 
   
   validates_uniqueness_of :username
   validates :username, :email, presence: true
-  validates:username, length: {in: 4..20}
+  validates :username, length: {in: 4..20}
   validates :username, uniqueness: { case_sensitive: false }, presence: true, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
   #validates :username, presence: true, uniqueness: { case_sensitive: false }
 

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_15_212116) do
+ActiveRecord::Schema.define(version: 2022_02_17_015104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "profile_id"
+    t.integer "post_id"
+    t.index ["post_id"], name: "index_bookmarks_on_post_id"
+    t.index ["profile_id"], name: "index_bookmarks_on_profile_id"
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
@@ -21,6 +30,8 @@ ActiveRecord::Schema.define(version: 2022_02_15_212116) do
     t.integer "likes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "profile_id"
+    t.index ["profile_id"], name: "index_posts_on_profile_id"
   end
 
   create_table "profiles", force: :cascade do |t|

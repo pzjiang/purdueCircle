@@ -73,7 +73,7 @@ const Signup = ({ history }) => {
         } catch (error) {
             console.log("failure to sign in");
             console.log(error.toString());
-            addToast("A critical error occurred!", { appearance: 'error', autoDismissTimeout: 1500, });
+            addToast(error.response.data.error, { appearance: 'error', autoDismissTimeout: 1500, });
         } finally {
             setLoading(false);
         }

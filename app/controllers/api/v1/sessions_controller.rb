@@ -6,7 +6,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
   
 
   def create
-    puts "hello it got to here"
+   
     user = User.find_for_database_authentication(email: params[:user] && params[:user][:email])
     if invalid_password?(user)
       respond_with_error "Incorrect email or password", 401

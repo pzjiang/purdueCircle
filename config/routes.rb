@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
-  resources :posts
-  resources :profiles
+  #resources :posts
+  #resources :profiles
   #scope :api, defaults: { format: :json } do
     #devise_for :users,controllers: { sessions: :sessions }, path_names: { sign_in: :login }
     #resource :user, only: [:show, :update]
@@ -17,6 +17,10 @@ Rails.application.routes.draw do
       end
 
       resources :users, only: [:show, :create, :update, :destroy]
+
+      resources :profiles, only: [:show, :update]
+
+      resources :posts, only: [:show, :create, :update, :destroy]
       
     end
   end
