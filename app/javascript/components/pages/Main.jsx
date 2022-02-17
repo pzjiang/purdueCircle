@@ -40,7 +40,7 @@ const Main = () => {
     return (
         <Layout>
             logout button testing
-            <button onClick={handleSubmit}> logout</button>
+            
             <br />
 
             <Link to='/'>Back home</Link>
