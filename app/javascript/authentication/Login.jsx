@@ -53,14 +53,14 @@ const Login = () => {
             setAuthHeaders();
             //console.log("checkpoint 1");
             //history.push('/');
-            console.log("successful login");
+            console.log("Logged in successfully!");
             setLoading(false);
             navigate('/main');
-            addToast('Success Login', { appearance: 'success', duration: 1500, });
+            addToast('Logged in successfully', { appearance: 'success', AutoDismissTimeout: 1500, });
         } catch (error) {
             console.log("some sort of error occurred");
             console.log(error.toString());
-            addToast("Incorrect email or password", { appearance: 'error', duration: 1500, });
+            addToast(error.response.data.error, { appearance: 'error', autoDismissTimeout: 1500, });
         } finally {
             setLoading(false);
         }

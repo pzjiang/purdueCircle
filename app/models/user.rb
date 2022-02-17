@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable #, authentication_keys: [:login]
 
          has_one :profile
+         
   
   before_save :ensure_authentication_token_is_present
 

@@ -26,6 +26,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+
   def update
     if @user.blank?
       respond_with_error "User with id #{params[:id]} not found.", :not_found
