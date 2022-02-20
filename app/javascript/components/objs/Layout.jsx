@@ -6,16 +6,19 @@
 import React from "react";
 import Navigation from "./Navigation";
 
-const Layout = ({children}) => {
+const Layout = props => {
 
     return (
         <div id="layout">
             <Navigation />
+
+
+
             <div>
                 this is the children for the layout
-            {children}
+                {props.children}
             </div>
-            
+
         </div>
     );
 }

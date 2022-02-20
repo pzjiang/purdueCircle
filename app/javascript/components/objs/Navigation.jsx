@@ -2,19 +2,19 @@
  * Navigation bar
  */
 
- import React, { useState } from 'react';
- import {
-     BrowserRouter as Router,
-     Switch,
-     Route,
-     Link,
-     useNavigate
- } from "react-router-dom";
- import authenticationApi from "../../apis/authentication";
- import { resetAuthTokens } from "../../apis/axios";
- import { useAuthDispatch } from "../../contexts/auth";
- import { useToasts } from 'react-toast-notifications';
- import '../../styling/Navigation.css';
+import React, { useState } from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useNavigate
+} from "react-router-dom";
+import authenticationApi from "../../apis/authentication";
+import { resetAuthTokens } from "../../apis/axios";
+import { useAuthDispatch } from "../../contexts/auth";
+import { useToasts } from 'react-toast-notifications';
+import '../../styling/Navigation.css';
 
 const Navigation = () => {
 
@@ -42,9 +42,9 @@ const Navigation = () => {
     return (
         <div id="nav">
             <ul>
-                <li><Link to='../pages/main'> home</Link></li>
-                <li><Link to='../pages/createPost'> New Post</Link></li>
-                <li><Link to='../pages/profile'> Profile</Link></li>
+                <li><Link to='/'> home</Link></li>
+                <li><Link to='/post'> New Post</Link></li>
+                <li><Link to='/profile'> Profile</Link></li>
                 <li><button onClick={handleSubmit}> logout</button></li>
             </ul>
         </div>

@@ -5,6 +5,7 @@ import { Navigate } from 'react-router';
 //import { either, isEmpty, isNil } from 'ramda';
 import Home from "../components/pages/Home";
 import NotFound from "../components/pages/NotFound";
+import Profile from "../components/pages/Profile";
 import Login from "../authentication/Login";
 import Signup from "../authentication/Signup";
 import Topics from "../components/FollowTopics";
@@ -42,8 +43,9 @@ const Routing = props => {
                 {isLoggedIn ? <Route exact path="/" element={<Main />} /> : <Route exact path="/" element={<Home />} />}
                 {/*<Route exact path="/" element={<Home />} /> */}
                 <Route exact path="/login" element={<PrivateRoute condition={isLoggedIn} redirectRoute="/" > <Login /></PrivateRoute>} />
-                <Route exact path="/signup" element={<Signup />} />
+                <Route exact path="/signup" element={<PrivateRoute condition={isLoggedIn} redirectRoute="/" > <Signup /></PrivateRoute>} />
                 <Route exact path="/topics" element={<Topics />} />
+                <Route exact path="/profile" element={<Profile />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>

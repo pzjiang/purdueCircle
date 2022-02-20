@@ -14,6 +14,7 @@ import { useToasts } from 'react-toast-notifications';
 
 import Layout from "../objs/Layout";
 
+
 const Main = () => {
 
     const authDispatch = useAuthDispatch();
@@ -22,6 +23,8 @@ const Main = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(user.id);
+        /*
         try {
             await authenticationApi.logout();
             authDispatch({ type: 'LOGOUT' });
@@ -34,15 +37,16 @@ const Main = () => {
             addToast("Logout failed!", { appearance: 'error', autoDismissTimeout: 1500, });
             console.log(error.toString());
         }
-
+        */
     }
+
 
     return (
         <Layout>
             logout button testing
-            
-            <br />
 
+            <br />
+            <button onClick={handleSubmit}> Destroy Account</button>
             <Link to='/'>Back home</Link>
 
         </Layout>

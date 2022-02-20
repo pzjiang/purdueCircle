@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const editbio = payload => axios.post('/api/v1/profiles');
-
+const editprofile = payload => axios.post(`/api/v1/profiles`);
+const getprofile = () => axios.get(`api/v1/profiles`);
 
 
 const profileApi = {
-    editbio,
+    editprofile,
 
 };
 

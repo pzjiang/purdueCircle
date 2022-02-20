@@ -44,7 +44,8 @@ class Api::V1::UsersController < Api::V1::BaseController
       respond_with_error "User with id #{params[:id]} not found.", :not_found
 
     elsif @user.destroy
-      render json: @user
+      #render json: @user
+      reset_session
 
     else
       render json: { error: @user.errors.full_messages.to_sentence }, status: 422
