@@ -3240,6 +3240,11 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
+"fsevents@^1.2.7", "fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
+
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -5874,6 +5879,11 @@
   "version" "6.2.1"
   dependencies:
     "history" "^5.2.0"
+
+"react-toast-notification@^1.1.4":
+  "integrity" "sha512-xcIUO5TfpLCbMTTmvH2Z/u4Z0+qNXEMShINKLyY6vBbGxf+smtsF/XGptpYmtz3oR9fjjxSuL5czUMHAG5zhLw=="
+  "resolved" "https://registry.npmjs.org/react-toast-notification/-/react-toast-notification-1.1.4.tgz"
+  "version" "1.1.4"
 
 "react-toast-notifications@^2.5.1":
   "integrity" "sha512-eYuuiSPGLyuMHojRH2U7CbENvFHsvNia39pLM/s10KipIoNs14T7RIJk4aU2N+l++OsSgtJqnFObx9bpwLMU5A=="
