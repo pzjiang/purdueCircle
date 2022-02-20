@@ -10,6 +10,7 @@ import { useUserDispatch } from '../contexts/user';
 import { validateEmail, validatePassword, validateName } from './validations';
 import { useToasts } from 'react-toast-notifications';
 
+import "../styling/Login.css";
 
 const Login = () => {
     const [inputValues, setInputValues] = useState({
@@ -109,27 +110,52 @@ const Login = () => {
 
 
     return (
-        <div>
+        <div className="Login">
+            <h1>
+                sign in
+            </h1>
+
+            <h2>
+                we're happy to see you back!
+                <br></br> 
+                sign in again to explore your favorite topics and interact with others.
+            </h2>
+
             <form
                 onSubmit={handleSubmit}
             >
                 <label>
-                    Email:
-                    <input type="text" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                    <input type="text" placeholder="email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
                     />
                 </label>
                 <label>
-                    Password:
-                    <input type="password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
+                    <input type="password" placeholder="password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
                     />
                 </label>
 
-                <input type="submit" value="Submit" />
+                <button type="submit"> sign in </button>
             </form>
 
-            <Link to='/'> Home</Link>
-            <br />
-            <Link to="/signup">Sign up</Link>
+            <br>
+            </br>
+
+            <h3>
+                don't have an account yet?
+            </h3>
+            <Link to="/signup">
+            <button id="small_button">
+                sign up
+            </button>
+            </Link>
+
+            <h3>
+                want to go back to the main page?
+            </h3>
+            <Link to='/'> 
+            <button id="small_button">
+                home
+            </button>
+            </Link>
 
         </div>
     );
