@@ -23,7 +23,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         if @newpost.valid?
             render json: {post: @newpost}, status: 200
         else
-            render json: {error: @newpost.errors.full_messages.to_sentence }, status 422
+            render json: {error: @newpost.errors.full_messages.to_sentence }, status: 422
         end
         
     end
