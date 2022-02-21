@@ -9,6 +9,7 @@ import Profile from "../components/pages/Profile";
 import Login from "../authentication/Login";
 import Signup from "../authentication/Signup";
 import Topics from "../components/FollowTopics";
+import ProfileEdit from "../components/pages/ProfileEdit";
 import Main from "../components/pages/Main";
 import PrivateRoute from "./PrivateRoute";
 import { useAuthState, useAuthDispatch } from '../contexts/auth';
@@ -46,6 +47,7 @@ const Routing = props => {
                 <Route exact path="/signup" element={<PrivateRoute condition={isLoggedIn} redirectRoute="/" > <Signup /></PrivateRoute>} />
                 <Route exact path="/topics" element={<Topics />} />
                 <Route exact path="/profile" element={<Profile />} />
+                <Route exact path="/editprofile" element={<ProfileEdit />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>
