@@ -15,6 +15,8 @@ import { useUserDispatch } from '../contexts/user';
 import { validateEmail, validatePassword, validateName } from './validations';
 import { useToasts } from 'react-toast-notifications';
 
+import "../styling/Signup.css";
+
 
 const Signup = () => {
     const [inputValues, setInputValues] = useState({
@@ -80,48 +82,77 @@ const Signup = () => {
     };
 
     return (
-        <div>
+        <div className="Signup">
+
+            <h1>
+                sign up
+            </h1>
+
+            <h2>
+                fill in the information below to set up your PurdueCircle account.
+            </h2>
+
             <form
                 onSubmit={handleSubmit}
             >
-                <label>
-                    Email:
-                    <input type="text" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
-                    />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
-                    />
-                </label>
-                <label>
-                    Password:
-                    <input type="password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
-                    />
-                </label>
-                <br />
-                <label>
-                    username:
-                    <input type="text" value={inputValues.username} onChange={(e) => setInputValues({ ...inputValues, username: e.target.value })}
-                    />
-                </label>
-                <label>
-                    firstname:
-                    <input type="text" value={inputValues.firstName} onChange={(e) => setInputValues({ ...inputValues, firstName: e.target.value })}
-                    />
-                </label>
-                <label>
-                    last name:
-                    <input type="text" value={inputValues.lastName} onChange={(e) => setInputValues({ ...inputValues, lastName: e.target.value })}
-                    />
-                </label>
 
-                <input type="submit" value="Submit" />
+                <div className="column">
+                <label>
+                    <input type="text" placeholder="email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                    />
+                </label>
+                <label>
+                    <input type="password" placeholder="password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
+                    />
+                </label>
+                <label>
+                    <input type="text" placeholder="first name" value={inputValues.firstName} onChange={(e) => setInputValues({ ...inputValues, firstName: e.target.value })}
+                    />
+                </label>
+               
+                </div>
+
+
+                <div className="column">
+                <label>
+                    <input type="text" placeholder="username" value={inputValues.username} onChange={(e) => setInputValues({ ...inputValues, username: e.target.value })}
+                    />
+                </label>
+                <label>
+                    <input type="password" placeholder="confirm password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
+                    />
+                </label>
+                <label>
+                    <input type="text" placeholder="last name" value={inputValues.lastName} onChange={(e) => setInputValues({ ...inputValues, lastName: e.target.value })}
+                    />
+                </label>
+                </div>
+
+                <button type="submit"> sign up </button>
             </form>
 
-            <Link to='/'> Home</Link>
-            <br />
-            <Link to="/login">Log In</Link>
+
+            <br>
+            </br>
+
+            <h3>
+                already have an account?
+            </h3>
+            <Link to="/login">
+            <button id="small_button">
+                sign in
+            </button>
+            </Link>
+
+            <h3>
+                want to go back to the main page?
+            </h3>
+            <Link to='/'> 
+            <button id="small_button">
+                home
+            </button>
+            </Link>
+
 
         </div >
     );

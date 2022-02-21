@@ -48,7 +48,6 @@ const Main = () => {
             <br />
             <button onClick={handleSubmit}> Destroy Account</button>
             <Link to='/'>Back home</Link>
-
         </Layout>
     )
 

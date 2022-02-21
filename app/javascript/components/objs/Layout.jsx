@@ -15,7 +15,6 @@ const Layout = props => {
 
 
             <div>
-                this is the children for the layout
                 {props.children}
             </div>
 

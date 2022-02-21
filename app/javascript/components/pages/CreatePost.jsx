@@ -4,6 +4,8 @@
 
 import React from "react";
 import Layout from "../objs/Layout.jsx";
+import "../../styling/CreatePost.css";
+
 
 const CreatePost = () => {
 
@@ -11,20 +13,52 @@ const CreatePost = () => {
 
     };
 
+    const bold = async (event) => {
+        console.log("bold");
+    }
+
+    const italisize = async (event) => {
+        console.log("italisize");
+    }
+
+    const underscore = async (event) => {
+        console.log("underscore");
+    }
+
+    const strikethrough = async (event) => {
+        console.log("strikethrough");
+    }
+
+    const upload = async (event) => {
+        console.log("upload");
+    }
+
+    const link = async (event) => {
+        console.log("link");
+    }
+
     return (
         <Layout>
-            <div class="">Post topic</div>
+           <div className="topicSelection">Post Topics: <div id="input" contentEditable>Topic</div></div>
 
-            <div class="">Text</div>
+            <br></br>
 
-            <div class="options">
-                <p>bold</p>
-                <p>italics</p>
-                <p>underscore</p>
-                <p>strikethrough</p>
-                <p>file upload</p>
-                <p>link</p>
+            <div className="options">
+                <button onClick={bold}>Bold</button>
+                <button onClick={italisize}>Italisize</button>
+                <button onClick={underscore}>Underscore</button>
+                <button onClick={strikethrough}>Strikethrough</button>
+                <button onClick={upload}>Upload File</button>
+                <button onClick={link}>Link</button>
             </div>
+
+            <br></br>
+
+            <div id="textarea" contentEditable>Content</div>
+
+            <br></br>
+
+            <button onClick={link}>Post</button> 
         </Layout>
     );
 }
