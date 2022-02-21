@@ -9,16 +9,14 @@ import "../../styling/CreatePost.css";
 
 const CreatePost = () => {
 
-    const newPost = async (event) => {
-
-    };
-
     const bold = async (event) => {
         console.log("bold");
+
     }
 
     const italisize = async (event) => {
         console.log("italisize");
+       
     }
 
     const underscore = async (event) => {
@@ -37,9 +35,13 @@ const CreatePost = () => {
         console.log("link");
     }
 
+    const post = async (event) => {
+        console.log("link");
+    }
+
     return (
         <Layout>
-           <div className="topicSelection">Post Topics: <div id="input" contentEditable>Topic</div></div>
+           <div className="topicSelection">Post Topics: <div id="input" contentEditable>Topic</div>
 
             <br></br>
 
@@ -48,17 +50,20 @@ const CreatePost = () => {
                 <button onClick={italisize}>Italisize</button>
                 <button onClick={underscore}>Underscore</button>
                 <button onClick={strikethrough}>Strikethrough</button>
-                <button onClick={upload}>Upload File</button>
                 <button onClick={link}>Link</button>
+                <input type="file"/>
+
+                
+                <div id="textarea" contentEditable>Content</div>
             </div>
 
             <br></br>
 
-            <div id="textarea" contentEditable>Content</div>
+            </div>
 
             <br></br>
 
-            <button onClick={link}>Post</button> 
+            <button onClick={post}>Post</button> 
         </Layout>
     );
 }

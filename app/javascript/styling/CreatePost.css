@@ -10,19 +10,20 @@
   align-items: center;
   justify-content: center;
 }
+  
 
 body {
   margin: 0;
   padding-top:100px;
 
-  background-color: #fad390;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #0a3d62;
+  background-color: black;
+  color: white;
 }
 
 
@@ -30,7 +31,7 @@ h1 {
   justify-content: center;
   font-size: 80px;
   font-family: 'Roboto Mono', monospace;
-  color: #A1E1F9;
+  color: white;
   text-align: center;
 }
 
@@ -42,7 +43,7 @@ h2 {
   letter-spacing: .13em;
   font-style: bold;
   text-align: center;
-  color: #0a3d62;
+  color: white;
 }
 
 button {
@@ -66,38 +67,32 @@ textarea {
 #textarea {
     -moz-appearance: textfield-multiline;
     -webkit-appearance: textarea;
-    border: 1px solid gray;
     height: 50px;
     overflow: auto;
     padding: 2px;
     resize: both;
-    width: 70%;
+    width: 100%;
     margin: 0 auto;
-    color:#0a3d62;
+    background-color: black;
+    color: white;
+    text-align: left;
+    resize: none;
 }
 
-input {
-    margin-top: 5px;
-    width: 400px;
+.post {
+    margin-left: auto;
+    text-align: left;
+
+    border: 2px solid gray;
 }
 
 #input {
-    -moz-appearance: textfield;
-    -webkit-appearance: textfield;
-    border: 1px solid darkgray;
-    box-shadow: 1px 1px 1px 0 lightgray inset;  
-    font: -moz-field;
-    font: -webkit-small-control;
-    color:#0a3d62;
-    margin-top: 5px;
-    padding: 2px 3px;
-    width: 398px;    
-    display:inline;
     text-align: left;
-    white-space: nowrap; 
+    border-left: 20%;
 }
 
-#topicSelection {
-    margin: 0 auto;
-    width: 70%;
+.postList {
+    margin-left:10%;
+    margin-right:10%;
 }
+

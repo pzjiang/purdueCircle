@@ -13,7 +13,7 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 
 import Layout from "../objs/Layout";
-
+import "../../styling/CreatePost.css";
 
 const Main = () => {
 
@@ -48,6 +48,50 @@ const Main = () => {
             <br />
             <button onClick={handleSubmit}> Destroy Account</button>
             <Link to='/'>Back home</Link>
+
+
+            <h1>Posts</h1>
+            <div className="postList">
+                <div className="post" id="post-1">
+                    
+                    <div className="time-stamp"><div id="input">10:50 PM</div></div>
+                    <div className="postedby"><div id="input">Posted By</div></div>
+
+                    <div className="topics"><div id="input"><b>Post Topics: </b>Topic 1, Topic 2, Topic 3</div></div>
+
+                    <br></br>
+
+                    <div id="textarea">Content</div>
+                </div>
+
+                <hr />
+
+                <div className="post" id="post-2">
+                    
+                    <div className="time-stamp"><div id="input">10:50 PM</div></div>
+                    <div className="postedby"><div id="input">Posted By</div></div>
+
+                    <div className="topics"><div id="input"><b>Post Topics: </b>Topic 1, Topic 2, Topic 3</div></div>
+
+                    <br></br>
+
+                    <div id="textarea">Content</div>
+                </div>
+
+                <hr />
+
+                <div className="post" id="post-3">
+                    
+                    <div className="time-stamp"><div id="input">10:50 PM</div></div>
+                    <div className="postedby"><div id="input">Posted By</div></div>
+
+                    <div className="topics"><div id="input"><b>Post Topics: </b>Topic 1, Topic 2, Topic 3</div></div>
+
+                    <br></br>
+
+                    <div id="textarea">Content</div>
+                </div>
+            </div>
         </Layout>
     )
 
