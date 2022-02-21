@@ -15,7 +15,7 @@ import { useUserDispatch } from '../contexts/user';
 import { validateEmail, validatePassword, validateName } from './validations';
 import { useToasts } from 'react-toast-notifications';
 
-import "../styling/Signup.css";
+import "../styling/Signup.scss";
 
 
 const Signup = () => {

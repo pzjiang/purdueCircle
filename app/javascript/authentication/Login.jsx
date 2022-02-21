@@ -10,7 +10,7 @@ import { useUserDispatch } from '../contexts/user';
 import { validateEmail, validatePassword, validateName } from './validations';
 import { useToasts } from 'react-toast-notifications';
 
-import "../styling/Login.css";
+import "../styling/Login.scss";
 
 const Login = () => {
     const [inputValues, setInputValues] = useState({

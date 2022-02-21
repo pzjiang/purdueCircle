@@ -1,3 +1,5 @@
+@use "style.scss";
+
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
@@ -8,9 +10,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: blue;
+  background-color: style.$bgcolor;
   margin-bottom: 2em;
-  color: #fad390;
+  color: style.$textcolor;
 }
 
 #nav li {

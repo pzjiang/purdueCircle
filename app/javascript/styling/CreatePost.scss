@@ -1,3 +1,5 @@
+@use "style.scss";
+
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
@@ -22,8 +24,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background-color: black;
-  color: white;
+  background-color: style.$bgcolor;
+  color: style.$textcolor;
 }
 
 
@@ -31,7 +33,7 @@ h1 {
   justify-content: center;
   font-size: 80px;
   font-family: 'Roboto Mono', monospace;
-  color: white;
+  color: style.$textcolor;
   text-align: center;
 }
 
@@ -43,7 +45,7 @@ h2 {
   letter-spacing: .13em;
   font-style: bold;
   text-align: center;
-  color: white;
+  color: style.$textcolor;
 }
 
 button {
@@ -55,7 +57,7 @@ button {
   background-color: #1084A6;
   border-radius: 5px;
   border-color: #C6E9F3;
-  color: white;
+  color: style.$textcolor;
   padding: 10px 19px;
 }
 
@@ -73,8 +75,8 @@ textarea {
     resize: both;
     width: 100%;
     margin: 0 auto;
-    background-color: black;
-    color: white;
+    background-color: style.$bgcolor;
+    color: style.$textcolor;
     text-align: left;
     resize: none;
 }

@@ -13,7 +13,7 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 
 import Layout from "../objs/Layout";
-import "../../styling/CreatePost.css";
+import "../../styling/CreatePost.scss";
 
 const Main = () => {
 

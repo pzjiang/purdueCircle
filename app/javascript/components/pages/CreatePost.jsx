@@ -4,7 +4,7 @@
 
 import React from "react";
 import Layout from "../objs/Layout.jsx";
-import "../../styling/CreatePost.css";
+import "../../styling/CreatePost.scss";
 
 
 const CreatePost = () => {

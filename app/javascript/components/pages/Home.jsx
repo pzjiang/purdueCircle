@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styling/Home.css";
+import "../../styling/Home.scss";
 
 import {
   BrowserRouter as Router,
