@@ -4,7 +4,15 @@
 
 import React from "react";
 
-const Post = () => { 
+const Post = () => {
+
+    /*
+        title
+        body
+        likes
+        profile_id (which profile it belongs to)
+        id
+    */
 
     const countLikes = () => {
 

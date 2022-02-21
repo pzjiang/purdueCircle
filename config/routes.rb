@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
       put "editprofile", to: "profiles#update"
 
-      resources :posts, only: [:show, :create, :update, :destroy]
+      resources :posts, only: [:show, :create, :destroy]
       
     end
   end
