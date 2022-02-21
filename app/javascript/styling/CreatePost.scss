@@ -67,14 +67,15 @@ textarea {
 #textarea {
   -moz-appearance: textfield-multiline;
   -webkit-appearance: textarea;
-  height: 50px;
+  height: 150px;
   overflow: auto;
   padding: 2px;
   resize: both;
-  width: 100%;
+  width: 80%;
   margin: 0 auto;
   background-color: s.$bgcolor;
   color: s.$textcolor;
+  border: 1px solid s.$accent;
   text-align: left;
   resize: none;
 }
@@ -89,6 +90,9 @@ textarea {
 #input {
   text-align: left;
   border-left: 20%;
+  width: 80%;
+  color: s.$textcolor;
+  border: 1px solid s.$accent;
 }
 
 .postList {
