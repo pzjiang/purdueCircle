@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import profileApi from '../../apis/apiprofile';
 import { useUserState } from "../../contexts/user";
 import { useToasts } from 'react-toast-notifications';
-
-
+import Layout from "../objs/Layout";
 
 const EditProfile = () => {
 

@@ -17,6 +17,7 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import profileApi from "../../apis/apiprofile";
+import Layout from "../objs/Layout";
 
 const Profile = () => {
 
