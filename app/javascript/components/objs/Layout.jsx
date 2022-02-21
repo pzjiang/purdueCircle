@@ -11,10 +11,7 @@ const Layout = props => {
     return (
         <div id="layout">
             <Navigation />
-
-
-
-            <div>
+            <div id="layout-children">
                 {props.children}
             </div>
 

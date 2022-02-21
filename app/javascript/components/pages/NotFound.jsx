@@ -3,9 +3,9 @@ import React from "react";
 
 export default () => (
 
-    <div>
+    <Layout>
         You found nothing on this page!
 
-    </div>
+    </Layout>
 
 )

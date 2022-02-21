@@ -93,7 +93,7 @@ const Profile = () => {
 
 
     return (
-        <div>
+        <Layout>
             Testing account id access
             <button onClick={handleSubmit}> Destroy Account</button>
             <p> {biol}</p>
@@ -104,7 +104,7 @@ const Profile = () => {
             <br></br>
             <Link to="/" >Link to the home page</Link>
 
-        </div>
+        </Layout>
     );
 }
 

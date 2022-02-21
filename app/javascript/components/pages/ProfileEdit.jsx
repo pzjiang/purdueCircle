@@ -40,7 +40,7 @@ const EditProfile = () => {
     }
 
     return (
-        <div>
+        <Layout>
             <form onSubmit={handleSubmit}>
                 <label>
                     change bio:
@@ -49,7 +49,7 @@ const EditProfile = () => {
                 <input type="submit" value="Submit" />
 
             </form>
-        </div>
+        </Layout>
     )
 
 }

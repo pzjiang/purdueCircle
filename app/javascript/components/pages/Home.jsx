@@ -1,3 +1,8 @@
+/**
+ * Landing page for app
+ * user must sign in before loading rest of information
+ */
+
 import React from "react";
 import "../../styling/Home.scss";
 
