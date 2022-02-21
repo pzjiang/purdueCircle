@@ -1,4 +1,12 @@
 @use "style.scss" as s;
 
 #post {
+  display: block;
+  border: 1px solid s.$primary;
+  width: 80%;
+  height: auto;
+
+  h1 {
+    font-size: medium;
+  }
 }

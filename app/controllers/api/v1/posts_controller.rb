@@ -11,7 +11,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         if @posts
             render json: {posts: @posts}
         else
-            render json: {error: "no posts found"}, :not_found
+            respond_with_error "no posts found", :not_found
         end
            
     end    
@@ -23,7 +23,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         if @newpost.valid?
             render json: {post: @newpost}, status: 200
         else
-            render json: {error: "failed to create post" }, status 422
+            respond_with_error "failed to create post", status: 422
         end
         
     end
@@ -45,7 +45,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         if @post
             render json: {post: @post}, status: 200
         else
-            render json: {error: "post not found"}, :not_found
+            respond_with_error "no posts found", :not_found
         end
 
     end
