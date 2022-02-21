@@ -11,7 +11,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         if @posts
             render json: {posts: @posts}
         else
-            respond_with_error "no posts found", :not_found
+            respond_with_error "there are no posts", :not_found
         end
            
     end    
@@ -23,7 +23,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         if @newpost.valid?
             render json: {post: @newpost}, status: 200
         else
-            respond_with_error "failed to create post", status: 422
+            render json: {error: @newpost.errors.full_messages.to_sentence }, status 422
         end
         
     end
@@ -37,7 +37,7 @@ class Api::V1::PostsController < Api::V1::BaseController
             render json: @post
       
           else
-            render json: { error: @profile.errors.full_messages.to_sentence }, status: 422
+            render json: { error: @post.errors.full_messages.to_sentence }, status: 422
           end
     end
 
