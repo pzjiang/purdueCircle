@@ -1,4 +1,4 @@
-@use "style.scss";
+@use "style.scss" as s;
 
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap");
@@ -17,7 +17,7 @@ h1 {
   justify-content: center;
   font-size: 80px;
   font-family: "Roboto Mono", monospace;
-  color: #a1e1f9;
+  color: s.$secondary;
   text-align: center;
 }
 
@@ -29,18 +29,5 @@ h2 {
   letter-spacing: 0.13em;
   font-style: bold;
   text-align: center;
-  color: style.$textcolor;
-}
-
-button {
-  justify-content: center;
-  font-size: 20px;
-  text-align: center;
-  font-family: "DM Mono", monospace;
-  font-style: bold;
-  background-color: #1084a6;
-  border-radius: 5px;
-  border-color: #c6e9f3;
-  color: style.$textcolor;
-  padding: 10px 19px;
+  color: s.$textcolor;
 }

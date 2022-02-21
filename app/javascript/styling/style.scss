@@ -5,7 +5,8 @@
 /* .scss file */
 //$bgcolor: #fff4ec;
 $bgcolor: black;
-$secondary: #e7cfbc;
+$primary: #1084a6;
+$secondary: #c6e9f3;
 $accent: #59a5d8;
 //$textcolor: #071e22;
 $textcolor: white;
@@ -22,4 +23,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: $textcolor;
+}
+
+button {
+  justify-content: center;
+  font-size: 20px;
+  text-align: center;
+  font-family: "DM Mono", monospace;
+  font-style: bold;
+  background-color: $primary;
+  border-radius: 5px;
+  border-color: $secondary;
+  color: $textcolor;
+  padding: 10px 19px;
 }
