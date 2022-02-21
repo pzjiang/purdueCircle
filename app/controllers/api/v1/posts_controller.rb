@@ -1,18 +1,31 @@
 class Api::V1::PostsController < Api::V1::BaseController
 
     before_action :authenticate_user!
-    before_action :set_post, only: [:update] 
+    before_action :set_post, only: [:update, :show, :delete] 
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
 
     def index
-    
-    end
+        @posts = Post.last(10);
+        if @posts
+            render json: {posts: @posts}
+        else
+            render json: {error: "no posts found"}, :not_found
+        end
+           
+    end    
+
 
     def create
+        @newpost = Post.create post_params
 
-
+        if @newpost.valid?
+            render json: {post: @newpost}, status: 200
+        else
+            render json: {error: "failed to create post" }, status 422
+        end
+        
     end
 
 
@@ -21,12 +34,28 @@ class Api::V1::PostsController < Api::V1::BaseController
             respond_with_error "Profile with id #{params[:id]} not found.", :not_found
       
           elsif @post.update(post_params)
-            render json: @profile
+            render json: @post
       
           else
             render json: { error: @profile.errors.full_messages.to_sentence }, status: 422
           end
     end
+
+    def show
+        if @post
+            render json: {post: @post}, status: 200
+        else
+            render json: {error: "post not found"}, :not_found
+        end
+
+    end
+
+
+    def destroy
+
+
+    end
+
 
 
 

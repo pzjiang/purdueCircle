@@ -1,15 +1,21 @@
 import axios from 'axios';
 
-const getPost = () => axios.get("api/v1/posts/");
+const getPost = () => axios.get(`api/v1/posts/`);
 
-const createPost = payload => axios.post("api/v1/createPost/", payload);
+const showPost = payload => axios.get(`api/v1/posts/${payload.id}/`);
 
-const editPost = payload => axios.put("api/v1/updatePost/", payload);
+const createPost = payload => axios.post(`api/v1/createPost/`, payload);
+
+const editPost = payload => axios.put(`api/v1/updatePost/${payload.id}`, payload);
+
+const deletePost = payload => axios.delete(`api/v1/posts/${payload.id}`);
 
 const postsApi = {
     getPost,
     createPost,
     editPost,
+    showPost,
+    deletePost,
 
 };
 
