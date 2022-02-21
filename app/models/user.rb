@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable #, authentication_keys: [:login]
 
-         has_one :profile
+         has_one :profile, dependent: :destroy
          
   
   before_save :ensure_authentication_token_is_present
