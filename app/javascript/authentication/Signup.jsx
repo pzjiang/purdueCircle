@@ -106,9 +106,10 @@ const Signup = () => {
                     />
                 </label>
                 <label>
-                    <input type="password" placeholder="confirm password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
+                    <input type="text" placeholder="first name" value={inputValues.firstName} onChange={(e) => setInputValues({ ...inputValues, firstName: e.target.value })}
                     />
                 </label>
+               
                 </div>
 
 
@@ -118,7 +119,7 @@ const Signup = () => {
                     />
                 </label>
                 <label>
-                    <input type="text" placeholder="first name" value={inputValues.firstName} onChange={(e) => setInputValues({ ...inputValues, firstName: e.target.value })}
+                    <input type="password" placeholder="confirm password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
                     />
                 </label>
                 <label>
