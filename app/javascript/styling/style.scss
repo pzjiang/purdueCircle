@@ -7,7 +7,7 @@
 $bgcolor: black;
 $primary: #1084a6;
 $secondary: #c6e9f3;
-$accent: #59a5d8;
+$accent: #ccc;
 //$textcolor: #071e22;
 $textcolor: white;
 $fontsize: 25px;
@@ -36,4 +36,25 @@ button {
   border-color: $secondary;
   color: $textcolor;
   padding: 10px 19px;
+}
+
+/* For hiding labels */
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* Layout children formatting */
+#layout-children {
+  position: absolute;
+  top: 150px;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+  margin-bottom: 10em;
 }

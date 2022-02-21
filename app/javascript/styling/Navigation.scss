@@ -10,9 +10,11 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: s.$bgcolor;
+  background-color: s.$primary;
+  border: 1px solid s.$accent;
   margin-bottom: 2em;
   color: s.$textcolor;
+  z-index: 10;
 
   a {
     color: s.$textcolor;
@@ -21,5 +23,5 @@
 
 #nav li {
   display: inline-block;
-  margin: 0 10%;
+  margin: 0 5%;
 }

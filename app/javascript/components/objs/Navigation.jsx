@@ -14,6 +14,7 @@ import authenticationApi from "../../apis/authentication";
 import { resetAuthTokens } from "../../apis/axios";
 import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
+import Search from './Search';
 import '../../styling/Navigation.scss';
 
 const Navigation = () => {
@@ -42,9 +43,10 @@ const Navigation = () => {
     return (
         <div id="nav">
             <ul>
-                <li><Link to='../../'> home</Link></li>
+                <li><Link to='../../'>PurdueCircle</Link></li>
+                <li><Search /></li>
                 <li><Link to='/post'> New Post</Link></li>
-                <li><Link to='/profile'> Profile</Link></li>
+                <li><Link to='/profile'>Profile</Link></li>
                 <li><button onClick={handleSubmit}> logout</button></li>
             </ul>
         </div>
