@@ -66,7 +66,7 @@ const CreatePost = () => {
         console.log("creating post");
         event.preventDefault();
         try {
-            await postsApi.createPost({ profile_id: user.id, body: { body: inputValues.body } });
+            await postsApi.createPost({ profile_id: user.id, post: { title: "title" ,body: inputValues.body } });
             console.log("successful post creation");
             navigate("/main");
             addToast("posted", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
