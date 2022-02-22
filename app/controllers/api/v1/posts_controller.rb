@@ -1,7 +1,7 @@
 class Api::V1::PostsController < Api::V1::BaseController
 
     before_action :authenticate_user!
-    before_action :set_post, only: [:update, :show, :delete] 
+    before_action :set_post, only: [:update, :show, :destroy, :increment_like] 
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
@@ -45,15 +45,24 @@ class Api::V1::PostsController < Api::V1::BaseController
         if @post
             render json: {post: @post}, status: 200
         else
-            render json: {error: "post not found"}, :not_found
+            respond_with_error "post does not exist", :not_found
         end
 
     end
 
 
     def destroy
+        
+        if @post
+            @post.destroy
+        else
+            respond_with_error "post does not exist", :not_found
+        end
 
+    end
 
+    def increment_like
+        
     end
 
 
@@ -66,7 +75,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def post_params
-        params.require(:post).permit(:title, :body)
+        params.require(:post).permit(:title, :body, :profile_id)
     end
 
 

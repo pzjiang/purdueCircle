@@ -19,6 +19,8 @@ import { useToasts } from 'react-toast-notifications';
 import profileApi from "../../apis/apiprofile";
 import Layout from "../objs/Layout";
 
+import registrationApi from "../../apis/registrations";
+
 const Profile = () => {
 
     const [biol, setBiol] = useState("");
@@ -62,7 +64,7 @@ const Profile = () => {
             console.log(profile.user_id);
             console.log(profile.bio);
             setBiol(profile.bio);
-            console.log("successful display bio");
+            //console.log("successful display bio");
         } catch (error) {
             //console.log(error.response.data.error);
             if (error.response) {
@@ -85,11 +87,13 @@ const Profile = () => {
             resetAuthTokens();
             console.log("destroyed account ");
             navigate('/');
-            addToast("Account destroyed successfully", { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+            addToast("Account destroyed successfully", { appearance: 'error', });
 
         } catch (error) {
-            addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+            addToast(error.response.data.error, { appearance: 'error', });
         }
+
+
     }
 
 
