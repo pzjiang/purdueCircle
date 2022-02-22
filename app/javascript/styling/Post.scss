@@ -1,12 +1,47 @@
 @use "style.scss" as s;
 
+body {
+  background-color: #eee;
+}
+
 #post {
   display: block;
-  border: 1px solid s.$primary;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   width: 80%;
   height: auto;
+  margin: 5%;
+  padding: 5%;
+  position: relative;
 
   h1 {
+    position: absolute;
+    top: 1em;
+    left: 2em;
+    display: block;
     font-size: medium;
+  }
+
+  .reactions {
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  button {
+    float: right;
+    display: block;
+    padding: 1% 2%;
+    margin: 0 1em;
+    width: auto;
+    height: auto;
+    color: black;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5em;
   }
 }

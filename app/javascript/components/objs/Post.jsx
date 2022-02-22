@@ -16,6 +16,7 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
+import '../../styling/Post.scss';
 
 const Post = () => {
 
@@ -30,6 +31,7 @@ const Post = () => {
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
     const [likes, setLikes] = useState("");
+    const [liked, setLiked] = useState(false);
     const [loaded, setLoaded] = useState(false);
 
     const { user } = useUserState();
@@ -51,12 +53,18 @@ const Post = () => {
         setLoaded(true);
         try {
             const {
-                data: { post },
+                data: { posts },
             } = await postsApi.getPost();
 
-            //console.log(post.profile_id);
-            console.log(typeof post);
-            //setTitle(post.title);
+            for (let post of posts) {
+                console.log(post.title);
+                console.log(post.body);
+                console.log(post.likes);
+                setTitle(post.title);
+                setBody(post.body);
+                setLikes(post.likes);
+            }
+
             console.log("successful post load");
         } catch (error) {
             //console.log(error.response.data.error);
@@ -74,20 +82,52 @@ const Post = () => {
 
     };
 
-    const addComment = () => {
+    /**
+     * user likes the post
+     */
+    const addLike = () => {
+        console.log("like clicked");
+        if (liked == true) {
+            setLiked(false);
 
+            //decrease like count
+            setLikes(likes-1);
+            console.log("unliked");
+        } else {
+            setLiked(true);
+
+            //increase like count
+            setLikes(likes+1);
+            console.log("liked");
+        }
+    }
+
+    const addComment = () => {
+        console.log("add comment")
     };
 
     const savePost = () => {
 
     };
 
+    const editPost = () => {
+        console.log("edit post");
+    }
+
     return (
         <div id="post">
-            <h1>{title}</h1>
-            <div>{body}</div>
-
+            <h1>{title} title</h1>
+            <div>{body} body</div>
+            
             <p></p>
+            <div className="reactions">
+                <button className="like" onClick={addLike}>
+                    <i className="fa fa-heart" aria-hidden="true"></i> {likes}
+                </button>
+                <button className="comment" onClick={addComment}>
+                    <i className="fa fa-comment" aria-hidden="true"></i> comment
+                </button>
+            </div>
         </div>
     );
 }
