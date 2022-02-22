@@ -78,10 +78,6 @@ const Post = () => {
         }
     }
 
-    const countLikes = () => {
-
-    };
-
     /**
      * user likes the post
      */
@@ -114,6 +110,14 @@ const Post = () => {
         console.log("edit post");
     }
 
+    const deletePost = () => {
+        console.log("delete post");
+    }
+
+    const reportPost = () => {
+        console.log("rep post");
+    }
+
     return (
         <div id="post">
             <h1>{title} title</h1>
@@ -127,6 +131,12 @@ const Post = () => {
                 <button className="comment" onClick={addComment}>
                     <i className="fa fa-comment" aria-hidden="true"></i> comment
                 </button>
+            </div>
+
+            <div className="options">
+                <button className="edit" onClick={editPost}>edit post</button>
+                <button className="delete" onClick={deletePost}>delete post</button>
+                <button className="report" onClick={reportPost}>report post</button>
             </div>
         </div>
     );

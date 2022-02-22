@@ -2,12 +2,32 @@
  * Page for users to create posts
  */
 
- import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useNavigate
+} from "react-router-dom";
+import { useUserState } from "../../contexts/user";
+import authenticationApi from '../../apis/authentication';
+import { useAuthDispatch } from "../../contexts/auth";
+import { resetAuthTokens } from "../../apis/axios";
+import { useToasts } from 'react-toast-notifications';
+import postsApi from "../../apis/apiposts";
 import Layout from "../objs/Layout.jsx";
 import "../../styling/CreatePost.scss";
 
 
 const CreatePost = () => {
+
+    const [inputValues, setInputValues] = useState({
+        body: '',
+    });
+    const { addToast } = useToasts();
+    const { user } = useUserState();
+    const navigate = useNavigate();
 
     const bold = async (event) => {
         console.log("bold");
@@ -39,10 +59,30 @@ const CreatePost = () => {
         console.log("posted");
     }
 
-    const handleSubmit = async(event) => {
+    /**
+     * send new post to backend
+     */
+    const newPost = async (event) => {
+        console.log("creating post");
         event.preventDefault();
-        console.log("creating new post");
-        console.log(inputValues.content);
+        try {
+            await postsApi.createPost({ profile_id: user.id, body: { body: inputValues.body } });
+            console.log("successful post creation");
+            navigate("/main");
+            addToast("posted", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
+
+        } catch (error) {
+            //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+
     }
 
     return (
@@ -62,7 +102,14 @@ const CreatePost = () => {
 
             <br></br>
 
-            <div id="textarea" contentEditable></div>       
+            <form onSubmit={newPost}>
+                <label>
+                    Content
+                    <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
+                </label>
+                <input type="submit" value="Submit" />
+
+            </form>   
 
             </div>
 
