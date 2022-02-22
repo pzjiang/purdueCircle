@@ -7,6 +7,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
   def update_password
     resource = User.find_by_email(params[:user][:email])
+
     if resource && resource.update_with_password(password_update_params)
       bypass_sign_in resource, scope: :user
       render json: { notice: 'Password has been successfully updated' }, status: :ok
@@ -27,7 +28,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     end
 
     def password_update_params
-      resource_params.permit(:password, :password_confirmation, :current_password)
+      resource_params.permit( :user, :password, :password_confirmation, :current_password)
     end
 
     def resource_params

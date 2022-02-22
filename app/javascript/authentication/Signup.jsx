@@ -71,11 +71,11 @@ const Signup = () => {
             //console.log("success");
             setLoading(false);
             navigate('/');
-            addToast("User successfully created!", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
+            addToast("User successfully created!", { appearance: 'success', autoDismiss: true });
         } catch (error) {
             console.log("failure to sign in");
             //console.log(error.toString());
-            addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
         } finally {
             setLoading(false);
         }

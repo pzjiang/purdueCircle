@@ -58,11 +58,11 @@ const Login = () => {
             console.log("Logged in successfully!");
             setLoading(false);
             navigate('/');
-            addToast('Logged in successfully', { appearance: 'success', /*AutoDismissTimeout: 1500,*/ });
+            addToast('Logged in successfully', { appearance: 'success', autoDismiss: true });
         } catch (error) {
             console.log("some sort of error occurred");
             console.log(error.toString());
-            addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
         } finally {
             setLoading(false);
         }

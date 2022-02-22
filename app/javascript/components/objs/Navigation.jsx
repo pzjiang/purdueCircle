@@ -31,10 +31,10 @@ const Navigation = () => {
             resetAuthTokens();
             console.log("success");
             navigate('/');
-            addToast("Successfully logged out!", { appearance: 'success', autoDismissTimeout: 1500, });
+            addToast("Successfully logged out!", { appearance: 'success', autoDismiss: true });
         } catch (error) {
             console.log("error found");
-            addToast("Logout failed!", { appearance: 'error', autoDismissTimeout: 1500, });
+            addToast("Logout failed!", { appearance: 'error', autoDismiss: true });
             console.log(error.toString());
         }
 
