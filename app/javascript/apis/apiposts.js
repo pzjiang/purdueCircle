@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getPost = () => axios.get(`api/v1/posts/`);
+const getPost = payload => axios.get(`api/v1/posts/`, payload);
 
 const showPost = payload => axios.get(`api/v1/posts/${payload.id}/`);
 

@@ -7,7 +7,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     skip_after_action :verify_authorized, raise: false
 
     def index
-        @posts = Post.last(10);
+        @posts = Post.last(params[:number]);
         if @posts
             render json: {posts: @posts}
         else
