@@ -42,7 +42,7 @@ const EditProfile = () => {
     const updatePassword = async (event) => {
         event.preventDefault();
         try {
-            await registrationApi.updatePassword({ user: {email: user.email}, password: inputValues.password, password_confirmation: inputValues.passwordConfirmation, current_password: inputValues.currentpassword} );
+            await registrationApi.updatePassword({ user: { email: user.email, password: inputValues.password, password_confirmation: inputValues.passwordConfirmation, current_password: inputValues.currentpassword } });
             console.log("successful edit profile");
             navigate("/profile");
             addToast("Password changed successfully", { appearance: 'success', autoDismiss: true });

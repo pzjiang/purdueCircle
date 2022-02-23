@@ -19,6 +19,9 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def create
         @newpost = Post.create post_params
+        @user = current_user
+        @profile = @user.profile
+        @newpost.profile_id = @profile.profile_id
 
         if @newpost.valid?
             render json: {post: @newpost}, status: 200
@@ -63,6 +66,21 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def increment_like
         
+        @user = current_user
+        @profile = @user.profile
+        @profile_found = @post.favorites.find_by(profile_id: @profile.id)
+
+        if @profile_found
+            @profile_found.destroy
+            @post.likes = @post.likes - 1
+        else
+            @new_relation = Favorite.create 
+            @new_relation.profile_id = @profile.id
+            @new_relation.post_id = params[:id]
+            @post.likes = @post.likes + 1
+        end
+        #@post.likes = @post.likes + 1
+        
     end
 
 
@@ -75,7 +93,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def post_params
-        params.require(:post).permit(:title, :body, :profile_id)
+        params.require(:post).permit(:title, :body)
     end
 
 

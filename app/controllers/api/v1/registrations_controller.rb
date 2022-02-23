@@ -28,7 +28,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     end
 
     def password_update_params
-      resource_params.permit( :user, :password, :password_confirmation, :current_password)
+      resource_params.permit( :password, :password_confirmation, :current_password)
     end
 
     def resource_params
