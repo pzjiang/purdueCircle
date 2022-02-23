@@ -83,6 +83,23 @@ class Api::V1::PostsController < Api::V1::BaseController
         
     end
 
+    def change_save
+        @user = current_user
+        @profile = @user.profile
+        @profile_found = @post.bookmarks.find_by(profile_id: @profile.id)
+
+
+    end
+
+
+    def get_saves
+
+        @user = current_user
+        @profile = @user.profile
+        @saved = @post.saved_posts.last(params[:number])
+
+
+    end
 
 
 
