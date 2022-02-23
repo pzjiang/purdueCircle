@@ -69,7 +69,7 @@ const CreatePost = () => {
             await postsApi.createPost({ post: { title: "title", body: inputValues.body } });
             console.log("successful post creation");
             navigate("/");
-            addToast("posted", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
+            addToast("posted", { appearance: 'success', autoDismiss: true });
 
         } catch (error) {
             //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
