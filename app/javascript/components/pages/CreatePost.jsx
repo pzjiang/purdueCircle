@@ -36,7 +36,7 @@ const CreatePost = () => {
 
     const italisize = async (event) => {
         console.log("italisize");
-       
+
     }
 
     const underscore = async (event) => {
@@ -66,9 +66,9 @@ const CreatePost = () => {
         console.log("creating post");
         event.preventDefault();
         try {
-            await postsApi.createPost({ profile_id: user.id, post: { title: "title" ,body: inputValues.body } });
+            await postsApi.createPost({ post: { title: "title", body: inputValues.body } });
             console.log("successful post creation");
-            navigate("/main");
+            navigate("/");
             addToast("posted", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
 
         } catch (error) {
@@ -87,37 +87,37 @@ const CreatePost = () => {
 
     return (
         <Layout>
-           <div className="topicSelection">Post Topics: <div id="input" contentEditable></div>
+            <div className="topicSelection">Post Topics: <div id="input" contentEditable></div>
 
-            <br></br>
+                <br></br>
 
-            <div className="options">
-                <button onClick={bold}>Bold</button>
-                <button onClick={italisize}>Italisize</button>
-                <button onClick={underscore}>Underscore</button>
-                <button onClick={strikethrough}>Strikethrough</button>
-                <button onClick={link}>Link</button>
-                <input type="file"/>
+                <div className="options">
+                    <button onClick={bold}>Bold</button>
+                    <button onClick={italisize}>Italisize</button>
+                    <button onClick={underscore}>Underscore</button>
+                    <button onClick={strikethrough}>Strikethrough</button>
+                    <button onClick={link}>Link</button>
+                    <input type="file" />
+                </div>
+
+                <br></br>
+
+                <form onSubmit={newPost}>
+                    <label>
+                        Content
+                        <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
+                    </label>
+                    <input type="submit" value="Submit" />
+
+                </form>
+
             </div>
 
             <br></br>
 
-            <form onSubmit={newPost}>
-                <label>
-                    Content
-                    <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
-                </label>
-                <input type="submit" value="Submit" />
+            <button onClick={post}>Post</button>
 
-            </form>   
 
-            </div>
-
-            <br></br>
-
-            <button onClick={post}>Post</button> 
-
-            
         </Layout>
     );
 }

@@ -18,7 +18,7 @@ import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
 import '../../styling/Post.scss';
 
-const Post = () => {
+const Post = props => {
 
     /*
         title
@@ -28,11 +28,12 @@ const Post = () => {
         id
     */
 
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
-    const [likes, setLikes] = useState("");
-    const [liked, setLiked] = useState(false);
-    const [loaded, setLoaded] = useState(false);
+    const [title, setTitle] = useState(props.title);
+    const [body, setBody] = useState(props.body);
+    const [likes, setLikes] = useState(props.likes);
+    const [liked, setLiked] = useState(props.status);
+    const [id, setId] = useState(props.id);
+    //const [loaded, setLoaded] = useState(false);
 
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -42,7 +43,8 @@ const Post = () => {
     /**
      * Load post information
      */
-     useEffect(() => {
+    /*
+    useEffect(() => {
         onLoad();
     });
 
@@ -77,6 +79,7 @@ const Post = () => {
             }
         }
     }
+    */
 
     /**
      * user likes the post
@@ -87,19 +90,20 @@ const Post = () => {
             setLiked(false);
 
             //decrease like count
-            setLikes(likes-1);
+            setLikes(likes - 1);
             console.log("unliked");
         } else {
             setLiked(true);
 
             //increase like count
-            setLikes(likes+1);
+            setLikes(likes + 1);
             console.log("liked");
         }
     }
 
     const addComment = () => {
         console.log("add comment")
+        navigate(`/postPage/${id}`)
     };
 
     const savePost = () => {
@@ -122,7 +126,7 @@ const Post = () => {
         <div id="post">
             <h1>{title} title</h1>
             <div>{body} body</div>
-            
+
             <p></p>
             <div className="reactions">
                 <button className="like" onClick={addLike}>

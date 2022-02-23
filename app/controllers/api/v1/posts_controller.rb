@@ -18,10 +18,11 @@ class Api::V1::PostsController < Api::V1::BaseController
 
 
     def create
-        @newpost = Post.create post_params
+        @newpost = Post.new post_params
         @newpost.profile_id ||= 1
 
         if @newpost.valid?
+            @newpost.save
             render json: {post: @newpost}, status: 200
         else
             render json: {error: @newpost.errors.full_messages.to_sentence}, status: 422

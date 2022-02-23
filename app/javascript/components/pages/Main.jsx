@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     BrowserRouter as Router,
@@ -7,7 +7,7 @@ import {
     Link,
     useNavigate
 } from "react-router-dom";
-import authenticationApi from "../../apis/authentication";
+import postsApi from "../../apis/apiposts";
 import { resetAuthTokens } from "../../apis/axios";
 import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
@@ -16,11 +16,39 @@ import Layout from "../objs/Layout";
 import Post from "../objs/Post";
 import "../../styling/CreatePost.scss";
 
+
+
 const Main = () => {
 
     const authDispatch = useAuthDispatch();
     const navigate = useNavigate();
     const { addToast } = useToasts();
+    const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
+
+    useEffect(() => {
+        onLoad();
+    }, []);
+
+    const onLoad = async () => {
+        console.log("on load");
+
+        try {
+            const { data } = await postsApi.getPost();
+            //setPosts(data.response);
+
+            console.log(data);
+            setPosts(data.posts);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -53,9 +81,9 @@ const Main = () => {
 
             <h1>Posts</h1>
             <div className="postList">
-                <Post/>
-                <Post/>
-                <Post/>
+                {posts.map((post) => (
+                    <Post title={post.title} body={post.body} likes={0} liked={false} id={post.id} key={post.id} />
+                ))}
             </div>
         </Layout>
     )
