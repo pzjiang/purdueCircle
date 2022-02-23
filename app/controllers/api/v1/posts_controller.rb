@@ -7,7 +7,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     skip_after_action :verify_authorized, raise: false
 
     def index
-        @posts = Post.last(params[:number]);
+        @posts = Post.last(10);
         if @posts
             render json: {posts: @posts}
         else
@@ -18,15 +18,16 @@ class Api::V1::PostsController < Api::V1::BaseController
 
 
     def create
-        @newpost = Post.create post_params
+        @newpost = Post.new post_params
         @user = current_user
         @profile = @user.profile
-        @newpost.profile_id = @profile.profile_id
+        @newpost.profile_id = @profile.id
 
         if @newpost.valid?
+            @newpost.save
             render json: {post: @newpost}, status: 200
         else
-            render json: {error: @newpost.errors.full_messages.to_sentence }, status: 422
+            render json: {error: @newpost.errors.full_messages.to_sentence}, status: 422
         end
         
     end
@@ -110,7 +111,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def post_params
-        params.require(:post).permit(:title, :body)
+        params.require(:post).permit(:title, :body, :profile_id)
     end
 
 
