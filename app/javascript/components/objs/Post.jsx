@@ -33,6 +33,7 @@ const Post = () => {
     const [likes, setLikes] = useState("");
     const [liked, setLiked] = useState(false);
     const [loaded, setLoaded] = useState(false);
+    const posts = [];
 
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -56,14 +57,16 @@ const Post = () => {
                 data: { posts },
             } = await postsApi.getPost();
 
-            for (let post of posts) {
+            //setPosts(posts);
+
+            /*for (let post of posts) {
                 console.log(post.title);
                 console.log(post.body);
                 console.log(post.likes);
                 setTitle(post.title);
                 setBody(post.body);
                 setLikes(post.likes);
-            }
+            }*/
 
             console.log("successful post load");
         } catch (error) {
@@ -119,25 +122,35 @@ const Post = () => {
     }
 
     return (
-        <div id="post">
-            <h1>{title} title</h1>
-            <div>{body} body</div>
-            
-            <p></p>
-            <div className="reactions">
-                <button className="like" onClick={addLike}>
-                    <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                </button>
-                <button className="comment" onClick={addComment}>
-                    <i className="fa fa-comment" aria-hidden="true"></i> comment
-                </button>
-            </div>
+        <div>
+        <ul>
+        {
+            posts.map(function(post) {
+                return (
+                    <div id="post">
+                        <h1>{post.title} title</h1>
+                        <div>{post.body} body</div>
+                                
+                        <p></p>
+                        <div className="reactions">
+                            <button className="like" onClick={addLike}>
+                                <i className="fa fa-heart" aria-hidden="true"></i> {post.likes}
+                            </button>
+                            <button className="comment" onClick={addComment}>
+                                <i className="fa fa-comment" aria-hidden="true"></i> comment
+                            </button>
+                        </div>
 
-            <div className="options">
-                <button className="edit" onClick={editPost}>edit post</button>
-                <button className="delete" onClick={deletePost}>delete post</button>
-                <button className="report" onClick={reportPost}>report post</button>
-            </div>
+                        <div className="options">
+                            <button className="edit" onClick={editPost}>edit post</button>
+                            <button className="delete" onClick={deletePost}>delete post</button>
+                            <button className="report" onClick={reportPost}>report post</button>
+                        </div>
+                    </div>
+                )
+            })
+        }
+        </ul>
         </div>
     );
 }
