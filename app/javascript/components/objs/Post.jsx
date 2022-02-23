@@ -40,46 +40,7 @@ const Post = props => {
     const { addToast } = useToasts();
     const authDispatch = useAuthDispatch();
 
-    /**
-     * Load post information
-     */
-    /*
-    useEffect(() => {
-        onLoad();
-    });
 
-    const onLoad = async () => {
-        if (loaded == true) {
-            return;
-        }
-        setLoaded(true);
-        try {
-            const {
-                data: { posts },
-            } = await postsApi.getPost();
-
-            for (let post of posts) {
-                console.log(post.title);
-                console.log(post.body);
-                console.log(post.likes);
-                setTitle(post.title);
-                setBody(post.body);
-                setLikes(post.likes);
-            }
-
-            console.log("successful post load");
-        } catch (error) {
-            //console.log(error.response.data.error);
-            if (error.response) {
-                console.log(error.response.data.error);
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log("error", error.message);
-            }
-        }
-    }
-    */
 
     /**
      * user likes the post
