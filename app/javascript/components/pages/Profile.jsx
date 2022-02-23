@@ -18,12 +18,24 @@ import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import profileApi from "../../apis/apiprofile";
 import Layout from "../objs/Layout";
+import "../../styling/Profile.scss";
+import Post from "../objs/Post";
+import postsApi from "../../apis/apiposts";
+import "../../styling/CreatePost.scss";
 
 import registrationApi from "../../apis/registrations";
 
 const Profile = () => {
 
     const [biol, setBiol] = useState("");
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+
+    const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
+
     const [loaded, setLoaded] = useState(false);
 
     const { user } = useUserState();
@@ -33,22 +45,6 @@ const Profile = () => {
 
     useEffect(() => {
         onLoad();
-        /*
-        try {
-            console.log("starts");
-            const {
-                data: { profile },
-            } = profileApi.getprofile({ user_id: user.id });
-            console.log(profile.user_id);
-            console.log(profile.bio);
-            setBiol(profile.bio);
-            console.log("successful display bio");
-
-        } catch (error) {
-            //addToast(/*error.response.data.error"failed somewhere", { appearance: 'error', /*autoDismissTimeout: 1500, });
-    console.log("fck lol");
-}
-        */
     });
 
     const onLoad = async () => {
@@ -63,10 +59,36 @@ const Profile = () => {
 
             console.log(profile.user_id);
             console.log(profile.bio);
+            console.log(user);
             setBiol(profile.bio);
-            //console.log("successful display bio");
+            setFirstName(user.first_name);
+            setLastName(user.last_name);
+            setUsername(user.username);
+            setEmail(user.email);
+            if (user.phone!="") {
+                setPhone(user.phone);
+            }
+            setPhone("None Set");
+            console.log("successful display bio");
         } catch (error) {
             //console.log(error.response.data.error);
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+        try {
+            const { data } = await postsApi.getPost();
+            //setPosts(data.response);
+
+            console.log(data);
+            setPosts(data.posts);
+
+        } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
             } else if (error.request) {
@@ -99,15 +121,40 @@ const Profile = () => {
 
     return (
         <Layout>
-            Testing account id access
-            <button onClick={handleSubmit}> Destroy Account</button>
-            <p> {biol}</p>
-            <br />
-            <br />
+            <div id="profile">
+                <span class="dot"></span>
+                <div id="name">
+                    <h2> {first_name} {last_name}</h2>
+                    <h2> @{username}</h2>
+                </div>
+                <br />
+                <br />
+                <h3></h3>
+                <h3>Bio</h3>
+                <p> {biol}</p>
+                <h3>Phone</h3>
+                <p> {phone}</p>
+                <h3>Email</h3>
+                <p> {email}</p>
+            </div>
 
-            <Link to="/editprofile">Link to edit profile</Link>
+            <div className="postList">
+                {posts.map((post) => (
+                    <Post title={post.title} body={post.body} likes={0} liked={false} id={post.id} key={post.id} />
+                ))}
+            </div>
+
+            <table width="100%">
+                <tr width="100%">
+                    <td width="50%">
+                        <button id="same-size-button"><Link to="/editprofile">Edit profile</Link></button>
+                    </td>
+                    <td width="50%">
+                        <button onClick={handleSubmit} if="same-size-button"> Delete Account</button>
+                    </td>
+                </tr>
+            </table>
             <br></br>
-            <Link to="/" >Link to the home page</Link>
 
         </Layout>
     );
