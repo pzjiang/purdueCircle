@@ -23,6 +23,7 @@ import "../../styling/CreatePost.scss";
 const CreatePost = () => {
 
     const [inputValues, setInputValues] = useState({
+        title: '',
         body: '',
     });
     const { addToast } = useToasts();
@@ -66,7 +67,7 @@ const CreatePost = () => {
         console.log("creating post");
         event.preventDefault();
         try {
-            await postsApi.createPost({ post: { title: "title", body: inputValues.body } });
+            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body } });
             console.log("successful post creation");
             navigate("/");
             addToast("posted", { appearance: 'success', autoDismiss: true });
@@ -103,6 +104,12 @@ const CreatePost = () => {
                 <br></br>
 
                 <form onSubmit={newPost}>
+                    <label>
+                        topic:
+                        <input type="text" value={inputValues.title} onChange={(e) => setInputValues({ ...inputValues, title: e.target.value })} />
+                    </label>
+                    <br />
+
                     <label>
                         Content
                         <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>

@@ -31,7 +31,7 @@ const Post = props => {
     const [title, setTitle] = useState(props.title);
     const [body, setBody] = useState(props.body);
     const [likes, setLikes] = useState(props.likes);
-    const [liked, setLiked] = useState(props.status);
+    const [liked, setLiked] = useState(false);
     const [id, setId] = useState(props.id);
     //const [loaded, setLoaded] = useState(false);
 
@@ -40,43 +40,73 @@ const Post = props => {
     const { addToast } = useToasts();
     const authDispatch = useAuthDispatch();
 
+    useEffect(() => {
+        onLoad();
+    }, []);
 
+    const onLoad = async () => {
+        try {
+            const { data } = await postsApi.likesPost({ user_id: user.id, post_id: props.id });
+            setLiked(data.status);
+            console.log("status retrieved successfully");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    };
 
     /**
      * user likes the post
      */
-    const addLike = () => {
+    const addLike = async () => {
         console.log("like clicked");
-        if (liked == true) {
-            setLiked(false);
 
-            //decrease like count
-            setLikes(likes - 1);
-            console.log("unliked");
-        } else {
-            setLiked(true);
-
-            //increase like count
-            setLikes(likes + 1);
-            console.log("liked");
+        try {
+            const { data } = await postsApi.incrementLike({ id: props.id, profile_id: user.id });
+            setLikes(data.likes);
+            setLiked(data.status);
+            console.log("changed");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
         }
     }
 
     const addComment = () => {
         console.log("add comment")
-        navigate(`/postPage/${id}`)
     };
 
     const savePost = () => {
-
+        console.log("save post");
     };
 
     const editPost = () => {
         console.log("edit post");
     }
 
-    const deletePost = () => {
-        console.log("delete post");
+    const deletePost = async () => {
+        try {
+            await postsApi.deletePost({ id: id })
+            console.log("deleted");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     }
 
     const reportPost = () => {
@@ -85,15 +115,15 @@ const Post = props => {
 
     return (
         <div id="post">
-            <h1>{title} title</h1>
-            <div>{body} body</div>
+            <h1>{title}</h1>
+            <div>{body}</div>
 
             <p></p>
             <div className="reactions">
                 <button className="like" onClick={addLike}>
                     <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                 </button>
-                <button className="comment" onClick={addComment}>
+                <button className="comment" onClick={deletePost}>
                     <i className="fa fa-comment" aria-hidden="true"></i> comment
                 </button>
             </div>

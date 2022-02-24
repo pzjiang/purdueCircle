@@ -82,7 +82,7 @@ const Main = () => {
             <h1>Posts</h1>
             <div className="postList">
                 {posts.map((post) => (
-                    <Post title={post.title} body={post.body} likes={0} liked={false} id={post.id} key={post.id} />
+                    <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                 ))}
             </div>
         </Layout>
