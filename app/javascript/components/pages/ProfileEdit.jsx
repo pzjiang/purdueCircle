@@ -7,13 +7,12 @@ import { useUserState } from "../../contexts/user";
 import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import registrationApi from '../../apis/registrations';
-
-
+import "../../styling/Profile.scss";
 
 const EditProfile = () => {
 
     const [inputValues, setInputValues] = useState({
-        bio: '', currentpassword: '', password: '', passwordConfirmation: '',
+        bio: '', currentpassword: '', password: '', passwordConfirmation: '', old_email: '', new_email: ''
     });
     const { addToast } = useToasts();
     const { user } = useUserState();
@@ -39,10 +38,29 @@ const EditProfile = () => {
         }
     }
 
+    const editBio = async (event) => {
+        <div class="form">
+                <form onSubmit={handleSubmit} id="formBio">
+                    <h3>Change Bio:</h3>
+                    <label>
+                        <br></br>
+                        <textarea value={inputValues.bio} id="label" onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                    </label>
+                    <br></br>
+                    <button><input type="submit" value="Submit" /></button>
+
+                </form>
+        </div>
+    }
+
+    const editPassword = async (event) => {
+        console.log("edit Password");
+    }
+
     const updatePassword = async (event) => {
         event.preventDefault();
         try {
-            await registrationApi.updatePassword({ user: { email: user.email, password: inputValues.password, password_confirmation: inputValues.passwordConfirmation, current_password: inputValues.currentpassword } });
+            await registrationApi.updatePassword({ user: { email: user.email, password: inputValues.passwordnew, password_confirmation: inputValues.passwordConfirmation, current_password: inputValues.currentpassword } });
             console.log("successful edit profile");
             navigate("/profile");
             addToast("Password changed successfully", { appearance: 'success', autoDismiss: true });
@@ -59,31 +77,114 @@ const EditProfile = () => {
         }
     }
 
+    const updateEmail = async (event) => {
+        event.preventDefault();
+        try {
+            await registrationApi.update({ user: { email: inputValues.email, password: inputValues.password } });
+            console.log("successful edit profile");
+            navigate("/profile");
+            addToast("Email changed successfully", { appearance: 'success', autoDismiss: true });
+
+        } catch (error) {
+            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
+    const updateName = async (event) => {
+        event.preventDefault();
+        try {
+            await registrationApi.update({ user: { email: user.email, first_name: inputValues.first_name, last_name: inputValues.last_name } });
+            console.log("successful edit profile");
+            navigate("/profile");
+            addToast("Email changed successfully", { appearance: 'success', autoDismiss: true });
+
+        } catch (error) {
+            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
     return (
         <Layout>
-            <form onSubmit={handleSubmit}>
+            <table width="100%">
+                <tr width="100%">
+                    <td width="50%">
+                        <button onClick={editBio} id="submit-button">Edit Bio</button>
+                    </td>
+                    <td width="50%">
+                        <button onClick={editBio} id="submit-button">Change Password</button>
+                    </td>
+                </tr>
+            </table>
+
+            <form onSubmit={handleSubmit} id="form">
+                <h3>Change Bio:</h3>
                 <label>
-                    change bio:
-                    <textarea value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                    <br></br>
+                    <textarea value={inputValues.bio} id="label" onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
                 </label>
-                <input type="submit" value="Submit" />
+                <br></br>
+                <button><input type="submit" value="Submit" /></button>
 
             </form>
 
-            <form onSubmit={updatePassword}>
-                <label>
-                    <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
+            <form onSubmit={updatePassword} id="form">
+                <h3>Change Password:</h3>
+                <label id="password-labels">
+                    <h4>Enter Your Current Password: </h4>
+                    <input type="password" placeholder="Current Password" id="label" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
+                    />
+                <br></br>
+                    <h4>Enter Your New Password: </h4>
+                    <input type="password" placeholder="New Password" id="label" value={inputValues.passwordnew} onChange={(e) => setInputValues({ ...inputValues, passwordnew: e.target.value })}
+                    />
+                    <br></br>
+                    <h4>Confirm Your New Password: </h4>
+                    <input type="password" placeholder="Confirm Password" id="label" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
+                    />
+                    <br></br>
+                    <br></br>
+                </label>
+                <button type="submit" id="submit-button"> Change Password </button>
+            </form>
+
+            <form onSubmit={updateName} id="form">
+                <h3>Change Name:</h3>
+                <label id="password-labels">
+                    <h4>Enter Updated First Name: </h4>
+                        <input type="text" placeholder="First Name" id="label" value={inputValues.first_name} onChange={(e) => setInputValues({ ...inputValues, first_name: e.target.value })}
+                    />
+                    <h4>Enter Updated Last Name: </h4>
+                        <input type="text" placeholder="Last Name" id="label" value={inputValues.last_name} onChange={(e) => setInputValues({ ...inputValues, last_name: e.target.value })}
                     />
                 </label>
-
-                <label>
-                    <input type="password" placeholder="New Password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
+                <button type="submit" id="submit-button"> Change Name </button>
+            </form>
+            
+            <form onSubmit={updateEmail} id="form">
+                <h3>Change Email:</h3>
+                <label id="password-labels">
+                    <h4>Enter Updated Email: </h4>
+                        <input type="text" placeholder="Email" id="label" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
                     />
-
-                    <input type="password" placeholder="Confirm password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
+                    <h4>Enter Your Password: </h4>
+                        <input type="password" placeholder="New Password" id="label" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
                     />
                 </label>
-                <button type="submit"> Change Password </button>
+                <button type="submit" id="submit-button"> Change Email </button>
             </form>
         </Layout>
     )

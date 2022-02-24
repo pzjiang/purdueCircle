@@ -21,7 +21,6 @@ import Layout from "../objs/Layout";
 import "../../styling/Profile.scss";
 import Post from "../objs/Post";
 import postsApi from "../../apis/apiposts";
-import "../../styling/CreatePost.scss";
 
 import registrationApi from "../../apis/registrations";
 
@@ -136,6 +135,8 @@ const Profile = () => {
                 <p> {phone}</p>
                 <h3>Email</h3>
                 <p> {email}</p>
+                <h3>Topics</h3>
+                <p> -- </p>
             </div>
 
             <div className="postList">
