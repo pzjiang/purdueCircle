@@ -113,6 +113,10 @@ const Post = props => {
         console.log("rep post");
     }
 
+    const viewPost = () => {
+        navigate("/viewpost/");
+    }
+
     return (
         <div id="post">
             <h1>{title}</h1>
@@ -129,7 +133,9 @@ const Post = props => {
             </div>
 
             <div className="options">
-                <Link to="/viewPost"/>
+            <button className="viewPost" onClick={viewPost}>
+                    view
+                </button>
             </div>
         </div>
     );

@@ -33,33 +33,48 @@
      const [body, setBody] = useState(props.body);
      const [likes, setLikes] = useState(props.likes);
      const [liked, setLiked] = useState(false);
-     const [id, setId] = useState(props.id);
-     //const [loaded, setLoaded] = useState(false);
+     const [id, setId] = useState(0);
+     const navigate = useNavigate();
+     const { index } = useParams();
  
      const { user } = useUserState();
      const navigate = useNavigate();
      const { addToast } = useToasts();
      const authDispatch = useAuthDispatch();
  
-     useEffect(() => {
-         onLoad();
-     }, []);
+    useEffect(() => {
+        console.log(index);
+        console.log(typeof index);
+
+        if (isNaN(index) == true) {
+            navigate("/notfound");
+            return;
+        }
+        let thisId = parseInt(index, 10);
+        setId(parseInt(index, 10));
+
+        onLoad(thisId);
+    }, []);
  
-     const onLoad = async () => {
-         try {
-             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: props.id });
-             setLiked(data.status);
-             console.log("status retrieved successfully");
-         } catch (error) {
-             if (error.response) {
-                 console.log(error.response.data.error);
-             } else if (error.request) {
-                 console.log(error.request);
-             } else {
-                 console.log("error", error.message);
-             }
-         }
-     };
+    const onLoad = async (thisId) => {
+        try {
+            const { data } = await postsApi.showPost({ id: thisId });
+            setTitle(data.post.title);
+            setBody(data.post.body);
+            setLikes(data.post.likes);
+
+            console.log("post loaded");
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    };
  
      /**
       * user likes the post
