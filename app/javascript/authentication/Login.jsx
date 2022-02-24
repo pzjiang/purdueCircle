@@ -113,52 +113,64 @@ const Login = () => {
     return (
         <div className="Login">
             <h1>
-                sign in
+                Sign In
             </h1>
 
             <h2>
-                we're happy to see you back!
-                <br></br> 
-                sign in again to explore your favorite topics and interact with others.
+                Catch up on what you missed while you were gone.
             </h2>
 
             <form
                 onSubmit={handleSubmit}
             >
+                <br />
+
                 <label>
-                    <input type="text" placeholder="email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                    <center>
+                    <input type="text" placeholder="Email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
                     />
+                    </center>
                 </label>
                 <label>
-                    <input type="password" placeholder="password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
+                    <center>
+                    <input type="password" placeholder="Password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
                     />
+                    </center>
+                    <Link to='/'>
+                        <p>
+                            Forgot your password?
+                        </p>
+                    </Link>
                 </label>
 
-                <button type="submit"> sign in </button>
+                <button type="submit"> Sign In </button>
+
+                <br />
+
             </form>
-
-            <li><Link to='/'>Forgot your password?</Link></li>
 
             <br>
             </br>
 
             <h3>
-                don't have an account yet?
+                Don't have an account yet? Create an account today.
             </h3>
             <Link to="/signup">
-            <button id="small_button">
-                sign up
+            <button>
+                Sign Up
             </button>
             </Link>
 
+            {/*
             <h3>
                 want to go back to the main page?
             </h3>
             <Link to='/'> 
-            <button id="small_button">
+            <button id="button">
                 home
             </button>
             </Link>
+            */}
 
         </div>
     );
