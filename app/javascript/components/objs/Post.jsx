@@ -129,9 +129,7 @@ const Post = props => {
             </div>
 
             <div className="options">
-                <button className="edit" onClick={editPost}>edit post</button>
-                <button className="delete" onClick={deletePost}>delete post</button>
-                <button className="report" onClick={reportPost}>report post</button>
+                <Link to="/viewPost"/>
             </div>
         </div>
     );
