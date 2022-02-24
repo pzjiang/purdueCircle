@@ -21,7 +21,7 @@ import '../../styling/Post.scss';
 import Comment from "../objs/Comment";
 import Layout from "../objs/Layout";
 
-const Post = () => {
+const ViewPost = () => {
 
     /*
         title
@@ -181,4 +181,4 @@ const Post = () => {
 }
 
 
-export default Post;
+export default ViewPost;
