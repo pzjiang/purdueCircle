@@ -114,7 +114,7 @@ const Post = props => {
     }
 
     const viewPost = () => {
-        navigate("/viewpost/");
+        navigate(`/viewpost/${id}`);
     }
 
     return (

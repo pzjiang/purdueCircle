@@ -15,6 +15,7 @@ import PrivateRoute from "./PrivateRoute";
 import { useAuthState, useAuthDispatch } from '../contexts/auth';
 import { useUserDispatch } from '../contexts/user';
 import CreatePost from '../components/pages/CreatePost';
+import ViewPost from '../components/pages/ViewPost';
 
 //import NotFound from "../components/NotFound"
 
@@ -50,6 +51,7 @@ const Routing = props => {
                 <Route exact path="/post" element={<CreatePost />} />
                 <Route exact path="/profile" element={<Profile />} />
                 <Route exact path="/editprofile" element={<ProfileEdit />} />
+                <Route exact path="/viewpost/:index" element={<ViewPost />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>

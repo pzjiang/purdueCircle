@@ -8,7 +8,8 @@
      Switch,
      Route,
      Link,
-     useNavigate
+     useNavigate,
+     useParams
  } from "react-router-dom";
  import { useUserState } from "../../contexts/user";
  import authenticationApi from '../../apis/authentication';
@@ -18,6 +19,7 @@
  import postsApi from "../../apis/apiposts";
  import '../../styling/Post.scss';
  import Comment from "../objs/Comment";
+ import Layout from "../objs/Layout";
  
  const Post = props => {
  
@@ -34,7 +36,6 @@
      const [likes, setLikes] = useState(props.likes);
      const [liked, setLiked] = useState(false);
      const [id, setId] = useState(0);
-     const navigate = useNavigate();
      const { index } = useParams();
  
      const { user } = useUserState();
@@ -156,10 +157,12 @@
 
                 <p></p>
 
+                {/*
                 <table class="comments">
-                    <input type="addComment"></input>
-                    <Comment>hello this will be a comment</Comment>
-                </table>
+                    <tr><td><input type="addComment"></input></td></tr>
+                    <tr><td><Comment>hello this will be a comment</Comment></td></tr>
+                </table>*/
+ }
              </div>
          </Layout>
      );
