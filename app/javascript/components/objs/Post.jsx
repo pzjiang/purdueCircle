@@ -113,6 +113,10 @@ const Post = props => {
         console.log("rep post");
     }
 
+    const viewPost = () => {
+        navigate(`/viewpost/${id}`);
+    }
+
     return (
         <div id="post">
             <h1>{title}</h1>
@@ -123,18 +127,17 @@ const Post = props => {
                 <button className="like" onClick={addLike}>
                     <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                 </button>
-                <button className="comment" onClick={deletePost}>
-                    <i className="fa fa-comment" aria-hidden="true"></i> Delete Post
+                <button className="comment" onClick={addComment}>
+                    <i className="fa fa-comment" aria-hidden="true"></i> comment
                 </button>
                 <button className="editButton" onClick={editPost}>Edit Post
-
+                </button>
+                <button className="viewPost" onClick={viewPost}>
+                    view
                 </button>
             </div>
             {/*
             <div className="options">
-                <button className="edit" onClick={editPost}>edit post</button>
-                <button className="delete" onClick={deletePost}>delete post</button>
-                <button className="report" onClick={reportPost}>report post</button>
             </div>
             */}
         </div>

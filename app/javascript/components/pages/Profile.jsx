@@ -150,7 +150,7 @@ const Profile = () => {
             </div>
 
             <div className="postList">
-                {posts.map((post) => (
+                {posts.reverse().map((post) => (
                     <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                 ))}
             </div>
