@@ -12,7 +12,7 @@ import "../../styling/Profile.scss";
 const EditProfile = () => {
 
     const [inputValues, setInputValues] = useState({
-        bio: '', currentpassword: '', password: '', passwordConfirmation: '', old_email: '', new_email: ''
+        bio: '', currentpassword: '', passwordnew: '', passwordConfirmation: '', old_email: '', new_email: '', password: '', email: '', first_name: '', last_name: ''
     });
     const { addToast } = useToasts();
     const { user } = useUserState();
@@ -64,7 +64,6 @@ const EditProfile = () => {
             console.log("successful edit profile");
             navigate("/profile");
             addToast("Password changed successfully", { appearance: 'success', autoDismiss: true });
-
         } catch (error) {
             addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
             if (error.response) {
@@ -80,11 +79,10 @@ const EditProfile = () => {
     const updateEmail = async (event) => {
         event.preventDefault();
         try {
-            await registrationApi.update({ user: { email: inputValues.email, password: inputValues.password } });
+            await registrationApi.update({ id: user.id, user: { id: user.id, email: user.email, password: inputValues.password } });
             console.log("successful edit profile");
             navigate("/profile");
             addToast("Email changed successfully", { appearance: 'success', autoDismiss: true });
-
         } catch (error) {
             addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
             if (error.response) {
@@ -98,15 +96,16 @@ const EditProfile = () => {
     }
 
     const updateName = async (event) => {
+        console.log(user.id);
         event.preventDefault();
         try {
-            await registrationApi.update({ user: { email: user.email, first_name: inputValues.first_name, last_name: inputValues.last_name } });
+            await registrationApi.update({ id: user.id, first_name: inputValues.first_name, last_name: inputValues.last_name, user: { email: user.email, first_name: inputValues.first_name, last_name: inputValues.last_name } });
             console.log("successful edit profile");
-            navigate("/profile");
-            addToast("Email changed successfully", { appearance: 'success', autoDismiss: true });
+            navigate("/");
+            addToast("Name changed successfully", { appearance: 'success', autoDismiss: true });
 
         } catch (error) {
-            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
+            //addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
             if (error.response) {
                 console.log(error.response.data.error);
             } else if (error.request) {
@@ -115,6 +114,7 @@ const EditProfile = () => {
                 console.log("error", error.message);
             }
         }
+
     }
 
     return (
