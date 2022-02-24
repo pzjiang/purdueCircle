@@ -113,7 +113,7 @@ const EditProfile = () => {
             resetAuthTokens();
             console.log("success");
             navigate('/');
-            addToast("Name successfully changed please logged in again!", { appearance: 'success', autoDismissTimeout: 1500, });
+            addToast("Name successfully changed please logged in again!", { appearance: 'success', autoDismiss: true, });
         } catch (error) {
             //addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
             if (error.response) {
@@ -182,19 +182,6 @@ const EditProfile = () => {
                     />
                 </label>
                 <button type="submit" id="submit-button"> Change Name </button>
-            </form>
-            
-            <form onSubmit={updateEmail} id="form">
-                <h3>Change Email:</h3>
-                <label id="password-labels">
-                    <h4>Enter Updated Email: </h4>
-                        <input type="text" placeholder="Email" id="label" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
-                    />
-                    <h4>Enter Your Password: </h4>
-                        <input type="password" placeholder="New Password" id="label" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
-                    />
-                </label>
-                <button type="submit" id="submit-button"> Change Email </button>
             </form>
         </Layout>
     )
