@@ -137,6 +137,8 @@ const Login = () => {
                 <button type="submit"> sign in </button>
             </form>
 
+            <li><Link to='/'>Forgot your password?</Link></li>
+
             <br>
             </br>
 
