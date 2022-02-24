@@ -122,11 +122,21 @@ const Profile = () => {
     return (
         <Layout>
             <div id="profile">
-                <span className="dot"></span>
-                <div id="name">
-                    <h2> {first_name} {last_name}</h2>
-                    <h2> @{username}</h2>
+
+            <h1> My Profile </h1>
+
+            <br />
+
+                <div className="child">
+                    <span className="dot"></span>
                 </div>
+                <div className="child">
+                    <div id="name">
+                        <h2> {first_name} {last_name} </h2>
+                        <h2> @{username}</h2>
+                    </div>
+                </div>
+
                 <br />
                 <br />
                 <h3></h3>
@@ -147,10 +157,10 @@ const Profile = () => {
             <table width="100%">
                 <tr width="100%">
                     <td width="50%">
-                        <button id="same-size-button"><Link to="/editprofile">Edit profile</Link></button>
+                        <button><Link to="/editprofile">Edit Profile</Link></button>
                     </td>
                     <td width="50%">
-                        <button onClick={handleSubmit} if="same-size-button"> Delete Account</button>
+                        <button onClick={handleSubmit}> Delete Account</button>
                     </td>
                 </tr>
             </table>
