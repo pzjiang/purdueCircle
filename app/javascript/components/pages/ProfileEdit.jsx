@@ -48,16 +48,16 @@ const EditProfile = () => {
 
     const editBio = async (event) => {
         <div class="form">
-                <form onSubmit={handleSubmit} id="formBio">
-                    <h3>Change Bio:</h3>
-                    <label>
-                        <br></br>
-                        <textarea value={inputValues.bio} id="label" onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
-                    </label>
+            <form onSubmit={handleSubmit} id="formBio">
+                <h3>Change Bio:</h3>
+                <label>
                     <br></br>
-                    <button><input type="submit" value="Submit" /></button>
+                    <textarea value={inputValues.bio} id="label" onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                </label>
+                <br></br>
+                <button><input type="submit" value="Submit" /></button>
 
-                </form>
+            </form>
         </div>
     }
 
@@ -108,7 +108,7 @@ const EditProfile = () => {
         event.preventDefault();
         try {
             await registrationApi.update({ id: user.id, first_name: inputValues.first_name, last_name: inputValues.last_name, user: { email: user.email, first_name: inputValues.first_name, last_name: inputValues.last_name } });
-            
+
             await authenticationApi.logout();
             authDispatch({ type: 'LOGOUT' });
             resetAuthTokens();
@@ -131,41 +131,42 @@ const EditProfile = () => {
     return (
         <Layout>
             <div className="editProfileForm">
-            <h1 id="edit_h1"> Edit Profile </h1>
+                <h1 id="edit_h1"> Edit Profile </h1>
 
-            <br />
-            <br />
+                <br />
+                <br />
 
-            <h2 id="edit_h2"> Edit Bio </h2>
-            <form id="profileEditForm" onSubmit={handleSubmit}>
-                <label>
-                    <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
-                </label>
-                <button type="submit"> Submit </button>
+                <h2 id="edit_h2"> Edit Bio </h2>
+                <form id="profileEditForm" onSubmit={handleSubmit}>
+                    <label>
+                        <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                    </label>
+                    <button type="submit"> Submit </button>
 
-            </form>
-            
-            <br /> 
-            <br />
-            <h2 id="edit_h2"> Change Password </h2>
-            <form id="profileEditForm" onSubmit={updatePassword}>
-                <label>
-                    <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
-                    />
-                <br></br>
-                    <h4>Enter Your New Password: </h4>
-                    <input type="password" placeholder="New Password" id="label" value={inputValues.passwordnew} onChange={(e) => setInputValues({ ...inputValues, passwordnew: e.target.value })}
-                    />
-                    <br></br>
-                    <h4>Confirm Your New Password: </h4>
-                    <input type="password" placeholder="Confirm Password" id="label" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
-                    />
-                    <br></br>
-                    <br></br>
-                </label>
-                <button type="submit" id="submit-button"> Change Password </button>
-            </form>
+                </form>
 
+                <br />
+                <br />
+                <h2 id="edit_h2"> Change Password </h2>
+                <form id="profileEditForm" onSubmit={updatePassword}>
+                    <label>
+                        <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
+                        />
+                        <br></br>
+                        <h4>Enter Your New Password: </h4>
+                        <input type="password" placeholder="New Password" id="label" value={inputValues.passwordnew} onChange={(e) => setInputValues({ ...inputValues, passwordnew: e.target.value })}
+                        />
+                        <br></br>
+                        <h4>Confirm Your New Password: </h4>
+                        <input type="password" placeholder="Confirm Password" id="label" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
+                        />
+                        <br></br>
+                        <br></br>
+                    </label>
+                    <button type="submit" id="submit-button"> Change Password </button>
+                </form>
+
+                {/*
             <form onSubmit={updateName} id="form">
                 <h3>Change Name:</h3>
                 <label id="password-labels">
@@ -179,6 +180,7 @@ const EditProfile = () => {
                 <button type="submit"> Change Password </button>
 
             </form>
+            */}
             </div>
         </Layout>
     )

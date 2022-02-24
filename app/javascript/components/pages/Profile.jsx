@@ -30,7 +30,7 @@ const Profile = () => {
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
     const [username, setUsername] = useState("");
-    //const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
     const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
@@ -122,9 +122,9 @@ const Profile = () => {
         <Layout>
             <div id="profile">
 
-            <h1> My Profile </h1>
+                <h1> My Profile </h1>
 
-            <br />
+                <br />
 
                 <div className="child">
                     <span className="dot"></span>

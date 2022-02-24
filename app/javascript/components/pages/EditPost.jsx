@@ -50,8 +50,8 @@ const EditPost = () => {
             setTitle(data.post.title);
             setBody(data.post.body);
 
-            console.log("post loaded");
-            addToast("Post changed successfully!", { appearance: 'success', autoDismiss: true });
+            //console.log("post loaded");
+            //addToast("Post changed successfully!", { appearance: 'success', autoDismiss: true });
 
         } catch (error) {
             if (error.response) {
@@ -69,8 +69,9 @@ const EditPost = () => {
         event.preventDefault();
         try {
             await postsApi.editPost({ id: id, post: { title: title, body: body } });
-            console.log("success");
+            //console.log("success");
             navigate("/profile");
+            addToast("Post changed successfully!", { appearance: 'success', autoDismiss: true });
 
         } catch (error) {
             if (error.response) {
