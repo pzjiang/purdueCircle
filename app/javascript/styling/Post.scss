@@ -1,5 +1,7 @@
 @use "style.scss" as s;
 
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+
 body {
   background-color: #eee;
 }
@@ -24,24 +26,31 @@ body {
   }
 
   .reactions {
+    float: right;
+    /*
     position: absolute;
     right: 1em;
     bottom: 1em;
     display: block;
     width: 100%;
     height: auto;
+    */
   }
 
-  button {
-    float: right;
-    display: block;
-    padding: 1% 2%;
-    margin: 0 1em;
-    width: auto;
-    height: auto;
-    color: black;
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 5em;
+  .options {
+    float: left;
+  }
+
+  .small_post_btn {
+    justify-content: center;
+    font-size: 15px;
+    text-align: center;
+    font-family: s.$secondary_font;
+    font-style: bold;
+    background-color: s.$primary;
+    border-radius: 5px;
+    border-color: s.$secondary;
+    color: s.$accent;
+    padding: 8px 14px;
   }
 }

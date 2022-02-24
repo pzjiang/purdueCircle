@@ -8,6 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import registrationApi from '../../apis/registrations';
 
+import '../../styling/ProfileEdit.scss';
 
 import { useAuthDispatch } from "../../contexts/auth";
 import authenticationApi from '../../apis/authentication';
@@ -129,33 +130,27 @@ const EditProfile = () => {
 
     return (
         <Layout>
-            <table width="100%">
-                <tr width="100%">
-                    <td width="50%">
-                        <button onClick={editBio} id="submit-button">Edit Bio</button>
-                    </td>
-                    <td width="50%">
-                        <button onClick={editBio} id="submit-button">Change Password</button>
-                    </td>
-                </tr>
-            </table>
+            <div className="editProfileForm">
+            <h1 id="edit_h1"> Edit Profile </h1>
 
-            <form onSubmit={handleSubmit} id="form">
-                <h3>Change Bio:</h3>
+            <br />
+            <br />
+
+            <h2 id="edit_h2"> Edit Bio </h2>
+            <form id="profileEditForm" onSubmit={handleSubmit}>
                 <label>
-                    <br></br>
-                    <textarea value={inputValues.bio} id="label" onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                    <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
                 </label>
-                <br></br>
-                <button><input type="submit" value="Submit" /></button>
+                <button type="submit"> Submit </button>
 
             </form>
-
-            <form onSubmit={updatePassword} id="form">
-                <h3>Change Password:</h3>
-                <label id="password-labels">
-                    <h4>Enter Your Current Password: </h4>
-                    <input type="password" placeholder="Current Password" id="label" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
+            
+            <br /> 
+            <br />
+            <h2 id="edit_h2"> Change Password </h2>
+            <form id="profileEditForm" onSubmit={updatePassword}>
+                <label>
+                    <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
                     />
                 <br></br>
                     <h4>Enter Your New Password: </h4>
@@ -177,12 +172,14 @@ const EditProfile = () => {
                     <h4>Enter Updated First Name: </h4>
                         <input type="text" placeholder="First Name" id="label" value={inputValues.first_name} onChange={(e) => setInputValues({ ...inputValues, first_name: e.target.value })}
                     />
-                    <h4>Enter Updated Last Name: </h4>
-                        <input type="text" placeholder="Last Name" id="label" value={inputValues.last_name} onChange={(e) => setInputValues({ ...inputValues, last_name: e.target.value })}
+
+                    <input type="password" placeholder="Confirm Password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
                     />
                 </label>
-                <button type="submit" id="submit-button"> Change Name </button>
+                <button type="submit"> Change Password </button>
+
             </form>
+            </div>
         </Layout>
     )
 

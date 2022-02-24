@@ -1,14 +1,10 @@
 @use "style.scss" as s;
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
-
 .Home {
   //position: absolute;
   //top: 0;
   text-align: center;
-  min-height: 100vh;
+ // min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,17 +14,15 @@
 h1 {
   justify-content: center;
   font-size: 80px;
-  font-family: "Roboto Mono", monospace;
+  font-family: s.$primary_font;
   color: s.$secondary;
   text-align: center;
+  margin: 20px;
 }
 
 h2 {
   justify-content: center;
-  font-family: "Kumbh Sans", sans-serif;
-  font-style: italic;
-  font-size: 25px;
-  letter-spacing: 0.13em;
+  font-family: s.$secondary_font;
   font-style: bold;
   text-align: center;
   color: s.$textcolor;

@@ -72,16 +72,14 @@ const Main = () => {
 
     return (
         <Layout>
-            logout button testing
-
-            <br />
+            {/*
             <button onClick={handleSubmit}> Destroy Account</button>
             <Link to='/'>Back home</Link>
+            */}
 
-
-            <h1>Posts</h1>
+            <h1>My Feed</h1>
             <div className="postList">
-                {posts.reverse().map((post) => (
+                {posts.map((post) => (
                     <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                 ))}
             </div>
