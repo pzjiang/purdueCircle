@@ -123,7 +123,7 @@ const Post = props => {
                 <button className="like" onClick={addLike}>
                     <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                 </button>
-                <button className="comment" onClick={deletePost}>
+                <button className="comment" onClick={addComment}>
                     <i className="fa fa-comment" aria-hidden="true"></i> comment
                 </button>
             </div>

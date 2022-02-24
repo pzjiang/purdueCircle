@@ -17,6 +17,7 @@
  import { useToasts } from 'react-toast-notifications';
  import postsApi from "../../apis/apiposts";
  import '../../styling/Post.scss';
+ import Comment from "../objs/Comment";
  
  const Post = props => {
  
@@ -112,26 +113,38 @@
      const reportPost = () => {
          console.log("rep post");
      }
+
+     const isPostOwner = () => {
+         console.log("check post owner");
+         return true;
+     }
  
      return (
          <Layout>
-             <h1>{title}</h1>
-             <div>{body}</div>
- 
-             <p></p>
-             <div className="reactions">
-                 <button className="like" onClick={addLike}>
-                     <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                 </button>
-                 <button className="comment" onClick={deletePost}>
-                     <i className="fa fa-comment" aria-hidden="true"></i> comment
-                 </button>
-             </div>
- 
-             <div className="options">
-                 <button className="edit" onClick={editPost}>edit post</button>
-                 <button className="delete" onClick={deletePost}>delete post</button>
-                 <button className="report" onClick={reportPost}>report post</button>
+            <div class="expandedPost">
+                { isPostOwner &&
+                <div className="options">
+                    <button className="edit" onClick={editPost}>edit post</button>
+                    <button className="delete" onClick={deletePost}>delete post</button>
+                </div>
+                }
+
+                <h1>{title}</h1>
+                <div>{body}</div>
+    
+                <p></p>
+                <div className="reactions">
+                    <button className="like" onClick={addLike}>
+                        <i className="fa fa-heart" aria-hidden="true"></i> {likes}
+                    </button>
+                </div>
+
+                <p></p>
+
+                <table class="comments">
+                    <input type="addComment"></input>
+                    <Comment>hello this will be a comment</Comment>
+                </table>
              </div>
          </Layout>
      );
