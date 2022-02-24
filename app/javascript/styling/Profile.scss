@@ -1,8 +1,7 @@
 @use "style.scss" as s;
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+
 
 .Home {
   text-align: center;
@@ -27,23 +26,30 @@ body {
   color: s.$textcolor;
 }
 
-h1 {
+#profile h1 {
   justify-content: center;
-  font-size: 80px;
-  font-family: "Roboto Mono", monospace;
-  color: s.$textcolor;
+  font-size: 50px;
+  font-family: s.$primary_font;
+  color: s.$secondary;
   text-align: center;
+  margin: 0;
 }
 
-h2 {
-  justify-content: center;
-  font-family: "Kumbh Sans", sans-serif;
-  font-style: italic;
-  font-size: 25px;
-  letter-spacing: 0.13em;
-  font-style: bold;
-  text-align: left;
-  color: s.$textcolor;
+#profile h2 {
+    text-align: left; 
+    font-family: s.$primary_font;
+    font-size: 30px;
+    letter-spacing: normal;
+    font-style: bold;
+    color: s.$textcolor;
+    margin: 0;
+    margin-left: 30px;
+}
+
+#profile h3 {
+  font-family: s.$primary_font;
+  font-size: 24px;
+  letter-spacing: normal;
 }
 
 h4 {
@@ -56,11 +62,7 @@ button {
   text-align: center;
   font-family: "DM Mono", monospace;
   font-style: bold;
-  background-color: s.$primary;
-  border-radius: 5px;
-  border-color: s.$secondary;
   color: s.$textcolor;
-  padding: 10px 19px;
 }
 
 textarea {
@@ -111,17 +113,20 @@ textarea {
 }
 
 .dot {
-    height: 150px;
-    width: 150px;
+    height: 90px;
+    width: 90px;
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
   }
 
-#same-size-button {
-    width: 200px;
-    overflow-wrap: break-word; 
-}
+  .child {
+    display: inline-block;
+  }
+
+  #profile p {
+    font-size: 20px;
+  }
 
 #form {
     text-align: left;
@@ -137,6 +142,5 @@ textarea {
 #submit-button {
     margin: 0 auto;
 }
-
 
 

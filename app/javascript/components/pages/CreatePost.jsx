@@ -88,33 +88,44 @@ const CreatePost = () => {
 
     return (
         <Layout>
-            <div className="topicSelection">Post Topics: <div id="input" contentEditable></div>
+            <div id="createpost">
+            <h1> New Post </h1>
+
+            <br />
+
+            <h2> Topics </h2>
+
+            <div className="topicSelection"> 
+                
+                <center>
+                <div id="input" contentEditable></div>
+                </center>
 
                 <br></br>
 
                 <div className="options">
-                    <button onClick={bold}>Bold</button>
-                    <button onClick={italisize}>Italisize</button>
-                    <button onClick={underscore}>Underscore</button>
-                    <button onClick={strikethrough}>Strikethrough</button>
-                    <button onClick={link}>Link</button>
-                    <input type="file" />
+                    <button id="createPostBtn" onClick={bold}>Bold</button>
+                    <button id="createPostBtn" onClick={italisize}>Italicize</button>
+                    <button id="createPostBtn" onClick={underscore}>Underscore</button>
+                    <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
+                    <button id="createPostBtn" onClick={link}>Link</button>
+                    <input id="createPostBtn" type="file" />
                 </div>
 
                 <br></br>
 
-                <form onSubmit={newPost}>
+                <form id="createPostForm" onSubmit={newPost}>
                     <label>
-                        topic:
+                        Topic:
                         <input type="text" value={inputValues.title} onChange={(e) => setInputValues({ ...inputValues, title: e.target.value })} />
                     </label>
                     <br />
 
                     <label>
-                        Content
+                        Content:
                         <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
                     </label>
-                    <input type="submit" value="Submit" />
+                    <button type="submit"> Submit </button>
 
                 </form>
 
@@ -122,7 +133,10 @@ const CreatePost = () => {
 
             <br></br>
 
+            {/*
             <button onClick={post}>Post</button>
+            */}
+            </div>
 
 
         </Layout>

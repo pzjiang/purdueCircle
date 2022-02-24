@@ -23,22 +23,23 @@ export default () => (
     </h1>
 
     <h2>
-      returning user? sign back in!
+      Welcome to PurdueCircle! <br />
+      Your personal feed is just a few clicks away. <br />
     </h2>
 
     <Link to="/login">
       <button>
-        sign in
+        Sign In
       </button>
     </Link>
 
     <h2>
-      don't have an account? get started!
+      Don't have an account? Get started by signing up today.
     </h2>
 
     <Link to="/signup">
       <button>
-        sign up
+        Sign Up
       </button>
     </Link>
 

@@ -1,12 +1,6 @@
 @use "style.scss" as s;
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
-
-/*
-    add CSS styling for Login.jsx
-*/
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
 
 .Login {
   box-sizing: border-box;
@@ -24,7 +18,6 @@
 }
 
 .Login body {
-  margin: 0;
   background-color: s.$bgcolor;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -38,18 +31,17 @@
 .Login h1 {
   justify-content: center;
   font-size: 60px;
-  font-family: "Roboto Mono", monospace;
-  color: #a1e1f9;
+  font-family: s.$primary_font;
+  color: s.$secondary;
   text-align: center;
   margin: 0;
 }
 
 .Login h2 {
   justify-content: center;
-  font-family: "Kumbh Sans", sans-serif;
-  font-style: italic;
+  font-family: s.$primary_font;
   font-size: 22px;
-  letter-spacing: 0.13em;
+  letter-spacing: normal;
   font-style: bold;
   text-align: center;
   color: s.$textcolor;
@@ -57,17 +49,23 @@
 
 .Login h3 {
   justify-content: center;
-  font-family: "Kumbh Sans", sans-serif;
-  font-style: italic;
+  font-family: s.$primary_font;
   font-size: 18px;
-  letter-spacing: 0.09em;
+  letter-spacing: normal;
   font-style: bold;
   text-align: center;
   color: s.$textcolor;
 }
 
+.Login form {
+  height: 250px;
+  width: 400px;
+  border: solid s.$accent 5px;
+}
+
 .Login label {
-  font-family: "Kumbh Sans", sans-serif;
+  font-size: 20px;
+  letter-spacing: normal;
   display: block;
   text-align: center;
   font-size: 20px;
@@ -75,9 +73,8 @@
 }
 
 .Login input {
-  font-family: "Kumbh Sans", sans-serif;
   display: block;
-  width: 100%;
+  width: 85%;
   padding: 0.5rem 0.8rem 0.5rem 0.8rem;
   margin: 0.9vw 0;
   border: 0;
@@ -89,7 +86,6 @@ button {
   justify-content: center;
   font-size: 18px;
   text-align: center;
-  font-family: "DM Mono", monospace;
   font-style: bold;
   background-color: s.$primary;
   border-radius: 5px;
@@ -98,15 +94,6 @@ button {
   padding: 10px 19px;
 }
 
-#small_button {
-  justify-content: center;
-  font-size: 18px;
-  text-align: center;
-  font-family: "DM Mono", monospace;
-  font-style: bold;
-  background-color: s.$primary;
-  border-radius: 5px;
-  border-color: s.$secondary;
-  color: s.$textcolor;
-  padding: 8px 16px;
+p {
+  font-size: 15px;
 }

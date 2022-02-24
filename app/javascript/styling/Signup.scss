@@ -1,12 +1,6 @@
 @use "style.scss" as s;
 
-@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Kumbh+Sans:wght@300;400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
-
-/*
-    add CSS styling for Signup.jsx
-*/
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
 
 .Signup {
   box-sizing: border-box;
@@ -37,7 +31,7 @@
 .Signup h1 {
   justify-content: center;
   font-size: 60px;
-  font-family: "Roboto Mono", monospace;
+  font-family: s.$primary_font;
   color: s.$secondary;
   text-align: center;
   margin: 0;
@@ -45,10 +39,9 @@
 
 .Signup h2 {
   justify-content: center;
-  font-family: "Kumbh Sans", sans-serif;
-  font-style: italic;
+  font-family: s.$primary_font;
   font-size: 22px;
-  letter-spacing: 0.13em;
+  letter-spacing: normal;
   font-style: bold;
   text-align: center;
   color: s.$textcolor;
@@ -56,17 +49,23 @@
 
 .Signup h3 {
   justify-content: center;
-  font-family: "Kumbh Sans", sans-serif;
-  font-style: italic;
+  font-family: s.$primary_font;
   font-size: 18px;
-  letter-spacing: 0.09em;
+  letter-spacing: normal;
   font-style: bold;
   text-align: center;
   color: s.$textcolor;
 }
 
+.Signup form {
+  height: 270px;
+  width: 700px;
+  border: solid s.$accent 5px;
+}
+
 .Signup label {
-  font-family: "Kumbh Sans", sans-serif;
+  font-size: 20px;
+  letter-spacing: normal;
   display: block;
   text-align: center;
   font-size: 20px;
@@ -74,42 +73,25 @@
 }
 
 .Signup input {
-  justify-content: center;
-  font-family: "Kumbh Sans", sans-serif;
   display: block;
-  width: 89%;
-  padding: 0.5rem 0.6rem 0.5rem 0.8rem;
+  width: 85%;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
   margin: 0.9vw 0;
   border: 0;
   border-radius: 5px;
   font-size: 20px;
 }
 
-/*
 button {
   justify-content: center;
   font-size: 18px;
   text-align: center;
-  font-family: "DM Mono", monospace;
-  font-style: bold;
-  background-color: #1084a6;
-  border-radius: 5px;
-  border-color: #c6e9f3;
-  color: style.$textcolor;
-  padding: 10px 19px;
-}*/
-
-#small_button {
-  justify-content: center;
-  font-size: 18px;
-  text-align: center;
-  font-family: "DM Mono", monospace;
   font-style: bold;
   background-color: s.$primary;
   border-radius: 5px;
   border-color: s.$secondary;
   color: s.$textcolor;
-  padding: 8px 16px;
+  padding: 10px 19px;
 }
 
 .column {
