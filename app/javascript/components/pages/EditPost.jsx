@@ -19,6 +19,7 @@ const EditPost = () => {
     //const [liked, setLiked] = useState(false);
     const [id, setId] = useState(0);
     const navigate = useNavigate();
+    const { addToast } = useToasts();
     const { index } = useParams();
 
 
@@ -50,6 +51,26 @@ const EditPost = () => {
             setBody(data.post.body);
 
             console.log("post loaded");
+            addToast("Post changed successfully!", { appearance: 'success', autoDismiss: true });
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+                addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    };
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            await postsApi.editPost({ id: id, post: { title: title, body: body } });
+            console.log("success");
+            navigate("/profile");
 
         } catch (error) {
             if (error.response) {
@@ -61,10 +82,6 @@ const EditPost = () => {
             }
         }
     };
-
-    const onSubmit = async (event) => {
-        event.preventDefault();
-    }
 
     return (
         <Layout>
@@ -79,6 +96,7 @@ const EditPost = () => {
                     Content
                     <textarea value={body} onChange={(e) => setBody(e.target.value)}></textarea>
                 </label>
+                < br />
                 <input type="submit" value="Submit" />
 
             </form>

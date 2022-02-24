@@ -6,7 +6,7 @@ const showPost = payload => axios.get(`api/v1/posts/${payload.id}/`);
 
 const createPost = payload => axios.post(`api/v1/posts/`, payload);
 
-const editPost = payload => axios.put(`api/v1/updatePost/${payload.id}`, payload);
+const editPost = payload => axios.put(`api/v1/posts/${payload.id}`, payload);
 
 const deletePost = payload => axios.delete(`api/v1/posts/${payload.id}`);
 
