@@ -21,7 +21,8 @@ Rails.application.routes.draw do
       resources :profiles, only: [:show]
 
       put "editprofile", to: "profiles#update"
-      put "likes", to: "posts#increment_likes"
+      put "likes", to: "posts#increment_like"
+      get "likespost/:id/:post_id", to: "profiles#likes_post"
 
       resources :posts, only: [:index, :show,:update,  :create, :destroy]
 

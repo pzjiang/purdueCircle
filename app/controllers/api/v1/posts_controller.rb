@@ -67,18 +67,27 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def increment_like
         
-        @user = current_user
-        @profile = @user.profile
+       
+        @profile = Profile.find_by(user_id: params[:profile_id])
         @profile_found = @post.favorites.find_by(profile_id: @profile.id)
 
         if @profile_found
             @profile_found.destroy
-            @post.likes = @post.likes - 1
+            @post.decrement!(:likes)
+            @post.save!
+            render json: {status: false, likes: @post.likes}, status: 200
         else
-            @new_relation = Favorite.create 
+            @new_relation = Favorite.new 
             @new_relation.profile_id = @profile.id
             @new_relation.post_id = params[:id]
-            @post.likes = @post.likes + 1
+            if @new_relation.save!
+                @post.increment!(:likes)
+                @post.save!
+                render json: {status: true, likes: @post.likes}, status: 200
+            else
+                respond_with_error "failed to save", status:422
+            end
+            
         end
         #@post.likes = @post.likes + 1
         

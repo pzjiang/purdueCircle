@@ -34,13 +34,23 @@ class Api::V1::ProfilesController < Api::V1::BaseController
     end
 
 
+    def likes_post
+      @liked = @profile.favorites.find_by(post_id: params[:post_id])
+      if @liked
+        render json: {status: true}, status:200
+      else
+        render json: {status: false}, status:200
+      end
+    end
+
+
 
 
     private
         def set_profile
             #@profile = current_user.profile
             @profile = Profile.find_by(user_id: params[:id])
-            #puts params[:user_id].to_i
+            #puts params[:id].to_i
             
         end
 

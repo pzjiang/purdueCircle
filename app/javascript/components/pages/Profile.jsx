@@ -64,7 +64,7 @@ const Profile = () => {
             setLastName(user.last_name);
             setUsername(user.username);
             setEmail(user.email);
-            if (user.phone!="") {
+            if (user.phone != "") {
                 setPhone(user.phone);
             }
             setPhone("None Set");
@@ -121,7 +121,7 @@ const Profile = () => {
     return (
         <Layout>
             <div id="profile">
-                <span class="dot"></span>
+                <span className="dot"></span>
                 <div id="name">
                     <h2> {first_name} {last_name}</h2>
                     <h2> @{username}</h2>
@@ -141,7 +141,7 @@ const Profile = () => {
 
             <div className="postList">
                 {posts.map((post) => (
-                    <Post title={post.title} body={post.body} likes={0} liked={false} id={post.id} key={post.id} />
+                    <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                 ))}
             </div>
 
