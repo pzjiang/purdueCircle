@@ -131,14 +131,13 @@ const Post = props => {
                     <i className="fa fa-comment" aria-hidden="true"></i> comment
                 </button>
                 <button className="editButton" onClick={editPost}>Edit Post
-
+                </button>
+                <button className="viewPost" onClick={viewPost}>
+                    view
                 </button>
             </div>
             {/*
             <div className="options">
-            <button className="viewPost" onClick={viewPost}>
-                    view
-                </button>
             </div>
             */}
         </div>
