@@ -8,6 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import registrationApi from '../../apis/registrations';
 
+import '../../styling/ProfileEdit.scss';
 
 
 const EditProfile = () => {
@@ -61,16 +62,25 @@ const EditProfile = () => {
 
     return (
         <Layout>
-            <form onSubmit={handleSubmit}>
+            <div className="editProfileForm">
+            <h1 id="edit_h1"> Edit Profile </h1>
+
+            <br />
+            <br />
+
+            <h2 id="edit_h2"> Edit Bio </h2>
+            <form id="profileEditForm" onSubmit={handleSubmit}>
                 <label>
-                    change bio:
-                    <textarea value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                    <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
                 </label>
-                <input type="submit" value="Submit" />
+                <button type="submit"> Submit </button>
 
             </form>
-
-            <form onSubmit={updatePassword}>
+            
+            <br /> 
+            <br />
+            <h2 id="edit_h2"> Change Password </h2>
+            <form id="profileEditForm" onSubmit={updatePassword}>
                 <label>
                     <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
                     />
@@ -80,11 +90,13 @@ const EditProfile = () => {
                     <input type="password" placeholder="New Password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
                     />
 
-                    <input type="password" placeholder="Confirm password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
+                    <input type="password" placeholder="Confirm Password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
                     />
                 </label>
                 <button type="submit"> Change Password </button>
+
             </form>
+            </div>
         </Layout>
     )
 
