@@ -7,6 +7,12 @@ import { useUserState } from "../../contexts/user";
 import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import registrationApi from '../../apis/registrations';
+
+
+import { useAuthDispatch } from "../../contexts/auth";
+import authenticationApi from '../../apis/authentication';
+import { resetAuthTokens } from "../../apis/axios";
+
 import "../../styling/Profile.scss";
 
 const EditProfile = () => {
@@ -17,6 +23,7 @@ const EditProfile = () => {
     const { addToast } = useToasts();
     const { user } = useUserState();
     const navigate = useNavigate();
+    const authDispatch = useAuthDispatch();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -100,10 +107,13 @@ const EditProfile = () => {
         event.preventDefault();
         try {
             await registrationApi.update({ id: user.id, first_name: inputValues.first_name, last_name: inputValues.last_name, user: { email: user.email, first_name: inputValues.first_name, last_name: inputValues.last_name } });
-            console.log("successful edit profile");
-            navigate("/");
-            addToast("Name changed successfully", { appearance: 'success', autoDismiss: true });
-
+            
+            await authenticationApi.logout();
+            authDispatch({ type: 'LOGOUT' });
+            resetAuthTokens();
+            console.log("success");
+            navigate('/');
+            addToast("Name successfully changed please logged in again!", { appearance: 'success', autoDismissTimeout: 1500, });
         } catch (error) {
             //addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
             if (error.response) {
