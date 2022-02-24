@@ -10,6 +10,7 @@ import Login from "../authentication/Login";
 import Signup from "../authentication/Signup";
 import Topics from "../components/FollowTopics";
 import ProfileEdit from "../components/pages/ProfileEdit";
+import EditPost from "../components/pages/EditPost";
 import Main from "../components/pages/Main";
 import PrivateRoute from "./PrivateRoute";
 import { useAuthState, useAuthDispatch } from '../contexts/auth';
@@ -50,10 +51,11 @@ const Routing = props => {
                 <Route exact path="/post" element={<CreatePost />} />
                 <Route exact path="/profile" element={<Profile />} />
                 <Route exact path="/editprofile" element={<ProfileEdit />} />
+                <Route exact path="/editpost/:index" element={< EditPost />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>
-        </Router>
+        </Router >
     );
 }
 

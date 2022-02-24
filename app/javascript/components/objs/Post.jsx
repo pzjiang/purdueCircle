@@ -91,7 +91,7 @@ const Post = props => {
     };
 
     const editPost = () => {
-        console.log("edit post");
+        navigate(`/editpost/${id}`);
     }
 
     const deletePost = async () => {
@@ -119,22 +119,24 @@ const Post = props => {
             <div>{body}</div>
 
             <p></p>
-            
-                <div className="reactions">
-                    <button className="small_post_btn" onClick={deletePost}>
-                        <i className="fa fa-comment" aria-hidden="true"></i> comment
-                    </button>
-                    <button className="small_post_btn" onClick={addLike}>
-                        <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                    </button>
-                </div>
+            <div className="reactions">
+                <button className="like" onClick={addLike}>
+                    <i className="fa fa-heart" aria-hidden="true"></i> {likes}
+                </button>
+                <button className="comment" onClick={deletePost}>
+                    <i className="fa fa-comment" aria-hidden="true"></i> Delete Post
+                </button>
+                <button className="editButton" onClick={editPost}>Edit Post
 
-                <div className="options">
-                    <button className="small_post_btn" onClick={editPost}>Edit</button>
-                    <button className="small_post_btn" onClick={deletePost}>Delete</button>
-                    <button className="small_post_btn" onClick={reportPost}>Report</button>
-                </div>
-            
+                </button>
+            </div>
+            {/*
+            <div className="options">
+                <button className="edit" onClick={editPost}>edit post</button>
+                <button className="delete" onClick={deletePost}>delete post</button>
+                <button className="report" onClick={reportPost}>report post</button>
+            </div>
+            */}
         </div>
     );
 }

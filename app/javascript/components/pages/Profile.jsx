@@ -21,7 +21,6 @@ import Layout from "../objs/Layout";
 import "../../styling/Profile.scss";
 import Post from "../objs/Post";
 import postsApi from "../../apis/apiposts";
-import "../../styling/CreatePost.scss";
 
 import registrationApi from "../../apis/registrations";
 
@@ -31,7 +30,7 @@ const Profile = () => {
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    //const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
     const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
@@ -143,9 +142,11 @@ const Profile = () => {
                 <h3>Bio</h3>
                 <p> {biol}</p>
                 <h3>Phone</h3>
-                <p> {phone}</p>
+                <p> [ FILTERED ] </p>
                 <h3>Email</h3>
-                <p> {email}</p>
+                <p> [ FILTERED ] </p>
+                <h3>Topics</h3>
+                <p> -- </p>
             </div>
 
             <div className="postList">
