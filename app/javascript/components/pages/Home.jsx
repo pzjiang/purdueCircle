@@ -17,7 +17,7 @@ import {
 export default () => (
 
   <div className="Home">
-    
+
     <h1>
       PurdueCircle
     </h1>

@@ -118,7 +118,7 @@ const Login = () => {
 
             <h2>
                 we're happy to see you back!
-                <br></br> 
+                <br></br>
                 sign in again to explore your favorite topics and interact with others.
             </h2>
 
@@ -146,18 +146,18 @@ const Login = () => {
                 don't have an account yet?
             </h3>
             <Link to="/signup">
-            <button id="small_button">
-                sign up
-            </button>
+                <button id="small_button">
+                    sign up
+                </button>
             </Link>
 
             <h3>
                 want to go back to the main page?
             </h3>
-            <Link to='/'> 
-            <button id="small_button">
-                home
-            </button>
+            <Link to='/'>
+                <button id="small_button">
+                    home
+                </button>
             </Link>
 
         </div>

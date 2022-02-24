@@ -91,7 +91,7 @@ const Post = props => {
     };
 
     const editPost = () => {
-        console.log("edit post");
+        navigate(`/editpost/${id}`);
     }
 
     const deletePost = async () => {
@@ -124,15 +124,19 @@ const Post = props => {
                     <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                 </button>
                 <button className="comment" onClick={deletePost}>
-                    <i className="fa fa-comment" aria-hidden="true"></i> comment
+                    <i className="fa fa-comment" aria-hidden="true"></i> Delete Post
+                </button>
+                <button className="editButton" onClick={editPost}>Edit Post
+
                 </button>
             </div>
-
+            {/*
             <div className="options">
                 <button className="edit" onClick={editPost}>edit post</button>
                 <button className="delete" onClick={deletePost}>delete post</button>
                 <button className="report" onClick={reportPost}>report post</button>
             </div>
+            */}
         </div>
     );
 }
