@@ -37,7 +37,7 @@ const Main = () => {
             const { data } = await postsApi.getPost({ number: numberLoaded });
             //setPosts(data.response);
 
-            console.log(data);
+            //console.log(data);
             setPosts(data.posts);
 
         } catch (error) {
