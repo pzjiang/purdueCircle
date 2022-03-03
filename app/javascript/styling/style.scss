@@ -2,15 +2,15 @@
 
 /* .scss file */
 //$bgcolor: #fff4ec;
-$bgcolor: #F2F3EC;
+$bgcolor: #f2f3ec;
 $primary: #fff;
 $secondary: #8db38b;
 $accent: #04724d;
 //$textcolor: #071e22;
 $textcolor: black;
 $fontsize: 25px;
-$primary_font: 'Work Sans', sans-serif;
-$secondary_font: 'Lato', sans-serif;
+$primary_font: "Work Sans", sans-serif;
+$secondary_font: "Lato", sans-serif;
 
 /* Use the variables */
 body {
@@ -25,7 +25,7 @@ body {
 h1 {
   font-family: $primary_font;
   font-style: normal;
-  color: $accent; 
+  color: $accent;
 }
 
 h2 {
@@ -38,15 +38,27 @@ h2 {
 
 button {
   justify-content: center;
-  font-size: 20px;
+  width: auto;
+  font-size: 1em;
+  padding: 0 20em;
   text-align: center;
   font-family: $secondary_font;
   font-style: bold;
   background-color: $primary;
-  border-radius: 5px;
-  border-color: $secondary;
+  border-radius: 50px;
+  border: 1px solid $accent;
   color: $textcolor;
   padding: 10px 19px;
+}
+
+.button-1 {
+  background-color: $accent;
+  color: $primary;
+}
+
+.button-2 {
+  background-color: $primary;
+  border: 1px solid $accent;
 }
 
 label {
