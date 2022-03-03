@@ -36,6 +36,7 @@ const ViewPost = () => {
     const [body, setBody] = useState();
     const [likes, setLikes] = useState();
     const [liked, setLiked] = useState(false);
+    const [userId, setUserId] = useState();
     const [id, setId] = useState(0);
     //const [profileId, setProfileId] = useState();
     const { index } = useParams();
@@ -80,6 +81,7 @@ const ViewPost = () => {
             setTitle(data.post.title);
             setBody(data.post.body);
             setLikes(data.post.likes);
+            setUserId(data.post.user_id);
             //setProfileId(data.post.profile_id);
             //return data.post.profile_id;
             /*
@@ -201,12 +203,13 @@ const ViewPost = () => {
     return (
         <Layout>
             <div className="expandedPost">
-
-                <div className="options">
-                    <button className="edit" onClick={editPost}>edit post</button>
-                    <button className="delete" onClick={deletePost}>delete post</button>
-                </div>
-
+                {
+                    userId == user.id &&
+                    <div className="options">
+                        <button className="edit" onClick={editPost}>edit post</button>
+                        <button className="delete" onClick={deletePost}>delete post</button>
+                    </div>
+                }
 
                 <h1>{title}</h1>
                 <div>{body}</div>
