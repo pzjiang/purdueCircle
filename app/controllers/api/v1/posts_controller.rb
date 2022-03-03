@@ -29,7 +29,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def retrieve_own
         begin
-            @posts = Post.find_by(user_id: params[:user_id]).last(10)
+            @posts = Post.find_by(user_id: params[:user_id]).last(params[:number])
         rescue
             #respond_with_error "you have no posts of your own", :not_found
         else
