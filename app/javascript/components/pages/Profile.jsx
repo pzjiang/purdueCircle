@@ -33,7 +33,7 @@ const Profile = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
 
-    const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
+    const [posts, setPosts] = useState([]);
 
     const [loaded, setLoaded] = useState(false);
 
@@ -44,7 +44,7 @@ const Profile = () => {
 
     useEffect(() => {
         onLoad();
-    });
+    }, []);
 
     const onLoad = async () => {
         if (loaded == true) {
@@ -53,13 +53,13 @@ const Profile = () => {
         setLoaded(true);
         try {
             const {
-                data: { profile },
+                data
             } = await profileApi.getprofile({ user_id: user.id });
 
-            console.log(profile.user_id);
-            console.log(profile.bio);
-            console.log(user);
-            setBiol(profile.bio);
+            console.log(data.profile.user_id);
+            console.log(data.profile.bio);
+            //console.log(user);
+            setBiol(data.profile.bio);
             setFirstName(user.first_name);
             setLastName(user.last_name);
             setUsername(user.username);

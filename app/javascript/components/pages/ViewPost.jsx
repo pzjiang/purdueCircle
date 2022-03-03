@@ -17,6 +17,7 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
+import profileApi from "../../apis/apiprofile";
 import '../../styling/Post.scss';
 import Comment from "../objs/Comment";
 import Layout from "../objs/Layout";
@@ -36,6 +37,7 @@ const ViewPost = () => {
     const [likes, setLikes] = useState();
     const [liked, setLiked] = useState(false);
     const [id, setId] = useState(0);
+    //const [profileId, setProfileId] = useState();
     const { index } = useParams();
 
     const { user } = useUserState();
@@ -54,6 +56,9 @@ const ViewPost = () => {
         setId(parseInt(index, 10));
 
         onLoad(thisId);
+        //isPostOwner(profileId);
+
+
     }, []);
 
     const onLoad = async (thisId) => {
@@ -75,6 +80,23 @@ const ViewPost = () => {
             setTitle(data.post.title);
             setBody(data.post.body);
             setLikes(data.post.likes);
+            //setProfileId(data.post.profile_id);
+            //return data.post.profile_id;
+            /*
+            const {
+                profiles
+            } = await profileApi.getprofile({ user_id: user.id });
+
+            console.log(profiles);
+            let temp = profiles.profile.id;
+            //console.log(temp);
+            //console.log(profileId);
+            if (temp == data.post.profile_id) {
+                setIsPostOwner(true);
+            }
+            setIsPostOwner(false);
+            */
+            //setIsPostOwner(true);
 
             console.log("post loaded");
 
@@ -120,13 +142,14 @@ const ViewPost = () => {
     };
 
     const editPost = () => {
-        navigate(`editpost/${id}`);
+        navigate(`/editpost/${id}`);
     }
 
     const deletePost = async () => {
         try {
             await postsApi.deletePost({ id: id })
-            console.log("deleted");
+            navigate(`/profile`);
+            //console.log("deleted");
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -142,20 +165,48 @@ const ViewPost = () => {
         console.log("rep post");
     }
 
-    const isPostOwner = () => {
+    /*
+    const isPostOwner = async () => {
         console.log("check post owner");
-        return true;
+        let temp;
+        let thisId = parseInt(index);
+        try {
+            const { data } = await postsApi.showPost({ id: thisId });
+            temp = data.post.profile_id;
+        } catch (error) {
+            console.log(error);
+        }
+        const { data } = await postsApi.showPost({ id: thisId });
+
+        try {
+            const { profile } = await profileApi.getprofile({ user_id: user.id });
+            let profileId = profile.id;
+            console.log(temp);
+
+            if (temp == profileId) {
+
+                return true;
+            }
+            return false;
+        } catch (error) {
+
+            return false;
+        }
+
     }
+    */
+
+
 
     return (
         <Layout>
             <div className="expandedPost">
-                {isPostOwner &&
-                    <div className="options">
-                        <button className="edit" onClick={editPost}>edit post</button>
-                        <button className="delete" onClick={deletePost}>delete post</button>
-                    </div>
-                }
+
+                <div className="options">
+                    <button className="edit" onClick={editPost}>edit post</button>
+                    <button className="delete" onClick={deletePost}>delete post</button>
+                </div>
+
 
                 <h1>{title}</h1>
                 <div>{body}</div>
