@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       put "likes", to: "posts#increment_like"
       get "likespost/:id/:post_id", to: "profiles#likes_post"
       get "posts/:number/index", to: "posts#index"
+      get "savedposts/:id/:number", to: "posts#get_saves"
 
       resources :posts, only: [:show, :update,  :create, :destroy]
 

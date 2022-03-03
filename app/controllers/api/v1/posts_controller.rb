@@ -48,6 +48,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         @user = current_user
         @profile = @user.profile
         @newpost.profile_id = @profile.id
+        @newpost.privacy = false
 
         if @newpost.valid?
             @newpost.save
@@ -130,9 +131,15 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def get_saves
 
-        @user = current_user
+        @user = User.find(params[:id])
         @profile = @user.profile
         @saved = @post.saved_posts.last(params[:number])
+
+
+    end
+
+
+    def change_privacy
 
 
     end
