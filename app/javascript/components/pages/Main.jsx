@@ -24,16 +24,17 @@ const Main = () => {
     const navigate = useNavigate();
     const { addToast } = useToasts();
     const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
+    const [numberLoaded, setNumberLoaded] = useState(4);
 
     useEffect(() => {
         onLoad();
-    }, []);
+    }, [numberLoaded]);
 
     const onLoad = async () => {
         console.log("on load");
 
         try {
-            const { data } = await postsApi.getPost();
+            const { data } = await postsApi.getPost({ number: numberLoaded });
             //setPosts(data.response);
 
             console.log(data);
@@ -52,7 +53,7 @@ const Main = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(user.id);
+        setNumberLoaded(numberLoaded + 4);
         /*
         try {
             await authenticationApi.logout();
@@ -83,6 +84,8 @@ const Main = () => {
                     <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                 ))}
             </div>
+
+            <button onClick={handleSubmit} > Load More</button>
         </Layout>
     )
 

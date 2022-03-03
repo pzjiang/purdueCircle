@@ -7,7 +7,18 @@ class Api::V1::PostsController < Api::V1::BaseController
     skip_after_action :verify_authorized, raise: false
 
     def index
-        @posts = Post.last(10);
+        begin
+            if params[:number]
+                @posts = Post.last(params[:number])
+            else
+                @posts = Post.last(10)
+            end
+        rescue
+            #respond_with_error "there are not posts", :not_found
+        else
+        end
+        
+
         if @posts
             render json: {posts: @posts}
         else
@@ -15,6 +26,21 @@ class Api::V1::PostsController < Api::V1::BaseController
         end
            
     end    
+
+    def retrieve_own
+        begin
+            @posts = Post.find_by(user_id: params[:user_id]).last(10)
+        rescue
+            #respond_with_error "you have no posts of your own", :not_found
+        else
+        end
+
+        if @posts
+            render json: {posts: @posts}
+        else
+            respond_with_error "you have no posts of your own", :not_found
+        end
+    end
 
 
     def create
@@ -120,10 +146,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def post_params
-        params.require(:post).permit(:title, :body, :profile_id)
+        params.require(:post).permit(:title, :body, :profile_id, :user_id)
     end
-
-
-
 
 end

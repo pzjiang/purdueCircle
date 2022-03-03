@@ -81,7 +81,7 @@ const Profile = () => {
         }
 
         try {
-            const { data } = await postsApi.getPost();
+            const { data } = await postsApi.ownPosts({ user_id: user.id, number: 5 });
             //setPosts(data.response);
 
             console.log(data);

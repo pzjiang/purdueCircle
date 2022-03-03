@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable #, authentication_keys: [:login]
 
          has_one :profile, dependent: :destroy
+         has_many :posts, dependent: :destroy
          
   
   before_save :ensure_authentication_token_is_present
