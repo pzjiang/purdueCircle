@@ -56,8 +56,8 @@ const Profile = () => {
                 data
             } = await profileApi.getprofile({ user_id: user.id });
 
-            console.log(data.profile.user_id);
-            console.log(data.profile.bio);
+            //console.log(data.profile.user_id);
+            //console.log(data.profile.bio);
             //console.log(user);
             setBiol(data.profile.bio);
             setFirstName(user.first_name);
@@ -68,7 +68,7 @@ const Profile = () => {
                 setPhone(user.phone);
             }
             setPhone("None Set");
-            console.log("successful display bio");
+            //console.log("successful display bio");
         } catch (error) {
             //console.log(error.response.data.error);
             if (error.response) {

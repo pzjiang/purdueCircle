@@ -17,7 +17,7 @@ import postsApi from "../../apis/apiposts";
 
 const SavedPosts = props => {
     const [id] = useState(0);
-    const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
+    const [posts, setPosts] = useState([]);
     const [numberLoaded, setNumberLoaded] = useState(4);
 
 

@@ -66,7 +66,7 @@ const ViewPost = () => {
         try {
             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: thisId });
             setLiked(data.status);
-            console.log("status retrieved successfully");
+            //console.log("status retrieved successfully");
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -100,7 +100,7 @@ const ViewPost = () => {
             */
             //setIsPostOwner(true);
 
-            console.log("post loaded");
+            //console.log("post loaded");
 
         } catch (error) {
             if (error.response) {
@@ -123,7 +123,7 @@ const ViewPost = () => {
             const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
             setLikes(data.likes);
             setLiked(data.status);
-            console.log("changed");
+            //console.log("changed");
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);

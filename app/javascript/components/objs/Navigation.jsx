@@ -29,12 +29,12 @@ const Navigation = () => {
             await authenticationApi.logout();
             authDispatch({ type: 'LOGOUT' });
             resetAuthTokens();
-            console.log("success");
+            //console.log("success");
             navigate('/');
             addToast("Successfully logged out!", { appearance: 'success', autoDismiss: true });
         } catch (error) {
-            console.log("error found");
-            addToast("Logout failed!", { appearance: 'error', autoDismiss: true });
+            //console.log("error found");
+            //addToast("Logout failed!", { appearance: 'error', autoDismiss: true });
             console.log(error.toString());
         }
 

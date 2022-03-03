@@ -69,7 +69,7 @@ const EditProfile = () => {
         event.preventDefault();
         try {
             await registrationApi.updatePassword({ user: { email: user.email, password: inputValues.passwordnew, password_confirmation: inputValues.passwordConfirmation, current_password: inputValues.currentpassword } });
-            console.log("successful edit profile");
+            //console.log("successful edit profile");
             navigate("/profile");
             addToast("Password changed successfully", { appearance: 'success', autoDismiss: true });
         } catch (error) {
@@ -88,7 +88,7 @@ const EditProfile = () => {
         event.preventDefault();
         try {
             await registrationApi.update({ id: user.id, user: { id: user.id, email: user.email, password: inputValues.password } });
-            console.log("successful edit profile");
+            //console.log("successful edit profile");
             navigate("/profile");
             addToast("Email changed successfully", { appearance: 'success', autoDismiss: true });
         } catch (error) {
@@ -112,7 +112,7 @@ const EditProfile = () => {
             await authenticationApi.logout();
             authDispatch({ type: 'LOGOUT' });
             resetAuthTokens();
-            console.log("success");
+            //console.log("success");
             navigate('/');
             addToast("Name successfully changed please logged in again!", { appearance: 'success', autoDismiss: true, });
         } catch (error) {

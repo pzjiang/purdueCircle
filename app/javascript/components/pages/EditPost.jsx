@@ -29,8 +29,8 @@ const EditPost = () => {
         //let arr = loc.split('/');
         //console.log(arr[2]);
         //console.log(typeof arr[2]);
-        console.log(index);
-        console.log(typeof index);
+        //console.log(index);
+        //console.log(typeof index);
         //console.log(parseInt(arr[2], 10));
         //console.log(parseInt(index, 10));
 

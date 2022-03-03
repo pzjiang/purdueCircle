@@ -64,11 +64,11 @@ const CreatePost = () => {
      * send new post to backend
      */
     const newPost = async (event) => {
-        console.log("creating post");
+        //console.log("creating post");
         event.preventDefault();
         try {
             await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id } });
-            console.log("successful post creation");
+            //console.log("successful post creation");
             navigate("/");
             addToast("posted", { appearance: 'success', autoDismiss: true });
 
