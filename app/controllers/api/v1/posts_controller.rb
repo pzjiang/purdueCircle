@@ -133,7 +133,21 @@ class Api::V1::PostsController < Api::V1::BaseController
 
         @user = User.find(params[:id])
         @profile = @user.profile
-        @saved = @post.saved_posts.last(params[:number])
+        begin
+            @saved = @profile.saved_posts.last(params[:number])
+        rescue
+        else
+        end
+
+        if @saved
+            render json: {saves: @saved}, status: 200
+        else
+            respond_with_error "no saved posts found", :not_found
+        end
+
+    end
+
+    def save_post
 
 
     end

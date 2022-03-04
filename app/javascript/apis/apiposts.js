@@ -16,6 +16,8 @@ const likesPost = payload => axios.get(`api/v1/likespost/${payload.user_id}/${pa
 
 const ownPosts = payload => axios.get(`api/v1/ownposts/`, payload);
 
+const getSaves = payload => axios.get(`api/v1/getsaves/${payload.id}/${payload.number}`);
+
 const postsApi = {
     getPost,
     createPost,

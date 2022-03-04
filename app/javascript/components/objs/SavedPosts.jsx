@@ -15,15 +15,25 @@ import postsApi from "../../apis/apiposts";
 
 
 
-const SavedPosts = props => {
+const SavedPosts = () => {
     const [id] = useState(0);
     const [posts, setPosts] = useState([]);
     const [numberLoaded, setNumberLoaded] = useState(4);
 
+    useEffect(() => {
+
+        onLoad();
+    });
+
+
+    const onLoad = async () => {
+
+    }
+
 
     return (
         <div>
-            Saved posts
+
         </div>
     );
 
