@@ -2,11 +2,20 @@
  * Message UI
  */
 
- const Message = () => { 
+ import React, { useEffect, useState } from "react";
+ import {
+     BrowserRouter as Router,
+     Switch,
+     Route,
+     Link,
+     useNavigate
+ } from "react-router-dom";
+
+ const Message = (props) => { 
 
     return (
-        <div>
-
+        <div class="message">
+            {text}
         </div>
     );
 }

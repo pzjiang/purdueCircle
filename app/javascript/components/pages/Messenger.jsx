@@ -13,13 +13,13 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 
 import Layout from "../objs/Layout";
+import DM from "../objs/DM";
 
 const Messenger = () => {
 
     const authDispatch = useAuthDispatch();
     const navigate = useNavigate();
     const { addToast } = useToasts();
-    const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
 
     useEffect(() => {
         onLoad();
@@ -29,7 +29,11 @@ const Messenger = () => {
         console.log("on load");
 
         try {
-            
+            const { data } = await messagesApi.getMessage();
+            //setPosts(data.response);
+
+            console.log(data);
+            setMessages(data.messages);
 
         } catch (error) {
             if (error.response) {
@@ -45,12 +49,14 @@ const Messenger = () => {
     return (
         <Layout>
 
-            <h1>My Feed</h1>
-            <div className="postList">
-                {posts.reverse().map((post) => (
-                    <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
-                ))}
+            <h1>My Message</h1>
+
+            <div class="DM-list">
+
             </div>
+
+            <DM />
+            
         </Layout>
     )
 
