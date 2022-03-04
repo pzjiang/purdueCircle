@@ -1,7 +1,7 @@
 class Api::V1::PostsController < Api::V1::BaseController
 
     before_action :authenticate_user!
-    before_action :set_post, only: [:update, :show, :destroy, :increment_like] 
+    before_action :set_post, only: [:update, :show, :destroy, :increment_like, :change_save] 
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
@@ -29,7 +29,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def retrieve_own
         begin
-            @posts = Post.find_by(user_id: params[:user_id]).last(params[:number])
+            @posts = Post.where(user_id: params[:user_id]).last(params[:number])
         rescue
             #respond_with_error "you have no posts of your own", :not_found
         else
@@ -121,11 +121,19 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def change_save
-        @user = current_user
+        @user = User.find(params[:user_id])
         @profile = @user.profile
         @profile_found = @post.bookmarks.find_by(profile_id: @profile.id)
 
+        if @profile_found
+            @profile_found.destroy 
+            render json: {destroyed: true}, status: 200
+        else
+            @post.bookmarks.create(profile_id: @profile.id, post_id: @post.id)
+            render json: {destroyed: false}, status: 200
 
+        end
+        
     end
 
 
@@ -144,11 +152,6 @@ class Api::V1::PostsController < Api::V1::BaseController
         else
             respond_with_error "no saved posts found", :not_found
         end
-
-    end
-
-    def save_post
-
 
     end
 

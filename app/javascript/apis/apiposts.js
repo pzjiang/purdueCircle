@@ -14,7 +14,7 @@ const incrementLike = payload => axios.put(`api/v1/likes/`, payload);
 
 const likesPost = payload => axios.get(`api/v1/likespost/${payload.user_id}/${payload.post_id}/`);
 
-const ownPosts = payload => axios.get(`api/v1/ownposts/`, payload);
+const ownPosts = payload => axios.get(`api/v1/ownposts/${payload.user_id}/${payload.number}/`);
 
 const getSaves = payload => axios.get(`api/v1/getsaves/${payload.id}/${payload.number}`);
 
