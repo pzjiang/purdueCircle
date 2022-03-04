@@ -1,7 +1,48 @@
 @use "style.scss" as s;
 
-// Messsenger page
+// Messenger
 
 // DM page
+.dm {
+}
 
-// Message
+// Messages
+.messages {
+  position: absolute;
+  left: 0;
+  top: 30vh;
+  width: 100vw;
+  padding: 0 20%;
+  background-color: white;
+  text-align: left;
+  overflow-y: scroll;
+}
+
+.message {
+  display: block;
+  height: auto;
+  width: 100%;
+  background-color: aquamarine;
+}
+
+.to {
+  min-width: 100px;
+  //max-width: 400px;
+  //float: right;
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 10em;
+}
+
+.from {
+  position: relative;
+  left: 0;
+  min-width: 100px;
+  //max-width: 400px;
+  //float: left;
+  color: #666;
+  background-color: blue;
+  border: none;
+  border-radius: 10em;
+}
