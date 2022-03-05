@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       get "posts/:number/index", to: "posts#index"
       get "savedposts/:id/:number", to: "posts#get_saves"
       post "savepost", to: "posts#change_save"
-      put "changeprivacy/:id", to "profile#change_privacy"
+      put "changeprivacy/:id", to: "profile#change_privacy"
 
       resources :posts, only: [:show, :update,  :create, :destroy]
 
