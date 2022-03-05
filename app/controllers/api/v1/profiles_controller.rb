@@ -43,6 +43,19 @@ class Api::V1::ProfilesController < Api::V1::BaseController
       end
     end
 
+    def change_privacy
+      if @profile
+        if @profile.privacy == false
+          @profile.privacy = true
+        else
+          @profile.privacy = false
+        end
+      else
+        respond_with_error "profile not found", :not_found
+      end
+
+    end
+
 
 
 

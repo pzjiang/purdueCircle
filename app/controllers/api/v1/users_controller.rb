@@ -20,7 +20,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if user.valid?
       sign_in(user)
       #create profile that is associated with user upon user creation
-      @profile = user.create_profile(bio: "", user_id: user.id)
+      @profile = user.create_profile(bio: "", user_id: user.id, privacy: false)
       render json: { user: user, auth_token: user.authentication_token }
     else
       render json: { error: user.errors.full_messages.to_sentence }, status: 422
