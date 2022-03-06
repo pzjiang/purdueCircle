@@ -152,6 +152,7 @@ const ViewPost = () => {
             await postsApi.deletePost({ id: id })
             navigate(`/profile`);
             //console.log("deleted");
+            addToast("Post successfully deleted!", { appearance: 'success', autoDismiss: true, });
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
