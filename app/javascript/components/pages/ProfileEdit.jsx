@@ -33,7 +33,7 @@ const EditProfile = () => {
         setInputValues({ ...inputValues, last_name: user.last_name })
         setInputValues({ ...inputValues, username: user.username })
 
-    });
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
