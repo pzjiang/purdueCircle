@@ -28,12 +28,13 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
 
+
   def update
     if @user.blank?
       respond_with_error "User with id #{params[:id]} not found.", :not_found
 
     elsif @user.update(user_params)
-      render json: @user
+      render json: {user: @user}, status: 200
 
     else
       render json: { error: @user.errors.full_messages.to_sentence }, status: 422

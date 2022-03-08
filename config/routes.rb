@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         post "login" => "sessions#create", as: "login"
         delete "logout" => "sessions#destroy", as: "logout"
         put "password/update", to: "registrations#update_password"
+        put "account/update", to: "registrations#update_account"
       end
 
       resources :users, only: [:show, :create, :update, :destroy]
