@@ -16,7 +16,10 @@ const likesPost = payload => axios.get(`api/v1/likespost/${payload.user_id}/${pa
 
 const ownPosts = payload => axios.get(`api/v1/ownposts/${payload.user_id}/${payload.number}/`);
 
+//note yet finished implementing
 const getSaves = payload => axios.get(`api/v1/getsaves/${payload.id}/${payload.number}/`);
+
+const changePrivacy = payload => axios.put(`api/v1/changeprivacy/${payload.id}/`);
 
 const postsApi = {
     getPost,
@@ -27,6 +30,8 @@ const postsApi = {
     incrementLike,
     likesPost,
     ownPosts,
+    changePrivacy,
+
 
 };
 
