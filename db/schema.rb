@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_05_221120) do
+ActiveRecord::Schema.define(version: 2022_03_09_192143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(version: 2022_03_05_221120) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "posttopics", force: :cascade do |t|
+    t.integer "topic_id"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_posttopics_on_post_id"
+    t.index ["topic_id"], name: "index_posttopics_on_topic_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.text "bio"
     t.datetime "created_at", precision: 6, null: false
@@ -59,6 +68,7 @@ ActiveRecord::Schema.define(version: 2022_03_05_221120) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_topics_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,6 +87,15 @@ ActiveRecord::Schema.define(version: 2022_03_05_221120) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "usertopics", force: :cascade do |t|
+    t.integer "topic_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["topic_id"], name: "index_usertopics_on_topic_id"
+    t.index ["user_id"], name: "index_usertopics_on_user_id"
   end
 
 end
