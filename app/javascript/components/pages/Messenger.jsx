@@ -14,6 +14,7 @@ import { useToasts } from 'react-toast-notifications';
 
 import Layout from "../objs/Layout";
 import DM from "../objs/DM";
+import '../../styling/Messenger.scss';
 
 const Messenger = () => {
 
@@ -49,13 +50,14 @@ const Messenger = () => {
     return (
         <Layout>
 
-            <h1>My Message</h1>
+            <h1>My Messages</h1>
 
-            <div class="DM-list">
+            <div className="DM-list">
 
             </div>
-
-            <DM />
+            <div className="dm">
+                <DM />
+            </div>
             
         </Layout>
     )

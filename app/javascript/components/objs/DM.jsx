@@ -13,6 +13,8 @@
  } from "react-router-dom";
 
 import Message from "./Message";
+import ChatInput from "./ChatInput";
+import '../../styling/Messenger.scss';
 
  const DM = () => { 
 
@@ -41,13 +43,17 @@ import Message from "./Message";
         }
     };
 
+    const sendHandler = async() => {
+
+    }
+
     return (
         <div className="dm">
             <div className="userProfile">
                 other user's info that you're talking to will go header<br></br>
                 insert link to profile as well
             </div>
-            <div className="messages">
+            <div className="messages" id="messageList">
                 {messages.reverse().map((message) => (
                         <Message text={message.text} id={message.id} key={message.id} />
                     ))}
@@ -56,8 +62,8 @@ import Message from "./Message";
                     <Message text="hi there"/>
                     <Message text="how are you doing today"/>
             </div>
-            <div className="sendMessages">
-                <input>send message to other user</input>
+            <div className="chat">
+                <ChatInput onSend={sendHandler} />
             </div>
         </div>
     );
