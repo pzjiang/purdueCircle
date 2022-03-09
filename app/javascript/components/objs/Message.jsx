@@ -15,13 +15,16 @@
  const Message = (props) => { 
 
     const [username, setUsername] = useState("");
-    const [message, setMessage] = useState("");
+    const [body, setBody] = useState("");
 
     /**
      * var to see if the message is from the user, if it is then another css gets applied to it
      */
     //const fromMe = this.props.fromMe ? 'from-me' : '';
-    const fromMe = 'from-me';
+    const fromMe = props.fromMe ? 'from-me' : '';
+
+    const onLoad = async() => {
+    }
 
     return (
         <div className={`message ${fromMe}`}>
@@ -29,7 +32,7 @@
                 { username }
             </div>
             <div className='message-body'>
-                { message }
+                { /*body*/ props.body }
             </div>  
         </div>
     );

@@ -55,15 +55,15 @@ import '../../styling/Messenger.scss';
             </div>
             <div className="messages" id="messageList">
                 {messages.reverse().map((message) => (
-                        <Message text={message.text} id={message.id} key={message.id} />
+                        <Message body={message.body} id={message.id} key={message.id} />
                     ))}
-                    <Message text="fake message one to test"/>
-                    <Message text="hello"/>
-                    <Message text="hi there"/>
-                    <Message text="how are you doing today"/>
+                    <Message fromMe={true} body="fake message one to test how a long message might appear on the ui. it do be important that the text box flexes if there's a big paragraph that is written from one user to another."/>
+                    <Message fromMe={true} body="hello"/>
+                    <Message fromMe={false} body="hi there"/>
+                    <Message fromMe={true} body="how are you doing today"/>
             </div>
             <div className="chat">
-                <ChatInput onSend={sendHandler} />
+                <ChatInput />
             </div>
         </div>
     );
