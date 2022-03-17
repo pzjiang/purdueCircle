@@ -1,10 +1,19 @@
 class Api::V1::PostsController < Api::V1::BaseController
 
     before_action :authenticate_user!
-    before_action :set_post, only: [:update, :show, :destroy, :increment_like, :change_save, :change_privacy] 
+    before_action :set_post, only: [:update, :show, :destroy, :increment_like, :change_save, :change_privacy, :get_topics] 
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
+
+    def topic_name (name)
+        @topic = Topic.find_by(name: name)
+        if @topic
+        else
+            @topic = Topic.create(name: name)
+        end
+
+    end
 
     def index
         begin
@@ -20,12 +29,41 @@ class Api::V1::PostsController < Api::V1::BaseController
         
 
         if @posts
-            render json: {posts: @posts}
+            render json: {posts: @posts} 
         else
             respond_with_error "there are no posts", :not_found
         end
            
     end    
+
+    def add_topic (name, postid)
+        relation = Posttopic.new()
+        topic_name name
+        topic = Topic.find_by(name: name)
+        relation.post_id = postid
+        relation.topic_id = topic.id
+
+    end
+
+    def remove_topic
+        @topic = Topic.find_by(name: params[:name])
+        @relation = Posttopic.where(post_id: params[:post_id]).find_by(@topic.id)
+        if @relation.destroy
+            render json: {}, status: 200
+        else
+            respond_with_error "couldn't delete", :unprocessable_entity
+        end
+    end
+
+
+    def get_topics
+        @topics = @post.topics
+        if @topics
+            render json: {topics: @topics}, status: 200
+        else
+            respond_with_error "there are no topics", :not_found
+        end
+    end
 
     def retrieve_own
         begin
@@ -49,6 +87,12 @@ class Api::V1::PostsController < Api::V1::BaseController
         @profile = @user.profile
         @newpost.profile_id = @profile.id
         @newpost.privacy = false
+
+        if params[:topics]
+            params[:topics].each do |topicname|
+                add_topic topicname, @newpost.id
+            end
+        end
 
         if @newpost.valid?
             @newpost.save
