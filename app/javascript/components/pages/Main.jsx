@@ -23,7 +23,7 @@ const Main = () => {
     const authDispatch = useAuthDispatch();
     const navigate = useNavigate();
     const { addToast } = useToasts();
-    const [posts, setPosts] = useState([{ title: "title", body: "test body", id: 1 }]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         onLoad();
