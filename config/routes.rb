@@ -21,16 +21,27 @@ Rails.application.routes.draw do
 
       resources :profiles, only: [:show]
 
+      #edit profile
       put "editprofile", to: "profiles#update"
+
+      #get only your own posts
       get "ownposts/:user_id/:number", to: "posts#retrieve_own"
+      
+      #dealing with liking posts
       put "likes", to: "posts#increment_like"
       get "likespost/:id/:post_id", to: "profiles#likes_post"
       get "posts/:number/index", to: "posts#index"
+      
+      #saving posts implementations
       get "savedposts/:id/:number", to: "posts#get_saves"
       post "savepost", to: "posts#change_save"
+
+      #changing privacy settings
       put "changeprivacy/:id", to: "profile#change_privacy"
 
       resources :posts, only: [:show, :update,  :create, :destroy]
+
+      #topics routes
 
       
       

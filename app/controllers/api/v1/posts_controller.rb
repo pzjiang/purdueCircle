@@ -45,16 +45,6 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     end
 
-    def remove_topic
-        @topic = Topic.find_by(name: params[:name])
-        @relation = Posttopic.where(post_id: params[:post_id]).find_by(@topic.id)
-        if @relation.destroy
-            render json: {}, status: 200
-        else
-            respond_with_error "couldn't delete", :unprocessable_entity
-        end
-    end
-
 
     def get_topics
         @topics = @post.topics

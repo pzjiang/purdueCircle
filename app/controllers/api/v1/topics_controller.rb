@@ -38,6 +38,10 @@ class Api::V1::TopicsController < Api::V1::BaseController
 
     end
 
+    def remove_topic
+
+    end
+
 
     def delete_all_topics
         #created solely for database clearing purposes / testing
