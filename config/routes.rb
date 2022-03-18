@@ -26,6 +26,10 @@ Rails.application.routes.draw do
 
       resources :posts, only: [:index, :show,:update,  :create, :destroy]
 
+      #message api routes
+      get "messages/:origin_id/:target_id", to: "messages#get_messages"
+      put "sendmessage", to: "messages#send_message"
+
       
       
     end
