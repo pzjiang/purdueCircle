@@ -119,6 +119,7 @@ const ViewPost = () => {
         try {
             const { data } = await topicsApi.pullTopics({ post_id: holdid });
             console.log(data.topics);
+            setTopics(data.topics);
 
         } catch (error) {
             if (error.response) {
@@ -235,7 +236,14 @@ const ViewPost = () => {
                 <h1>{title}</h1>
                 <div>{body}</div>
 
-                <p></p>
+
+                <p>Topics</p>
+
+                {topics.map((topic) => (
+                    <div>{topic} </div>
+
+                ))}
+
                 <div className="reactions">
                     <button className="like" onClick={addLike}>
                         <i className="fa fa-heart" aria-hidden="true"></i> {likes}
