@@ -26,6 +26,8 @@ const CreatePost = () => {
         title: '',
         body: '',
     });
+    const [topics, setTopics] = useState([]);
+    const [curTopic, setCurTopic] = useState("");
     const { addToast } = useToasts();
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -56,8 +58,33 @@ const CreatePost = () => {
         console.log("link");
     }
 
+    /*not needed function
     const post = async (event) => {
         console.log("posted");
+    }
+    */
+
+    //add topic to the list
+    const topicSubmit = (event) => {
+        event.preventDefault();
+        if (curTopic == "") {
+            return;
+        }
+        topics.forEach((topic) => {
+            if (topic == curTopic) {
+                return;
+            }
+        })
+        setTopics([...topics, { name: curTopic, id: curTopic }]);
+        setCurTopic("");
+    }
+
+    const removeTopic = (param) => {
+
+        console.log(param);
+        const newList = topics.filter((item) => item.id !== param);
+        setTopics(newList);
+
     }
 
     /**
@@ -99,8 +126,20 @@ const CreatePost = () => {
                 <div className="topicSelection">
 
                     <center>
-                        <div id="input" contentEditable></div>
+                        <form id="topicinput" onSubmit={topicSubmit}>
+                            <input type="text" value={curTopic} onChange={(e) => setCurTopic(e.target.value)} />
+                            <br></br>
+                            <button type="submit"> Submit </button>
+                        </form>
                     </center>
+
+                    <br></br>
+                    {topics.map((topic) => (
+                        <div>
+                            <button onClick={() => removeTopic(topic.id)}> {topic.name}</button>
+                            <br></br>
+                        </div>
+                    ))}
 
                     <br></br>
 
@@ -117,7 +156,7 @@ const CreatePost = () => {
 
                     <form id="createPostForm" onSubmit={newPost}>
                         <label>
-                            Topic:
+                            Title:
                             <input type="text" value={inputValues.title} onChange={(e) => setInputValues({ ...inputValues, title: e.target.value })} />
                         </label>
                         <br />

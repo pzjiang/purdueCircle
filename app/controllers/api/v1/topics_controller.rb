@@ -1,7 +1,7 @@
 class Api::V1::TopicsController < Api::V1::BaseController
     
     before_action :authenticate_user!
-    before_action :set_topic
+    before_action :set_topic, only: [:pull_posts]
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
 
@@ -39,7 +39,7 @@ class Api::V1::TopicsController < Api::V1::BaseController
     end
 
     def remove_topic
-
+        
     end
 
 
