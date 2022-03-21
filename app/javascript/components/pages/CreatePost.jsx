@@ -74,7 +74,7 @@ const CreatePost = () => {
             if (topic == curTopic) {
                 return;
             }
-        })
+        });
         setTopics([...topics, { name: curTopic, id: curTopic }]);
         setCurTopic("");
     }
@@ -93,8 +93,15 @@ const CreatePost = () => {
     const newPost = async (event) => {
         //console.log("creating post");
         event.preventDefault();
+
+        //create string list of topics to pass into api request
+        const topicList = [];
+        topics.forEach((topic) => {
+            topicList.push(topic.name);
+        });
+
         try {
-            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id } });
+            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: topicList });
             //console.log("successful post creation");
             navigate("/");
             addToast("posted", { appearance: 'success', autoDismiss: true });
