@@ -1,7 +1,8 @@
 class Api::V1::TopicsController < Api::V1::BaseController
     
     before_action :authenticate_user!
-    before_action :set_topic, only: [:pull_posts]
+    #before_action :set_topic, only: [:pull_posts]
+    skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
 
@@ -21,8 +22,22 @@ class Api::V1::TopicsController < Api::V1::BaseController
         end
     end
 
+    def post_topics
+        @post = Post.find(params[:post_id])
+        if @post
+            @topics = @post.topics.all
+            @returned = []
+            @topics.each {|element| @returned.append(element.name) }
+
+            render json: {topics: @returned}, status: 200
+        else
+            respond_with_error "post does not exist", :not_found
+        end
+    end
+
 
     def pull_posts
+        @topic = Topic.find_by(name: params[:name])
         begin
             if params[:number]
                 @posts = @topic.posts.last(params[:number])
@@ -58,8 +73,5 @@ class Api::V1::TopicsController < Api::V1::BaseController
   
     private
     
-    def set_topic
-        @topic = Topic.find_by(name: params[:name])
-    end
-      
+   
   end

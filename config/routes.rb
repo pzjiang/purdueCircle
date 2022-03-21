@@ -42,7 +42,8 @@ Rails.application.routes.draw do
       resources :posts, only: [:show, :update,  :create, :destroy]
 
       #topics routes
-
+      get "topicspull/:number/:name", to: "topics#pull_posts"
+      get "topics/post/:post_id", to: "topics#post_topics"
       
       
     end

@@ -3,9 +3,9 @@ class Post < ApplicationRecord
     belongs_to :user
     has_many :bookmarks, dependent: :destroy
     has_many :favorites, dependent: :destroy
-    has_many :likers, through: :favorites, source: :profiles
+    has_many :likers, through: :favorites, source: :profile
     has_many :posttopics, dependent: :destroy
-    has_many :topics, through: :posttopics, source: :topics
+    has_many :topics, :through => :posttopics, :source => :topic
     validates :title, length: {in: 0...100}
     validates :body, length: {in: 0...500}
     after_initialize :init

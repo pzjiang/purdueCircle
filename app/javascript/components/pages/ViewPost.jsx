@@ -18,6 +18,7 @@ import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
 import profileApi from "../../apis/apiprofile";
+import topicsApi from "../../apis/apitopics";
 import '../../styling/Post.scss';
 import Comment from "../objs/Comment";
 import Layout from "../objs/Layout";
@@ -40,6 +41,7 @@ const ViewPost = () => {
     const [id, setId] = useState(0);
     //const [profileId, setProfileId] = useState();
     const { index } = useParams();
+    const [topics, setTopics] = useState([]);
 
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -63,6 +65,7 @@ const ViewPost = () => {
     }, []);
 
     const onLoad = async (thisId) => {
+        let holdid = 0;
         try {
             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: thisId });
             setLiked(data.status);
@@ -82,6 +85,7 @@ const ViewPost = () => {
             setBody(data.post.body);
             setLikes(data.post.likes);
             setUserId(data.post.user_id);
+            holdid = data.post.id;
             //setProfileId(data.post.profile_id);
             //return data.post.profile_id;
             /*
@@ -111,6 +115,22 @@ const ViewPost = () => {
                 console.log("error", error.message);
             }
         }
+        //get topics
+        try {
+            const { data } = await topicsApi.pullTopics({ post_id: holdid });
+            console.log(data.topics);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+
     };
 
     /**

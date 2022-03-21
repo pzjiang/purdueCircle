@@ -39,9 +39,8 @@ class Api::V1::PostsController < Api::V1::BaseController
     def add_topic (name, postid)
         relation = Posttopic.new()
         topic_name name
-        topic = Topic.find_by(name: name)
-        relation.post_id = postid
-        relation.topic_id = topic.id
+        relation = Posttopic.new(post_id: postid, topic_id: @topic.id)
+        relation.save!
 
     end
 
@@ -78,14 +77,15 @@ class Api::V1::PostsController < Api::V1::BaseController
         @newpost.profile_id = @profile.id
         @newpost.privacy = false
 
-        if params[:topics]
-            params[:topics].each do |topicname|
-                add_topic topicname, @newpost.id
-            end
-        end
+        
 
         if @newpost.valid?
             @newpost.save
+            if params[:topics]
+                params[:topics].each do |topicname|
+                    add_topic topicname, @newpost.id
+                end
+            end
             render json: {post: @newpost}, status: 200
         else
             render json: {error: @newpost.errors.full_messages.to_sentence}, status: 422
