@@ -1,6 +1,9 @@
 import React from 'react';
 
 const Search = () => (
+
+
+
     <form action="/" method="get">
         <label htmlFor="header-search">
             <span className="visually-hidden">Search PurdueCircle</span>
@@ -9,7 +12,7 @@ const Search = () => (
             type="text"
             id="header-search"
             placeholder="Search PurdueCircle"
-            name="s" 
+            name="s"
         />
         <button type="submit">Search</button>
     </form>

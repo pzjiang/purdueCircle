@@ -42,6 +42,10 @@ const ViewPost = () => {
     //const [profileId, setProfileId] = useState();
     const { index } = useParams();
     const [topics, setTopics] = useState([]);
+    const [updated, setUpdated] = useState();
+    const [privacy, setPrivacy] = useState(false);
+    const [authorUser, setAuthorUser] = useState();
+
 
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -65,7 +69,7 @@ const ViewPost = () => {
     }, []);
 
     const onLoad = async (thisId) => {
-        let holdid = 0;
+        let holdid = -1;
         try {
             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: thisId });
             setLiked(data.status);
@@ -85,6 +89,11 @@ const ViewPost = () => {
             setBody(data.post.body);
             setLikes(data.post.likes);
             setUserId(data.post.user_id);
+            //TODO
+            //parse updated so it is more human readable.
+            setUpdated(data.post.updated_at);
+            setPrivacy(data.post.privacy);
+            setAuthorUser(data.author);
             holdid = data.post.id;
             //setProfileId(data.post.profile_id);
             //return data.post.profile_id;
@@ -117,6 +126,9 @@ const ViewPost = () => {
         }
         //get topics
         try {
+            if (holdid == -1) {
+                return;
+            }
             const { data } = await topicsApi.pullTopics({ post_id: holdid });
             console.log(data.topics);
             setTopics(data.topics);
@@ -134,11 +146,30 @@ const ViewPost = () => {
 
     };
 
+    /*
+     * user who owns the post changes the privacy setting
+    */
+
+    const changePrivacy = async () => {
+        try {
+            const { data } = await postsApi.changePrivacy({ id: id });
+            setPrivacy(data.privacy);
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
     /**
      * user likes the post
      */
     const addLike = async () => {
-        console.log("like clicked");
+        //console.log("like clicked");
 
         try {
             const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
@@ -230,6 +261,9 @@ const ViewPost = () => {
                     <div className="options">
                         <button className="edit" onClick={editPost}>edit post</button>
                         <button className="delete" onClick={deletePost}>delete post</button>
+                        <br></br>
+                        <button className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
+                        current privacy: {privacy && <p>private</p>} {privacy == false && <p>public</p>}
                     </div>
                 }
 
@@ -243,6 +277,21 @@ const ViewPost = () => {
                     <div>{topic} </div>
 
                 ))}
+
+                <br></br>
+                <p>Last updated: {updated}</p>
+
+
+                {privacy &&
+                    <p>Redacted</p>
+                }
+                {privacy == false &&
+                    <p>
+                        {authorUser}
+                    </p>
+                }
+
+
 
                 <div className="reactions">
                     <button className="like" onClick={addLike}>

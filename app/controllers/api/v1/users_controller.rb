@@ -14,6 +14,30 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+
+  def discover_users_name
+    @searchparam = '%' + params[:name] + '%'
+    begin
+      @users = User.where('first_name LIKE ?', @searchparam).last(params[:number])
+      @moreusers = User.where('last_name LIKE ?', @searchparam).last(params[:number])
+    rescue
+    else
+    end
+    @returned  = @users + @moreusers
+    render json: {users: @returned}, status: 200
+  end
+
+
+
+  def find_user
+    @user = User.find_by(username: params[:username])
+    if @user
+      render json: @user
+    else
+      respond_with_error "user does not exist", :not_found
+    end
+  end
+
   def create
     user = User.create user_params
 

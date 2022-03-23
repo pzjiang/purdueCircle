@@ -77,8 +77,6 @@ class Api::V1::PostsController < Api::V1::BaseController
         @newpost.profile_id = @profile.id
         @newpost.privacy = false
 
-        
-
         if @newpost.valid?
             @newpost.save
             if params[:topics]
@@ -108,7 +106,9 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def show
         if @post
-            render json: {post: @post}, status: 200
+            @author = User.find(@post.user_id)
+            @returned = @author.username
+            render json: {post: @post, author: @returned}, status: 200
         else
             respond_with_error "no posts found", :not_found
         end
@@ -197,7 +197,7 @@ class Api::V1::PostsController < Api::V1::BaseController
             @post.privacy = true
         end
 
-
+        render json: {privacy: @post.privacy}, status: 200
     end
 
 
