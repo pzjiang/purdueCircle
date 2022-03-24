@@ -19,6 +19,7 @@ import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
 import profileApi from "../../apis/apiprofile";
 import topicsApi from "../../apis/apitopics";
+import commentsApi from "../../apis/apicomments";
 import '../../styling/Post.scss';
 import Comment from "../objs/Comment";
 import Layout from "../objs/Layout";
@@ -45,6 +46,7 @@ const ViewPost = () => {
     const [updated, setUpdated] = useState();
     const [privacy, setPrivacy] = useState(false);
     const [authorUser, setAuthorUser] = useState();
+    const [comments, setComments] = useState([]);
 
 
     const { user } = useUserState();
@@ -143,6 +145,25 @@ const ViewPost = () => {
             }
         }
 
+        //get comments
+        try {
+            if (holdid == -1) {
+                return;
+            }
+            const { data } = await commentsApi.showComments({ post_id: holdid });
+            setComments(data.comments);
+
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
 
     };
 
@@ -188,7 +209,7 @@ const ViewPost = () => {
     }
 
     const addComment = () => {
-        console.log("add comment")
+
     };
 
     const savePost = () => {
@@ -216,40 +237,11 @@ const ViewPost = () => {
         }
     }
 
+
+
     const reportPost = () => {
         console.log("rep post");
     }
-
-    /*
-    const isPostOwner = async () => {
-        console.log("check post owner");
-        let temp;
-        let thisId = parseInt(index);
-        try {
-            const { data } = await postsApi.showPost({ id: thisId });
-            temp = data.post.profile_id;
-        } catch (error) {
-            console.log(error);
-        }
-        const { data } = await postsApi.showPost({ id: thisId });
-
-        try {
-            const { profile } = await profileApi.getprofile({ user_id: user.id });
-            let profileId = profile.id;
-            console.log(temp);
-
-            if (temp == profileId) {
-
-                return true;
-            }
-            return false;
-        } catch (error) {
-
-            return false;
-        }
-
-    }
-    */
 
 
 
@@ -302,11 +294,15 @@ const ViewPost = () => {
                 <p></p>
 
                 {/*
-                <table class="comments">
-                    <tr><td><input type="addComment"></input></td></tr>
-                    <tr><td><Comment>hello this will be a comment</Comment></td></tr>
-                </table>*/
+                    add in an input field to create comments
+                */
                 }
+
+
+
+                {comments.map((comment) => (
+                    <Comment author={comment.author} body={comment.body}></Comment>
+                ))}
             </div>
         </Layout>
     );

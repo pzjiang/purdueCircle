@@ -14,7 +14,9 @@ const Comment = props => {
 
     return (
         <div>
-
+            {props.author}
+            <br></br>
+            {props.body}
         </div>
     );
 }

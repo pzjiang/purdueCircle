@@ -6,7 +6,9 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
 
     def add_comment
-        @comment = Comment.new(user_id: params[:user_id], post_id: params[:post_id], body: params[:body])
+        @user = User.find(params[:user_id])
+
+        @comment = Comment.new(user_id: params[:user_id], post_id: params[:post_id], body: params[:body], author: @user.username)
         if @comment.save!
             render json: @comment, status: 200
         else
