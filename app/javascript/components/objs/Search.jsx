@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 
-const Search = () => (
+const Search = () => {
 
+    const [searchValue, setSearchValue] = useState();
 
+    const handleSearch = () => {
 
-    <form action="/" method="get">
-        <label htmlFor="header-search">
-            <span className="visually-hidden">Search PurdueCircle</span>
-        </label>
-        <input
-            type="text"
-            id="header-search"
-            placeholder="Search PurdueCircle"
-            name="s"
-        />
-        <button type="submit">Search</button>
-    </form>
-);
+    }
+
+    return (
+
+        <form onSubmit={handleSearch} action="/" method="get">
+            <label htmlFor="header-search">
+                <span className="visually-hidden">Search PurdueCircle</span>
+            </label>
+            <input
+                type="text"
+                id="header-search"
+                placeholder="Search PurdueCircle"
+                name="s"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+            />
+            <button type="submit">Search</button>
+        </form>
+    )
+}
 
 export default Search;

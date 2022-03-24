@@ -12,14 +12,21 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
-import Layout from "../objs/Layout.jsx";
+import Layout from "./Layout.jsx";
 
 
 
 
-const DiscoverUsers = () => {
+const DiscoverUsers = props => {
 
 
+
+
+    return (
+        <div>
+
+        </div>
+    )
 }
 
 

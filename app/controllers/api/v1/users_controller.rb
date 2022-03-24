@@ -19,6 +19,10 @@ class Api::V1::UsersController < Api::V1::BaseController
     @searchparam = '%' + params[:name] + '%'
     begin
       @users = User.where('first_name LIKE ?', @searchparam).last(params[:number])
+    rescue
+    else
+    end
+    begin
       @moreusers = User.where('last_name LIKE ?', @searchparam).last(params[:number])
     rescue
     else
@@ -40,7 +44,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def create
     user = User.create user_params
-
     if user.valid?
       sign_in(user)
       #create profile that is associated with user upon user creation
