@@ -2,7 +2,7 @@
  * Comment UI
  */
 
- const Comment = () => { 
+const Comment = props => {
 
     const tagUser = () => {
 
@@ -11,7 +11,7 @@
     const deleteComment = () => {
 
     };
- 
+
     return (
         <div>
 

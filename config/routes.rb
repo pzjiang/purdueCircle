@@ -44,6 +44,13 @@ Rails.application.routes.draw do
       #topics routes
       get "topicspull/:number/:name", to: "topics#pull_posts"
       get "topics/post/:post_id", to: "topics#post_topics"
+
+      #comment routes for show, delete, and add
+
+      delete "comments/:id", to: "comments#remove_comment"
+      get "comments/:post_id", to: "comments#show_comments"
+      put "comments", to: "comments#add_comment"
+
       
       
     end

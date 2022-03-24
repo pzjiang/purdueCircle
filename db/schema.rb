@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_230126) do
+ActiveRecord::Schema.define(version: 2022_03_24_200406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,26 @@ ActiveRecord::Schema.define(version: 2022_03_17_230126) do
     t.integer "post_id"
     t.index ["post_id"], name: "index_bookmarks_on_post_id"
     t.index ["profile_id"], name: "index_bookmarks_on_profile_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "convos", force: :cascade do |t|
+    t.integer "first_user_id"
+    t.integer "sec_user_id"
+    t.integer "message_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["first_user_id"], name: "index_convos_on_first_user_id"
+    t.index ["sec_user_id"], name: "index_convos_on_sec_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -39,6 +59,8 @@ ActiveRecord::Schema.define(version: 2022_03_17_230126) do
     t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "convo_id"
+    t.index ["convo_id"], name: "index_messages_on_convo_id"
     t.index ["origin_id"], name: "index_messages_on_origin_id"
     t.index ["target_id"], name: "index_messages_on_target_id"
   end
