@@ -10,7 +10,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
         @comment = Comment.new(user_id: params[:user_id], post_id: params[:post_id], body: params[:body], author: @user.username)
         if @comment.save!
-            render json: @comment, status: 200
+            render json: {comment: @comment}, status: 200
         else
             respond_with_error "comment could not be added", status: 404
         end

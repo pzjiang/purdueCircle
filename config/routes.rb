@@ -47,7 +47,7 @@ Rails.application.routes.draw do
 
       #comment routes for show, delete, and add
 
-      delete "comments/:id", to: "comments#remove_comment"
+      delete "delcomments/:id", to: "comments#remove_comment"
       get "comments/:post_id", to: "comments#show_comments"
       put "comments", to: "comments#add_comment"
 

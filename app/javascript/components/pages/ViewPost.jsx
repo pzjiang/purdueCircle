@@ -47,6 +47,7 @@ const ViewPost = () => {
     const [privacy, setPrivacy] = useState(false);
     const [authorUser, setAuthorUser] = useState();
     const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState();
 
 
     const { user } = useUserState();
@@ -132,7 +133,7 @@ const ViewPost = () => {
                 return;
             }
             const { data } = await topicsApi.pullTopics({ post_id: holdid });
-            console.log(data.topics);
+            //console.log(data.topics);
             setTopics(data.topics);
 
         } catch (error) {
@@ -189,9 +190,9 @@ const ViewPost = () => {
     /**
      * user likes the post
      */
-    const addLike = async () => {
+    const addLike = async (event) => {
         //console.log("like clicked");
-
+        event.preventDefault();
         try {
             const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
             setLikes(data.likes);
@@ -208,8 +209,22 @@ const ViewPost = () => {
         }
     }
 
-    const addComment = () => {
+    const addComment = async (event) => {
+        event.preventDefault();
 
+        try {
+            const { data } = await commentsApi.addComment({ user_id: user.id, body: newComment, post_id: id });
+            setComments([...comments, data.comment]);
+            setNewComment("");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     };
 
     const savePost = () => {
@@ -226,6 +241,23 @@ const ViewPost = () => {
             navigate(`/profile`);
             //console.log("deleted");
             addToast("Post successfully deleted!", { appearance: 'success', autoDismiss: true, });
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
+    const removeComment = async (comment_id) => {
+        try {
+            await commentsApi.deleteComment({ id: comment_id });
+            const newList = comments.filter((item) => item.id !== comment_id);
+            setComments(newList);
+
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -284,7 +316,10 @@ const ViewPost = () => {
                 }
 
 
-
+                {comments.map((comment) => (
+                    <Comment author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
+                ))}
+                <br></br>
                 <div className="reactions">
                     <button className="like" onClick={addLike}>
                         <i className="fa fa-heart" aria-hidden="true"></i> {likes}
@@ -297,12 +332,12 @@ const ViewPost = () => {
                     add in an input field to create comments
                 */
                 }
+                <form onSubmit={addComment}>
+                    <textarea value={newComment} placeholder="newComment" onChange={(e) => setNewComment(e.target.value)}></textarea>
+                    <button value="submit">New Comment</button>
 
+                </form>
 
-
-                {comments.map((comment) => (
-                    <Comment author={comment.author} body={comment.body}></Comment>
-                ))}
             </div>
         </Layout>
     );

@@ -81,7 +81,7 @@ const CreatePost = () => {
 
     const removeTopic = (param) => {
 
-        console.log(param);
+        //console.log(param);
         const newList = topics.filter((item) => item.id !== param);
         setTopics(newList);
 

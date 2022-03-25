@@ -1,8 +1,11 @@
 /**
  * Comment UI
  */
+import React, { useEffect, useState } from "react";
 
 const Comment = props => {
+
+
 
     const tagUser = () => {
 
@@ -14,9 +17,10 @@ const Comment = props => {
 
     return (
         <div>
-            {props.author}
-            <br></br>
+
             {props.body}
+            <br></br>
+            {props.author} <button onClick={() => props.removeMethod(props.id)}>Delete</button>
         </div>
     );
 }
