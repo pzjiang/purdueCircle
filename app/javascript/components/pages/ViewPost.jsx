@@ -19,6 +19,7 @@ import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
 import profileApi from "../../apis/apiprofile";
 import topicsApi from "../../apis/apitopics";
+import commentsApi from "../../apis/apicomments";
 import '../../styling/Post.scss';
 import Comment from "../objs/Comment";
 import Layout from "../objs/Layout";
@@ -45,6 +46,8 @@ const ViewPost = () => {
     const [updated, setUpdated] = useState();
     const [privacy, setPrivacy] = useState(false);
     const [authorUser, setAuthorUser] = useState();
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState();
 
 
     const { user } = useUserState();
@@ -130,8 +133,27 @@ const ViewPost = () => {
                 return;
             }
             const { data } = await topicsApi.pullTopics({ post_id: holdid });
-            console.log(data.topics);
+            //console.log(data.topics);
             setTopics(data.topics);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+        //get comments
+        try {
+            if (holdid == -1) {
+                return;
+            }
+            const { data } = await commentsApi.showComments({ post_id: holdid });
+            setComments(data.comments);
+
 
         } catch (error) {
             if (error.response) {
@@ -168,9 +190,9 @@ const ViewPost = () => {
     /**
      * user likes the post
      */
-    const addLike = async () => {
+    const addLike = async (event) => {
         //console.log("like clicked");
-
+        event.preventDefault();
         try {
             const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
             setLikes(data.likes);
@@ -187,8 +209,22 @@ const ViewPost = () => {
         }
     }
 
-    const addComment = () => {
-        console.log("add comment")
+    const addComment = async (event) => {
+        event.preventDefault();
+
+        try {
+            const { data } = await commentsApi.addComment({ user_id: user.id, body: newComment, post_id: id });
+            setComments([...comments, data.comment]);
+            setNewComment("");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     };
 
     const savePost = () => {
@@ -216,40 +252,28 @@ const ViewPost = () => {
         }
     }
 
+    const removeComment = async (comment_id) => {
+        try {
+            await commentsApi.deleteComment({ id: comment_id });
+            const newList = comments.filter((item) => item.id !== comment_id);
+            setComments(newList);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
+
+
     const reportPost = () => {
         console.log("rep post");
     }
-
-    /*
-    const isPostOwner = async () => {
-        console.log("check post owner");
-        let temp;
-        let thisId = parseInt(index);
-        try {
-            const { data } = await postsApi.showPost({ id: thisId });
-            temp = data.post.profile_id;
-        } catch (error) {
-            console.log(error);
-        }
-        const { data } = await postsApi.showPost({ id: thisId });
-
-        try {
-            const { profile } = await profileApi.getprofile({ user_id: user.id });
-            let profileId = profile.id;
-            console.log(temp);
-
-            if (temp == profileId) {
-
-                return true;
-            }
-            return false;
-        } catch (error) {
-
-            return false;
-        }
-
-    }
-    */
 
 
 
@@ -292,7 +316,10 @@ const ViewPost = () => {
                 }
 
 
-
+                {comments.map((comment) => (
+                    <Comment author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
+                ))}
+                <br></br>
                 <div className="reactions">
                     <button className="like" onClick={addLike}>
                         <i className="fa fa-heart" aria-hidden="true"></i> {likes}
@@ -302,11 +329,15 @@ const ViewPost = () => {
                 <p></p>
 
                 {/*
-                <table class="comments">
-                    <tr><td><input type="addComment"></input></td></tr>
-                    <tr><td><Comment>hello this will be a comment</Comment></td></tr>
-                </table>*/
+                    add in an input field to create comments
+                */
                 }
+                <form onSubmit={addComment}>
+                    <textarea value={newComment} placeholder="newComment" onChange={(e) => setNewComment(e.target.value)}></textarea>
+                    <button value="submit">New Comment</button>
+
+                </form>
+
             </div>
         </Layout>
     );

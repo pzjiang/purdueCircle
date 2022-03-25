@@ -189,6 +189,12 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     end
 
+    #get liked posts
+    def get_liked
+
+
+    end
+
 
     def change_privacy
         if @post.privacy
