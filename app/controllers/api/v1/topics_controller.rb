@@ -12,6 +12,16 @@ class Api::V1::TopicsController < Api::V1::BaseController
         render json: {topics: @topics}, status: 200
     end
 
+    def discover_topics
+        @topics = Topic.where('name LIKE ?', params[:name]).all
+
+        if @topics
+            render json: {topics: @topics}, status: 200
+        else
+            respond_with_error "no topics found", :not_found
+        end
+    end
+
 
     def create
         @topic = Topic.new(name: params[:name])

@@ -19,7 +19,11 @@ const ownPosts = payload => axios.get(`api/v1/ownposts/${payload.user_id}/${payl
 //note yet finished implementing
 const getSaves = payload => axios.get(`api/v1/getsaves/${payload.id}/${payload.number}/`);
 
+//change the privacy setting of the post
 const changePrivacy = payload => axios.put(`api/v1/changeprivacy/${payload.id}/`);
+
+//search the title of posts for a "search" pattern
+const discoverPosts = payload => axios.get(`api/v1/postsdiscover/${payload.number}/${payload.search}`);
 
 const postsApi = {
     getPost,

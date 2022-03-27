@@ -15,6 +15,10 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     end
 
+    def discover_posts
+
+    end
+
     def index
         begin
             if params[:number]
@@ -202,8 +206,12 @@ class Api::V1::PostsController < Api::V1::BaseController
         else
             @post.privacy = true
         end
-
-        render json: {privacy: @post.privacy}, status: 200
+        
+        if @post.save!
+            render json: {privacy: @post.privacy}, status: 200
+        else
+            respond_with_error "couldn't change privacy setting", status: 404
+        end
     end
 
 

@@ -11,16 +11,13 @@ import authenticationApi from '../../apis/authentication';
 import { useAuthDispatch } from "../../contexts/auth";
 import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
-import postsApi from "../../apis/apiposts";
+import userApi from "../../apis/apiusers";
 import Layout from "./Layout.jsx";
 
 
 
 
 const DiscoverUsers = props => {
-
-
-
 
     return (
         <div>

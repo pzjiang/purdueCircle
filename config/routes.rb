@@ -31,19 +31,25 @@ Rails.application.routes.draw do
       put "likes", to: "posts#increment_like"
       get "likespost/:id/:post_id", to: "profiles#likes_post"
       get "posts/:number/index", to: "posts#index"
+      #discover posts 
+      get "postsdiscover/:number/:search", to: "posts#discover_posts"
       
       #saving posts implementations
       get "savedposts/:id/:number", to: "posts#get_saves"
       post "savepost", to: "posts#change_save"
 
-      #changing privacy settings
-      put "changeprivacy/:id", to: "profile#change_privacy"
+      #changing privacy settings for a post
+      put "changeprivacy/:id", to: "posts#change_privacy"
 
       resources :posts, only: [:show, :update,  :create, :destroy]
 
       #topics routes
+      #pull posts according to name, and the number of posts wanted
       get "topicspull/:number/:name", to: "topics#pull_posts"
+      #pull the topics that a post possesses
       get "topics/post/:post_id", to: "topics#post_topics"
+      #discover topics through searching
+      get "topicsdiscover/:name", to: "topics#discover_topics"
 
       #comment routes for show, delete, and add
 
@@ -51,7 +57,11 @@ Rails.application.routes.draw do
       get "comments/:post_id", to: "comments#show_comments"
       put "comments", to: "comments#add_comment"
 
-      
+      #advanced routes for users, searching users
+      #search for users that contain the given name sequence in their names, or their usernames
+      get "usersearch/:name/:number", to: "users#discover_users_name"
+      #find a specific user by username
+      get "userfind/:name", to: "users#find_user"
       
     end
   end
