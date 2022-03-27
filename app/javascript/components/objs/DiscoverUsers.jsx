@@ -21,7 +21,10 @@ const DiscoverUsers = props => {
 
     return (
         <div>
-
+            User name:
+            {props.firstname} {props.lastname}
+            user username:
+            {props.username}
         </div>
     )
 }

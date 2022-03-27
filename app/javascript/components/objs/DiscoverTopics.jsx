@@ -19,8 +19,9 @@ const DiscoverTopics = props => {
 
     return (
         <div>
-
-        </div>
+            Topic Name:
+            <Link to="/"> {props.name} </Link>
+        </div >
     )
 }
 

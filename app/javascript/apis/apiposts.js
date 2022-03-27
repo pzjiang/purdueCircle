@@ -23,7 +23,7 @@ const getSaves = payload => axios.get(`api/v1/getsaves/${payload.id}/${payload.n
 const changePrivacy = payload => axios.put(`api/v1/changeprivacy/${payload.id}/`);
 
 //search the title of posts for a "search" pattern
-const discoverPosts = payload => axios.get(`api/v1/postsdiscover/${payload.number}/${payload.search}`);
+const discoverPosts = payload => axios.get(`api/v1/postsdiscover/${payload.name}/${payload.number}`);
 
 const postsApi = {
     getPost,
@@ -35,6 +35,7 @@ const postsApi = {
     likesPost,
     ownPosts,
     changePrivacy,
+    discoverPosts,
 
 
 };

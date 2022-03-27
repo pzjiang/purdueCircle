@@ -13,8 +13,6 @@ import {
 } from "react-router-dom";
 import { useUserState } from "../../contexts/user";
 import authenticationApi from '../../apis/authentication';
-import { useAuthDispatch } from "../../contexts/auth";
-import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
 import profileApi from "../../apis/apiprofile";
@@ -53,7 +51,6 @@ const ViewPost = () => {
     const { user } = useUserState();
     const navigate = useNavigate();
     const { addToast } = useToasts();
-    const authDispatch = useAuthDispatch();
 
     useEffect(() => {
 
@@ -164,6 +161,7 @@ const ViewPost = () => {
                 console.log("error", error.message);
             }
         }
+
 
 
     };

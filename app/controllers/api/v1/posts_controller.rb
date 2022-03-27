@@ -16,6 +16,19 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def discover_posts
+        @searchparam = "%" + params[:search] + "%"
+        begin
+            @posts = Post.where('title LIKE ?', @searchparam).last(params[:number])
+        rescue
+            respond_with_error "no post found with error", :not_found
+        else
+        end
+
+        if @posts
+            render json: {posts: @posts}, status: 200
+        else
+            respond_with_error "no post found", :not_found
+        end
 
     end
 

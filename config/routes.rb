@@ -32,7 +32,7 @@ Rails.application.routes.draw do
       get "likespost/:id/:post_id", to: "profiles#likes_post"
       get "posts/:number/index", to: "posts#index"
       #discover posts 
-      get "postsdiscover/:number/:search", to: "posts#discover_posts"
+      get "postsdiscover/:search/:number", to: "posts#discover_posts"
       
       #saving posts implementations
       get "savedposts/:id/:number", to: "posts#get_saves"
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
       #pull the topics that a post possesses
       get "topics/post/:post_id", to: "topics#post_topics"
       #discover topics through searching
-      get "topicsdiscover/:name", to: "topics#discover_topics"
+      get "topicsdiscover/:name/:number", to: "topics#discover_topics"
 
       #comment routes for show, delete, and add
 

@@ -44,7 +44,8 @@ const Navigation = () => {
         <div id="nav">
             <ul>
                 <li><Link to='../../'>PurdueCircle</Link></li>
-                <li><Search /></li>
+                {/*<li><Search /></li>*/}
+                <li><Link to='/discovery'>Discover</Link></li>
                 <li><Link to='/post'> New Post</Link></li>
                 <li><Link to='/profile'>Profile</Link></li>
                 <li><button onClick={handleSubmit}> Logout </button></li>

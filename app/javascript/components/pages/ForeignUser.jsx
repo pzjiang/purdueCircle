@@ -3,14 +3,21 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    useNavigate,
+    useParams
 } from "react-router-dom";
 
 
-export default () => (
+const ForeignUser = () => {
 
-    <div>
-        temp tester for logged in page
-    </div >
 
-)
+
+    return (
+        <div>
+
+        </div>
+    )
+}
+
+export default ForeignUser;
