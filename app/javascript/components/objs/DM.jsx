@@ -10,7 +10,7 @@
      Route,
      Link,
      useNavigate,
-     useParams
+     useParams, 
  } from "react-router-dom";
 import { useUserState } from "../../contexts/user";
 import Message from "./Message";
@@ -22,6 +22,7 @@ import '../../styling/Messenger.scss';
 
     const [messages, setMessages] = useState();
     const { user } = useUserState();
+    const { index } = useParams();
     const msgFromMe = false;
 
     useEffect(() => {

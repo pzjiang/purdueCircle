@@ -5,7 +5,8 @@ import {
     Switch,
     Route,
     Link,
-    useNavigate
+    useNavigate, 
+    useParams,
 } from "react-router-dom";
 import postsApi from "../../apis/apiposts";
 import { resetAuthTokens } from "../../apis/axios";
@@ -17,16 +18,19 @@ import Conversations from "../objs/Converations";
 import Users from "../objs/User";
 import '../../styling/Messenger.scss';
 import messagesApi from "../../apis/apimessages";
-import { Link } from "react-router-dom";
 
 const Messenger = () => {
 
     const authDispatch = useAuthDispatch();
     const navigate = useNavigate();
     const { addToast } = useToasts();
-    const convos = null;
+    const { index } = useParams();
+    const [convos, setConvos] = useState([]);
+    const [newUserDM, setNewUserDM] = useState("");
 
     useEffect(() => {
+        console.log(index);
+        console.log(typeof index);
 
         if (isNaN(index) == true) {
             navigate("/notfound");
@@ -44,7 +48,7 @@ const Messenger = () => {
 
         try {
             const { data } = await messagesApi.getConvos({ user_id: thisId });
-            convos = data.response;
+            setConvos(data.convos);
 
             console.log(data);
 
@@ -60,7 +64,7 @@ const Messenger = () => {
     }
 
     const viewDM = () => {
-        navigate(`/dm/${id}`)
+        navigate(`/dm/${id}`);
     }
 
     const hasUnread = async () => {
@@ -70,17 +74,30 @@ const Messenger = () => {
         return false;
     }
 
+    const createConvo = async() => {
+        messagesApi.createConvo();
+        viewDM();
+    }
+
     return (
         <Layout>
 
             <h1>My Messages</h1>
+
+            <div className="newConvo">
+                <form onSubmit={createConvo}>
+                    <label>Start DM with: 
+                        <input type="text" value={newUserDM} onChange={(e) => setNewUserDM(e.target.value)}/>
+                    </label>
+                </form>
+            </div>
 
             <div className="convo-list">
                 {convos.map((convo) => (
                     <div id="convo">
                         <p>{convo.sec_user_id}</p>
                         <p>Last message: </p>
-                        <p>{ hasUnread() && 
+                        <p>{ hasUnread && 
                             <p>New messages from {convo.sec_user}</p>
                         }</p>
                         <Button onClick={viewDM}>View DM</Button>

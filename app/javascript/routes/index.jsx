@@ -18,6 +18,7 @@ import { useUserDispatch } from '../contexts/user';
 import CreatePost from '../components/pages/CreatePost';
 import ViewPost from '../components/pages/ViewPost';
 import Messenger from '../components/pages/Messenger';
+import DM from '../components/objs/DM';
 
 //import NotFound from "../components/NotFound"
 
