@@ -9,28 +9,40 @@
      Switch,
      Route,
      Link,
-     useNavigate
+     useNavigate,
+     useParams
  } from "react-router-dom";
-
+import { useUserState } from "../../contexts/user";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
+import messagesApi from "../../apis/apimessages";
 import '../../styling/Messenger.scss';
 
- const DM = () => { 
+ const DM = (props) => { 
 
-    const [messages, setMessages] = useState([{ text: "text", id: 1 }]);
+    const [messages, setMessages] = useState();
+    const { user } = useUserState();
+    const msgFromMe = false;
 
     useEffect(() => {
-        onLoad();
+
+        if (isNaN(index) == true) {
+            navigate("/notfound");
+            return;
+        }
+        let thisId = parseInt(index, 10);
+        setId(parseInt(index, 10));
+
+        onLoad(thisId);
+
     }, []);
 
     const onLoad = async () => {
         try {
-            const { data } = await messagesApi.getMessage();
-            //setPosts(data.response);
+            const { data } = await messagesApi.getMessages({ convo_id: thisId });
+            setMessages(data.response);
 
             console.log(data);
-            setMessages(data.messages);
             
         } catch (error) {
             if (error.response) {
@@ -45,17 +57,26 @@ import '../../styling/Messenger.scss';
 
     const sendHandler = async() => {
 
+        
+    }
+
+    const backToConvos = async() => {
+        Navigate(`/messenger/`)
     }
 
     return (
+        <Layout>
         <div className="dm">
+            <button onClick={backToConvos()}>back</button>
             <div className="userProfile">
                 other user's info that you're talking to will go header<br></br>
                 insert link to profile as well
             </div>
             <div className="messages" id="messageList">
-                {messages.reverse().map((message) => (
-                        <Message body={message.body} id={message.id} key={message.id} />
+                {messages.map((message) => (
+                        <Message fromMe={ message.origin_id == user.id } 
+                            body={message.body} 
+                            id={message.id} key={message.id} />
                     ))}
                     <Message fromMe={true} body="fake message one to test how a long message might appear on the ui. it do be important that the text box flexes if there's a big paragraph that is written from one user to another."/>
                     <Message fromMe={true} body="hello"/>
@@ -66,6 +87,7 @@ import '../../styling/Messenger.scss';
                 <ChatInput />
             </div>
         </div>
+        </Layout>
     );
 }
 

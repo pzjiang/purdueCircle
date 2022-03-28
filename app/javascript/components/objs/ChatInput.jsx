@@ -11,6 +11,7 @@ import authenticationApi from '../../apis/authentication';
 import { useAuthDispatch } from "../../contexts/auth";
 import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
+import messagesApi from "../../apis/apimessages";
 
 const ChatInput = (props) => {
 
@@ -22,9 +23,10 @@ const ChatInput = (props) => {
         console.log("new chat");
         event.preventDefault();
         try {
+            await messagesApi.sendMessage({ message: { body: inputValues.body } });
+            navigate("/");
             console.log("success probably");
         } catch (error) {
-            //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
             if (error.response) {
                 console.log(error.response.data.error);
             } else if (error.request) {
@@ -39,8 +41,8 @@ const ChatInput = (props) => {
     return (
         <form className="chat-input" onSubmit={newChat}>
         <input type="text"
-          value={inputValues.message}
-          onChange={(e) => setInputValues({ ...inputValues, message: e.target.value })}
+          value={inputValues.body}
+          onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}
           placeholder="Write a message..."
           required />
       </form>
