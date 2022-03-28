@@ -3,6 +3,8 @@
  */
 import React, { useEffect, useState } from "react";
 
+import '../../styling/Comment.scss';
+
 const Comment = props => {
 
 
@@ -17,10 +19,9 @@ const Comment = props => {
 
     return (
         <div>
-
-            {props.body}
+            <p>{props.author}:</p> {props.body}
             <br></br>
-            {props.author} <button onClick={() => props.removeMethod(props.id)}>Delete</button>
+            <button id="delete_comment_btn" onClick={() => props.removeMethod(props.id)}>Delete</button>
         </div>
     );
 }
