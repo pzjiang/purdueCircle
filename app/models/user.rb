@@ -10,6 +10,7 @@ class User < ApplicationRecord
          
   
   before_save :ensure_authentication_token_is_present
+  after_initialize :init
 
   
   validates_uniqueness_of :username
@@ -22,6 +23,10 @@ class User < ApplicationRecord
 
 
   private
+
+    def init
+      self.privacy ||= false
+    end
 
     def send_devise_notification(notification, *args)
       devise_mailer.send(notification, self, *args).deliver_later(queue: "devise_email")

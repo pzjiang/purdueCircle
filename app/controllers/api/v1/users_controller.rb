@@ -1,7 +1,7 @@
 class Api::V1::UsersController < Api::V1::BaseController
   skip_before_action :authenticate_user!, only: [:create]
   skip_before_action :authenticate_user_using_x_auth_token, only: [:create]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :change_privacy]
   before_action :authenticate_user!, only: [:update]
   skip_before_action :verify_authenticity_token, raise: false
   skip_after_action :verify_authorized, raise: false
@@ -34,9 +34,9 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
   def find_user
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:name])
     if @user
-      render json: @user
+      render json: @user, status: 200
     else
       respond_with_error "user does not exist", :not_found
     end
@@ -80,6 +80,21 @@ class Api::V1::UsersController < Api::V1::BaseController
       render json: { error: @user.errors.full_messages.to_sentence }, status: 422
     end
   end
+
+  def change_privacy
+    #use put
+    if @user.privacy
+      @user.privacy = false
+    else
+      @user.privacy=true
+    end
+    if @user.save!
+      render json: {user: @user}, status: 200
+    else
+      respond_with_error "couldn't change the privacy of the user", status: 404
+    end
+  end
+
 
   private
 

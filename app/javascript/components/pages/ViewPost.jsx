@@ -315,7 +315,7 @@ const ViewPost = () => {
 
 
                 {comments.map((comment) => (
-                    <Comment author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
+                    <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
                 ))}
                 <br></br>
                 <div className="reactions">

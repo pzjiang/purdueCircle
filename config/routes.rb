@@ -62,6 +62,8 @@ Rails.application.routes.draw do
       get "usersearch/:name/:number", to: "users#discover_users_name"
       #find a specific user by username
       get "userfind/:name", to: "users#find_user"
+      #privacy chaing for users
+      put "userprivacy/:id", to: "users#change_privacy"
       
     end
   end

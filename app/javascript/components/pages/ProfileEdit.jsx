@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import profileApi from '../../apis/apiprofile';
-import { useUserState } from "../../contexts/user";
+import { useUserDispatch, useUserState } from "../../contexts/user";
 import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import registrationApi from '../../apis/registrations';
@@ -11,10 +11,14 @@ import registrationApi from '../../apis/registrations';
 import '../../styling/ProfileEdit.scss';
 
 import { useAuthDispatch } from "../../contexts/auth";
+//import { useUserDispatch } from '../../contexts/user';
 import authenticationApi from '../../apis/authentication';
 import { resetAuthTokens } from "../../apis/axios";
 
 import "../../styling/Profile.scss";
+
+import userApi from '../../apis/apiusers';
+
 
 const EditProfile = () => {
 
@@ -25,6 +29,7 @@ const EditProfile = () => {
     const { user } = useUserState();
     const navigate = useNavigate();
     const authDispatch = useAuthDispatch();
+    const userDispatch = useUserDispatch();
 
 
     useEffect(() => {
@@ -55,6 +60,28 @@ const EditProfile = () => {
         }
     }
 
+    const changePrivacy = async (event) => {
+        event.preventDefault();
+
+        try {
+            const { data } = await userApi.changePrivacy({ id: user.id });
+
+            userDispatch({ type: 'SET_USER', payload: { user: data.user } });
+            //console.log(data.user);
+            navigate("/profile");
+            addToast(`changed privacy setting successfully`, { appearance: 'success', autoDismiss: true });
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
     /*
     const editBio = async (event) => {
         <div class="form">
@@ -66,11 +93,11 @@ const EditProfile = () => {
                 </label>
                 <br></br>
                 <button><input type="submit" value="Submit" /></button>
-
+    
             </form>
         </div>
     }
-
+    
     const editPassword = async (event) => {
         console.log("edit Password");
     }
@@ -178,6 +205,10 @@ const EditProfile = () => {
                     </label>
                     <button type="submit" id="submit-button"> Change Password </button>
                 </form>
+
+                <br></br>
+
+                <button onClick={changePrivacy}> Change privacy </button>
 
                 {/*
             <form onSubmit={updateName} id="form">

@@ -34,10 +34,10 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("starting values");
-        console.log(inputValues.email);
-        console.log(inputValues.password);
-        console.log("end values");
+        //console.log("starting values");
+        //console.log(inputValues.email);
+        //console.log(inputValues.password);
+        //console.log("end values");
 
         try {
             setLoading(true);

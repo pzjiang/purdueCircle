@@ -146,7 +146,9 @@ const DiscoveryPage = props => {
             <br></br>
             {searchState == "users" &&
                 users.map((user) => (
+                    user.privacy &&
                     <DiscoverUsers firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
+
                 ))
             }
 

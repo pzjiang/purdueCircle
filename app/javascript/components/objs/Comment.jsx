@@ -20,7 +20,7 @@ const Comment = props => {
 
             {props.body}
             <br></br>
-            {props.author} <button onClick={() => props.removeMethod(props.id)}>Delete</button>
+            {props.author} {props.ownComment && <button onClick={() => props.removeMethod(props.id)}>Delete</button>}
         </div>
     );
 }
