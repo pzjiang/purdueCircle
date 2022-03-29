@@ -19,6 +19,7 @@ import profileApi from "../../apis/apiprofile";
 import topicsApi from "../../apis/apitopics";
 import commentsApi from "../../apis/apicomments";
 import '../../styling/Post.scss';
+import '../../styling/ViewPost.scss';
 import Comment from "../objs/Comment";
 import Layout from "../objs/Layout";
 
@@ -278,62 +279,83 @@ const ViewPost = () => {
     return (
         <Layout>
             <div className="expandedPost">
+            <h1>{title}</h1>
+            <br></br>
+            <br></br>
+
                 {
                     userId == user.id &&
                     <div className="options">
-                        <button className="edit" onClick={editPost}>edit post</button>
-                        <button className="delete" onClick={deletePost}>delete post</button>
+                        <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
+                        <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
+                        <button id="small_post_btn" className="like" onClick={addLike}>
+                                <i className="fa fa-heart" aria-hidden="true"></i> {likes}
+                        </button>
+                        
                         <br></br>
-                        <button className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
-                        current privacy: {privacy && <p>private</p>} {privacy == false && <p>public</p>}
+                        <br></br>
+
+                        
+
                     </div>
                 }
 
-                <h1>{title}</h1>
-                <div>{body}</div>
+                <form id="post_box_form">
 
-
-                <p>Topics</p>
-
+                <div className="column">
+                <br></br>
+            
+                <h3> Post Content:</h3>
+                <div>
+                    <p>{body}</p>
+                </div>
+            
+                <h3>Topics:</h3>
                 {topics.map((topic) => (
-                    <div>{topic} </div>
-
+                    <div><p>{topic} </p></div>
                 ))}
 
-                <br></br>
-                <p>Last updated: {updated}</p>
-
+                <h3>Last Updated: </h3>
+                <p>{updated}</p>
 
                 {privacy &&
-                    <p>Redacted</p>
+                    <p>
+                        &nbsp; [redacted]
+                    </p>
                 }
                 {privacy == false &&
                     <p>
-                        {authorUser}
+                        &nbsp; ({authorUser})
                     </p>
                 }
 
+                <h3>Current Privacy:</h3> {privacy && <p>Private</p>} {privacy == false && <p>Public</p>}
+                <br></br>
+                <br></br>
+                <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
 
+                </div>
+
+                
+
+                <div className="column">
+                <br></br>
+                <h3> Comments: </h3>
                 {comments.map((comment) => (
                     <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
                 ))}
-                <br></br>
-                <div className="reactions">
-                    <button className="like" onClick={addLike}>
-                        <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                    </button>
                 </div>
 
-                <p></p>
+                </form>
+            
 
                 {/*
                     add in an input field to create comments
                 */
                 }
                 <form onSubmit={addComment}>
-                    <textarea value={newComment} placeholder="newComment" onChange={(e) => setNewComment(e.target.value)}></textarea>
-                    <button value="submit">New Comment</button>
-
+                    <textarea value={newComment} placeholder="enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
+                    <button type="submit" id="regular_btn"> Comment </button>
                 </form>
 
             </div>

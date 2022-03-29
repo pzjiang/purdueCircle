@@ -135,7 +135,7 @@ const CreatePost = () => {
                     <center>
                         <form id="topicinput" onSubmit={topicSubmit}>
                             <input type="text" value={curTopic} onChange={(e) => setCurTopic(e.target.value)} />
-                            <br></br>
+                            
                             <button type="submit"> Submit </button>
                         </form>
                     </center>
