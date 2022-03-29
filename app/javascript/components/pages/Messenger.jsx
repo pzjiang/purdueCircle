@@ -24,22 +24,12 @@ const Messenger = () => {
     const authDispatch = useAuthDispatch();
     const navigate = useNavigate();
     const { addToast } = useToasts();
-    const { index } = useParams();
+    //const { index } = useParams();
     const [convos, setConvos] = useState([]);
     const [newUserDM, setNewUserDM] = useState("");
 
     useEffect(() => {
-        console.log(index);
-        console.log(typeof index);
-
-        if (isNaN(index) == true) {
-            navigate("/notfound");
-            return;
-        }
-        let thisId = parseInt(index, 10);
-        setId(parseInt(index, 10));
-
-        onLoad(thisId);
+        
 
     }, []);
 
