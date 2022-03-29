@@ -17,6 +17,20 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update_account
+    resource = User.find_by_email(params[:user][:email])
+
+    if resource && resource.update_with_password(account_update_params)
+      bypass_sign_in resource, scope: :user
+      render json: {user: resource}, status: :ok
+    else
+      clean_up_passwords resource
+      render respond_with_error "Couldn't update the account! Please try again.", status: :unprocessable_entity
+    end
+
+  end
+
+
   private
 
     def sign_up_params

@@ -13,11 +13,13 @@ import {
 } from "react-router-dom";
 import { useUserState } from "../../contexts/user";
 import authenticationApi from '../../apis/authentication';
-import { useAuthDispatch } from "../../contexts/auth";
-import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
+import profileApi from "../../apis/apiprofile";
+import topicsApi from "../../apis/apitopics";
+import commentsApi from "../../apis/apicomments";
 import '../../styling/Post.scss';
+import '../../styling/ViewPost.scss';
 import Comment from "../objs/Comment";
 import Layout from "../objs/Layout";
 
@@ -35,13 +37,21 @@ const ViewPost = () => {
     const [body, setBody] = useState();
     const [likes, setLikes] = useState();
     const [liked, setLiked] = useState(false);
+    const [userId, setUserId] = useState();
     const [id, setId] = useState(0);
+    //const [profileId, setProfileId] = useState();
     const { index } = useParams();
+    const [topics, setTopics] = useState([]);
+    const [updated, setUpdated] = useState();
+    const [privacy, setPrivacy] = useState(false);
+    const [authorUser, setAuthorUser] = useState();
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState();
+
 
     const { user } = useUserState();
     const navigate = useNavigate();
     const { addToast } = useToasts();
-    const authDispatch = useAuthDispatch();
 
     useEffect(() => {
 
@@ -54,13 +64,17 @@ const ViewPost = () => {
         setId(parseInt(index, 10));
 
         onLoad(thisId);
+        //isPostOwner(profileId);
+
+
     }, []);
 
     const onLoad = async (thisId) => {
+        let holdid = -1;
         try {
             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: thisId });
             setLiked(data.status);
-            console.log("status retrieved successfully");
+            //console.log("status retrieved successfully");
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -75,8 +89,32 @@ const ViewPost = () => {
             setTitle(data.post.title);
             setBody(data.post.body);
             setLikes(data.post.likes);
+            setUserId(data.post.user_id);
+            //TODO
+            //parse updated so it is more human readable.
+            setUpdated(data.post.updated_at);
+            setPrivacy(data.post.privacy);
+            setAuthorUser(data.author);
+            holdid = data.post.id;
+            //setProfileId(data.post.profile_id);
+            //return data.post.profile_id;
+            /*
+            const {
+                profiles
+            } = await profileApi.getprofile({ user_id: user.id });
 
-            console.log("post loaded");
+            console.log(profiles);
+            let temp = profiles.profile.id;
+            //console.log(temp);
+            //console.log(profileId);
+            if (temp == data.post.profile_id) {
+                setIsPostOwner(true);
+            }
+            setIsPostOwner(false);
+            */
+            //setIsPostOwner(true);
+
+            //console.log("post loaded");
 
         } catch (error) {
             if (error.response) {
@@ -87,19 +125,56 @@ const ViewPost = () => {
                 console.log("error", error.message);
             }
         }
+        //get topics
+        try {
+            if (holdid == -1) {
+                return;
+            }
+            const { data } = await topicsApi.pullTopics({ post_id: holdid });
+            //console.log(data.topics);
+            setTopics(data.topics);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+        //get comments
+        try {
+            if (holdid == -1) {
+                return;
+            }
+            const { data } = await commentsApi.showComments({ post_id: holdid });
+            setComments(data.comments);
+
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+
+
     };
 
-    /**
-     * user likes the post
-     */
-    const addLike = async () => {
-        console.log("like clicked");
+    /*
+     * user who owns the post changes the privacy setting
+    */
 
+    const changePrivacy = async () => {
         try {
-            const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
-            setLikes(data.likes);
-            setLiked(data.status);
-            console.log("changed");
+            const { data } = await postsApi.changePrivacy({ id: id });
+            setPrivacy(data.privacy);
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -111,8 +186,44 @@ const ViewPost = () => {
         }
     }
 
-    const addComment = () => {
-        console.log("add comment")
+    /**
+     * user likes the post
+     */
+    const addLike = async (event) => {
+        //console.log("like clicked");
+        event.preventDefault();
+        try {
+            const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
+            setLikes(data.likes);
+            setLiked(data.status);
+            //console.log("changed");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
+    const addComment = async (event) => {
+        event.preventDefault();
+
+        try {
+            const { data } = await commentsApi.addComment({ user_id: user.id, body: newComment, post_id: id });
+            setComments([...comments, data.comment]);
+            setNewComment("");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     };
 
     const savePost = () => {
@@ -120,13 +231,15 @@ const ViewPost = () => {
     };
 
     const editPost = () => {
-        navigate(`editpost/${id}`);
+        navigate(`/editpost/${id}`);
     }
 
     const deletePost = async () => {
         try {
             await postsApi.deletePost({ id: id })
-            console.log("deleted");
+            navigate(`/profile`);
+            //console.log("deleted");
+            addToast("Post successfully deleted!", { appearance: 'success', autoDismiss: true, });
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -138,43 +251,113 @@ const ViewPost = () => {
         }
     }
 
+    const removeComment = async (comment_id) => {
+        try {
+            await commentsApi.deleteComment({ id: comment_id });
+            const newList = comments.filter((item) => item.id !== comment_id);
+            setComments(newList);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
+
+
     const reportPost = () => {
         console.log("rep post");
     }
 
-    const isPostOwner = () => {
-        console.log("check post owner");
-        return true;
-    }
+
 
     return (
         <Layout>
             <div className="expandedPost">
-                {isPostOwner &&
+            <h1>{title}</h1>
+            <br></br>
+            <br></br>
+
+                {
+                    userId == user.id &&
                     <div className="options">
-                        <button className="edit" onClick={editPost}>edit post</button>
-                        <button className="delete" onClick={deletePost}>delete post</button>
+                        <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
+                        <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
+                        <button id="small_post_btn" className="like" onClick={addLike}>
+                                <i className="fa fa-heart" aria-hidden="true"></i> {likes}
+                        </button>
+                        
+                        <br></br>
+                        <br></br>
+
+                        
+
                     </div>
                 }
 
-                <h1>{title}</h1>
-                <div>{body}</div>
+                <form id="post_box_form">
 
-                <p></p>
-                <div className="reactions">
-                    <button className="like" onClick={addLike}>
-                        <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                    </button>
+                <div className="column">
+                <br></br>
+            
+                <h3> Post Content:</h3>
+                <div>
+                    <p>{body}</p>
+                </div>
+            
+                <h3>Topics:</h3>
+                {topics.map((topic) => (
+                    <div><p>{topic} </p></div>
+                ))}
+
+                <h3>Last Updated: </h3>
+                <p>{updated}</p>
+
+                {privacy &&
+                    <p>
+                        &nbsp; [redacted]
+                    </p>
+                }
+                {privacy == false &&
+                    <p>
+                        &nbsp; ({authorUser})
+                    </p>
+                }
+
+                <h3>Current Privacy:</h3> {privacy && <p>Private</p>} {privacy == false && <p>Public</p>}
+                <br></br>
+                <br></br>
+                <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
+
                 </div>
 
-                <p></p>
+                
+
+                <div className="column">
+                <br></br>
+                <h3> Comments: </h3>
+                {comments.map((comment) => (
+                    <Comment author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
+                ))}
+                </div>
+
+                </form>
+            
 
                 {/*
-                <table class="comments">
-                    <tr><td><input type="addComment"></input></td></tr>
-                    <tr><td><Comment>hello this will be a comment</Comment></td></tr>
-                </table>*/
+                    add in an input field to create comments
+                */
                 }
+                <form onSubmit={addComment}>
+                    <textarea value={newComment} placeholder="enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
+                    <button type="submit" id="regular_btn"> Comment </button>
+                </form>
+
             </div>
         </Layout>
     );

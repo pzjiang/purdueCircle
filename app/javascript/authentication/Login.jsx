@@ -127,14 +127,14 @@ const Login = () => {
 
                 <label>
                     <center>
-                    <input type="text" placeholder="Email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
-                    />
+                        <input type="text" placeholder="Email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                        />
                     </center>
                 </label>
                 <label>
                     <center>
-                    <input type="password" placeholder="Password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
-                    />
+                        <input type="password" placeholder="Password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
+                        />
                     </center>
                     <Link to='/'>
                         <p>
@@ -156,9 +156,9 @@ const Login = () => {
                 Don't have an account yet? Create an account today.
             </h3>
             <Link to="/signup">
-            <button>
-                Sign Up
-            </button>
+                <button>
+                    Sign Up
+                </button>
             </Link>
 
             {/*
