@@ -10,6 +10,7 @@ class User < ApplicationRecord
          has_many :followers, dependent: :destroy
          has_many :fans, :through => :followers, :foreign_key => :target
          has_many :followings, :through => :followers, :foreign_key => :subject
+         has_many :usertopics, dependent: :destroy
          
   
   before_save :ensure_authentication_token_is_present

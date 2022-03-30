@@ -21,6 +21,7 @@ import Layout from "../objs/Layout";
 import "../../styling/Profile.scss";
 import Post from "../objs/Post";
 import postsApi from "../../apis/apiposts";
+import topicsApi from "../../apis/apitopics";
 
 //import registrationApi from "../../apis/registrations";
 
@@ -32,6 +33,8 @@ const Profile = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [privacy, setPrivacy] = useState(false);
+
+    const [topics, setTopics] = useState([]);
 
     const [posts, setPosts] = useState([]);
 
@@ -80,6 +83,38 @@ const Profile = () => {
             //console.log(data);
             setPosts(data.posts);
 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+        //get the topics that you follow
+        try {
+            const { data } = await topicsApi.followedTopics({ id: user.id });
+            setTopics(data.topics);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
+    const removeTopic = async (param) => {
+
+        try {
+            const { data } = await topicsApi.unfollowTopic({ name: param, id: user.id });
+            const newList = topics.filter((item) => item.id !== data.id);
+            setTopics(newList);
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -141,6 +176,9 @@ const Profile = () => {
                     <p>{email}</p>}
                 <h3>Topics</h3>
                 <p> -- </p>
+                {topics.map((topic) => (
+                    <div> {topic.name} <button onClick={() => removeTopic(topic.id)}> Unfollow </button></div>
+                ))}
             </div>
 
             <div className="postList">

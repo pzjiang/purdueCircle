@@ -10,12 +10,26 @@ const pullTopics = (payload) => axios.get(`api/v1/topics/post/${payload.post_id}
 
 const discoverTopics = (payload) => axios.get(`api/v1/topicsdiscover/${payload.name}/${payload.number}`);
 
+//follow a topic
+
+const followTopic = (payload) => axios.post(`api/v1/followtopic`, payload);
+
+//unfollow a topic 
+const unfollowTopic = (payload) => axios.delete(`api/v1/followtopic/${payload.name}/${payload.id}`);
+
+//get the topics a user follows
+
+const followedTopics = (payload) => axios.get(`api/v1/followedtopics/${payload.id}`);
+
 
 
 const topicsApi = {
     pullPosts,
     pullTopics,
     discoverTopics,
+    followTopic,
+    unfollowTopic,
+    followedTopics,
 };
 
 export default topicsApi;

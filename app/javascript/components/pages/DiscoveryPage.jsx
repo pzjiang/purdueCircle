@@ -30,6 +30,8 @@ const DiscoveryPage = props => {
     const [searchNumber, setSearchNumber] = useState();
     const { addToast } = useToasts();
 
+    const { user } = useUserState();
+
 
     //topics for topics, posts for posts, users for users
     const [searchState, setSearchState] = useState();
@@ -136,46 +138,46 @@ const DiscoveryPage = props => {
 
             <div className="discoveryPage">
 
-            <h1 id="discovery_h1"> Discover </h1>
+                <h1 id="discovery_h1"> Discover </h1>
 
-            <br />
+                <br />
 
-            <button id="submit_button" onClick={filterTopics}> Topics </button>
-            <button id="submit_button" onClick={filterPosts}> Posts </button>
-            <button id="submit_button" onClick={filterUsers}> Users </button>
+                <button id="submit_button" onClick={filterTopics}> Topics </button>
+                <button id="submit_button" onClick={filterPosts}> Posts </button>
+                <button id="submit_button" onClick={filterUsers}> Users </button>
 
-            <br />
-            <br />
-            <br />
+                <br />
+                <br />
+                <br />
 
-            <form id="discoveryForm" onSubmit={useSearch}>
-                <label>Search for <p>{searchState}:</p> </label>
-                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
-                <button id="submit_button" type="submit"> Search</button>
-            </form>
+                <form id="discoveryForm" onSubmit={useSearch}>
+                    <label>Search for <p>{searchState}:</p> </label>
+                    <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
+                    <button id="submit_button" type="submit"> Search</button>
+                </form>
 
-            <br></br>
-            <br></br>
-            {searchState == "users" &&
-                users.map((user) => (
-                    user.privacy == false &&
-                    <DiscoverUsers firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
+                <br></br>
+                <br></br>
+                {searchState == "users" &&
+                    users.map((user) => (
+                        user.privacy == false &&
+                        <DiscoverUsers firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
 
-                ))
-            }
+                    ))
+                }
 
-            {searchState == "topics" &&
-                topicsDisc.map((topic) => (
-                    <DiscoverTopics name={topic.name}> </DiscoverTopics>
-                ))
-            }
+                {searchState == "topics" &&
+                    topicsDisc.map((topic) => (
+                        <DiscoverTopics id={user.id} name={topic.name}> </DiscoverTopics>
+                    ))
+                }
 
-            {searchState == "posts" &&
-                posts.reverse().map((post) => (
-                    <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
-                ))
+                {searchState == "posts" &&
+                    posts.reverse().map((post) => (
+                        <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
+                    ))
 
-            }
+                }
 
             </div>
         </Layout>

@@ -77,6 +77,13 @@ Rails.application.routes.draw do
       #get the people that a user follows, :id to find user
       get "userfollowing/:id", to: "users#get_followed"
       
+      #following topic routes
+      #follow a topic needs :name and :id
+      post "followtopic", to: "topics#follow_topic"
+      #unfollow needs :name and :id
+      delete "followtopic/:name/:id", to: "topics#unfollow_topic"
+      #get hte topics that the user follows
+      get "followedtopics/:id", to: "topics#followed_topics"
       
     end
   end
