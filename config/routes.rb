@@ -50,15 +50,14 @@ Rails.application.routes.draw do
       delete "delcomments/:id", to: "comments#remove_comment"
       get "comments/:post_id", to: "comments#show_comments"
       put "comments", to: "comments#add_comment"
-
-      
       
     end
   end
 
-
+  # put '/confirmation/:confirmation_token', to: 'pages#index', as: :frontend_user_confirmation
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
   root 'pages#index'
 
   get '/*path' => 'pages#index'

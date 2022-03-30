@@ -97,6 +97,20 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => 'apikey', # This is the string literal 'apikey', NOT the ID of your API key
+    :password => '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', # This is the secret sendgrid API key which was issued during API key creation
+    :domain => 'yourdomain.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+}
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write

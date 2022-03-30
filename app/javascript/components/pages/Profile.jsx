@@ -32,6 +32,7 @@ const Profile = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [confirmed, setConfirmed] = useState("")
 
     const [posts, setPosts] = useState([]);
 
@@ -64,6 +65,13 @@ const Profile = () => {
             setLastName(user.last_name);
             setUsername(user.username);
             setEmail(user.email);
+            console.log("ASFSAFSAFA" + user.confirmed_at);
+            if (user.confirmed_at != undefined) {
+                setConfirmed("Email Verfied");
+            } else {
+                setConfirmed("Email Not Verfied");
+            }
+            
             if (user.phone != "") {
                 setPhone(user.phone);
             }
@@ -108,10 +116,10 @@ const Profile = () => {
             resetAuthTokens();
             console.log("destroyed account ");
             navigate('/');
-            addToast("Account destroyed successfully", { appearance: 'error', });
+            addToast("Account destroyed successfully", { appearance: 'error', autoDismiss: true,});
 
         } catch (error) {
-            addToast(error.response.data.error, { appearance: 'error', });
+            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,});
         }
 
 
@@ -141,8 +149,7 @@ const Profile = () => {
                 <h3></h3>
                 <h3>Bio</h3>
                 <p> {biol}</p>
-                <h3>Phone</h3>
-                <p> [ FILTERED ] </p>
+                <p> Confirmed: {confirmed}</p>
                 <h3>Email</h3>
                 <p> [ FILTERED ] </p>
                 <h3>Topics</h3>
