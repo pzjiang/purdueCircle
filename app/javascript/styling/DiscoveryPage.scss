@@ -1,0 +1,28 @@
+@use "style.scss" as s;
+
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+
+.discoveryPage {
+
+    #discovery_h1 {
+        justify-content: center;
+        font-size: 50px;
+        font-family: s.$primary_font;
+        color: s.$secondary;
+        text-align: center;
+        margin: 0;
+    }
+
+    #submit_button {
+      justify-content: center;
+      font-size: 18px;
+      text-align: center;
+      font-style: bold;
+      background-color: s.$primary;
+      border-radius: 5px;
+      border-color: s.$secondary;
+      color: s.$textcolor;
+      padding: 10px 19px;
+      }
+
+}

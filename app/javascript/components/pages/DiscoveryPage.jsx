@@ -17,6 +17,8 @@ import DiscoverTopics from "../objs/DiscoverTopics";
 import Post from "../objs/Post";
 import Layout from "../objs/Layout";
 
+import '../../styling/DiscoveryPage.scss';
+
 
 const DiscoveryPage = props => {
 
@@ -132,14 +134,20 @@ const DiscoveryPage = props => {
     return (
         <Layout>
 
-            <button onClick={filterTopics}> Topics Search</button>
-            <button onClick={filterPosts}> Posts Search</button>
-            <button onClick={filterUsers}> Users Search</button>
+            <div className="discoveryPage">
+
+            <h1 id="discovery_h1"> Edit Profile </h1>
+
+            <br />
+
+            <button id="submit_button" onClick={filterTopics}> Topics Search</button>
+            <button id="submit_button" onClick={filterPosts}> Posts Search</button>
+            <button id="submit_button" onClick={filterUsers}> Users Search</button>
 
             <form onSubmit={useSearch}>
                 <label>Search by {searchState}</label>
                 <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
-                <button type="submit"> Search</button>
+                <button id="submit_button" type="submit"> Search</button>
             </form>
 
             <br></br>
@@ -165,7 +173,7 @@ const DiscoveryPage = props => {
 
             }
 
-
+            </div>
         </Layout>
     )
 }
