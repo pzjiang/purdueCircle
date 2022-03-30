@@ -16,7 +16,7 @@ const unfollowUser = (payload) => axios.delete(`api/v1/followuser/${payload.id}/
 
 const getFollowers = (payload) => axios.get(`api/v1/userfollowers/${payload.id}`);
 
-const getFollowed = (payload) => axios.get(`api/v1/getfollowed/${payload.id}`);
+const getFollowed = (payload) => axios.get(`api/v1/userfollowing/${payload.id}`);
 
 const userApi = {
 

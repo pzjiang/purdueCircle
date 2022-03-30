@@ -103,6 +103,37 @@ const ForeignUser = () => {
                 console.log("Unidentified error", error.message);
             }
         }
+
+        //intialize following list people that user is following
+        try {
+            const { data } = await userApi.getFollowed({ id: thisId });
+            setFollowing(data.following);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+
+        //initialize follower list people following user
+        try {
+            const { data } = await userApi.getFollowers({ id: thisId });
+            setFollowers(data.followers);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+
     }
 
     //allows user to follow this user
@@ -187,9 +218,9 @@ const ForeignUser = () => {
                 {followed == false && <button onClick={followUser}> Follow User</button>}
                 {followed && <button onClick={unfollowUser}>Unfollow User</button>}
             </div>
-            <button> Display Posts</button>
-            <button>Display Following</button>
-            <button> Display Followers</button>
+            <button onClick={displayPosts}> Display Posts</button>
+            <button onClick={displayFollowing}>Display Following</button>
+            <button onClick={displayFollowers}> Display Followers</button>
 
 
 
@@ -203,11 +234,24 @@ const ForeignUser = () => {
 
             {display == "following" &&
 
-                <div>following display</div>
+                <div>following display:
+                    {following.map((item) => (
+                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
+                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        </div>
+                    ))}
+                </div>
             }
 
             {display == "followers" &&
-                <div>followers display</div>
+                <div>followers display
+                    {followers.map((item) => (
+                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
+                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        </div>
+                    ))}
+
+                </div>
             }
 
 

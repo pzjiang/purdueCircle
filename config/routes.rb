@@ -73,9 +73,9 @@ Rails.application.routes.draw do
       #unfollow a user, with :id and :target_id
       delete "followuser/:id/:target_id", to: "users#unfollow_user"
       #get the followers of a user, :id to find user
-      get "userfollowers", to: "users#get_followers"
+      get "userfollowers/:id", to: "users#get_followers"
       #get the people that a user follows, :id to find user
-      get "userfollowing", to: "users#get_followed"
+      get "userfollowing/:id", to: "users#get_followed"
       
       
     end

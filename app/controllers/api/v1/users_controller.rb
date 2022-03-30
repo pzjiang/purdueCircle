@@ -137,26 +137,42 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   #get a list of all followers that are following you
   def get_followers
-    @followings = Follower.where(target: params[:id]).all
+    begin
+      @followings = Follower.where(target: params[:id]).all
+    rescue
+    else
+    end
     @followers = []
     for follow in @followings do
       tempuser = User.find(follow.subject)
       @followers.push(tempuser)
     end
-    render json: { followers: @followers}, status: 200
+    if @followers
+      render json: { followers: @followers}, status: 200
+    else
+      respond_with_error "no followers", :not_found
+    end
 
 
   end
 
   #get a list of all the people that you follow
   def get_followed
-    @followings = Follower.where(subject: params[:id]).all
+    begin
+      @followings = Follower.where(subject: params[:id]).all
+    rescue
+    else
+    end
     @followers = []
     for follow in @followings do
       tempuser = User.find(follow.target)
       @followers.push(tempuser)
     end
-    render json: { following: @followers}, status: 200
+    if @followers
+      render json: { following: @followers}, status: 200
+    else
+      respond_with_error "no following found", :not_found
+    end
   end
 
   def change_privacy
