@@ -170,9 +170,14 @@ const EditProfile = () => {
     return (
         <Layout>
             <div className="editProfileForm">
+
+        
                 <h1 id="edit_h1"> Edit Profile </h1>
 
                 <br />
+
+                <button id="submit-button" onClick={changePrivacy}> Change Privacy </button>
+
                 <br />
 
                 <h2 id="edit_h2"> Edit Bio </h2>
@@ -182,34 +187,36 @@ const EditProfile = () => {
                     </label>
                     <button type="submit"> Submit </button>
 
+
                 </form>
+
 
                 <br />
                 <br />
+
+                
                 <h2 id="edit_h2"> Change Password </h2>
                 <form id="profileEditForm" onSubmit={updatePassword}>
                     <label>
                         <h4>Enter Your Current Password: </h4>
                         <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
                         />
-                        <br></br>
                         <h4>Enter Your New Password: </h4>
                         <input type="password" placeholder="New Password" id="label" value={inputValues.passwordnew} onChange={(e) => setInputValues({ ...inputValues, passwordnew: e.target.value })}
                         />
-                        <br></br>
                         <h4>Confirm Your New Password: </h4>
                         <input type="password" placeholder="Confirm Password" id="label" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
                         />
-                        <br></br>
-                        <br></br>
                     </label>
                     <button type="submit" id="submit-button"> Change Password </button>
+                    <br></br>
                 </form>
 
+
                 <br></br>
                 <br></br>
 
-                <button onClick={changePrivacy}> Change privacy </button>
+                
 
                 {/*
             <form onSubmit={updateName} id="form">
