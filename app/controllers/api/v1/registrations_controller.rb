@@ -31,6 +31,15 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
 
+  def confirm
+    if @user.confirmed = false
+      @user.confirmed = true
+    end
+
+    @user.save
+  end
+
+
   private
 
     def sign_up_params

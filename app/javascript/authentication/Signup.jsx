@@ -98,47 +98,50 @@ const Signup = () => {
                 <br />
 
                 <div className="column">
-                <label>
-                    <center>
-                    <input type="text" placeholder="Email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
-                    />
-                    </center>
-                </label>
-                <label>
-                    <center>
-                    <input type="password" placeholder="Password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
-                    />
-                    </center>
-                </label>
-                <label>
-                    <center>
-                    <input type="text" placeholder="First Name" value={inputValues.firstName} onChange={(e) => setInputValues({ ...inputValues, firstName: e.target.value })}
-                    />
-                    </center>
-                </label>
-               
-                </div>
-
-
-                <div className="column">
-                <label>
-                    <center>
-                    <input type="text" placeholder="Username" value={inputValues.username} onChange={(e) => setInputValues({ ...inputValues, username: e.target.value })}
-                    />
-                    </center>
-                </label>
-                <label>
-                    <center>
-                    <input type="password" placeholder="Confirm Password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
-                    />
-                    </center>
-                </label>
-                <label>
-                    <center>
-                    <input type="text" placeholder="Last Name" value={inputValues.lastName} onChange={(e) => setInputValues({ ...inputValues, lastName: e.target.value })}
-                    />
-                    </center>
-                </label>
+                <table width="100%">
+                        <tr width="100%">
+                            <td width="50%">
+                                <label>
+                                    <input type="text" placeholder="email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                                    />
+                                </label>
+                            </td>
+                            <td width="50%">
+                                <label>
+                                    <input type="text" placeholder="username" value={inputValues.username} onChange={(e) => setInputValues({ ...inputValues, username: e.target.value })}
+                                        />
+                                </label>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="50%">
+                                <label>
+                                <input type="password" placeholder="password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
+                                    />
+                                </label>
+                            </td>
+                            <td width="50%">
+                                <label>
+                                    <input type="password" placeholder="confirm password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
+                                        />
+                                </label>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="50%">
+                                <label>
+                                <input type="text" placeholder="first name" value={inputValues.firstName} onChange={(e) => setInputValues({ ...inputValues, firstName: e.target.value })}
+                                    />
+                                </label>
+                            </td>
+                            <td width="50%">
+                                <label>
+                                <input type="text" placeholder="last name" value={inputValues.lastName} onChange={(e) => setInputValues({ ...inputValues, lastName: e.target.value })}
+                                        />
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <button type="submit"> Sign Up </button>

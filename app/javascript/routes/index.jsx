@@ -17,6 +17,7 @@ import { useAuthState, useAuthDispatch } from '../contexts/auth';
 import { useUserDispatch } from '../contexts/user';
 import CreatePost from '../components/pages/CreatePost';
 import ViewPost from '../components/pages/ViewPost';
+import Confirmation from '../components/pages/Confirmation';
 
 //import NotFound from "../components/NotFound"
 
@@ -54,6 +55,7 @@ const Routing = props => {
                 <Route exact path="/editprofile" element={<ProfileEdit />} />
                 <Route exact path="/editpost/:index" element={< EditPost />} />
                 <Route exact path="/viewpost/:index" element={<ViewPost />} />
+                <Route exact path="/confirmation/:token" element={<Confirmation />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>
