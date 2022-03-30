@@ -1,5 +1,5 @@
 class Api::V1::ConvosController < Api::V1::BaseController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
@@ -10,7 +10,7 @@ class Api::V1::ConvosController < Api::V1::BaseController
         #check to make sure convo doesn't already exist
         @convo = Convo.where(first_user_id: params[:user_id])
         if @convo
-            @found = @convo.find_by(second_user_id: params[:target_id])
+            @found = @convo.find_by(sec_user_id: params[:target_id])
         end
 
         if @found
@@ -28,8 +28,8 @@ class Api::V1::ConvosController < Api::V1::BaseController
 
         @convo = Convo.create(first_user_id: params[:user_id], sec_user_id: params[:target_id], message_number: 0)
 
-        if @convo.save
-            render json: {@convo}, status: 200
+        if @convo.save!
+            render json: @convo, status: 200
         else
             respond_with_error "Couldn't save convo with user", 404
         end
@@ -49,11 +49,11 @@ class Api::V1::ConvosController < Api::V1::BaseController
 
 
     def get_convos
-        @first_one = Convo.where(first_user_id: params[:user_id])
-        @second_one = Convo.where(sec_user_id: params[:user_id])
+        @first_one = Convo.where(first_user_id: params[:user_id]).all
+        @second_one = Convo.where(sec_user_id: params[:user_id]).all
         @final_list = @first_one + @second_one
 
-        @final_list.sort_by! updated_at
+        @final_list.sort_by!
 
         render json: {convos: @final_list}, status: 200
 

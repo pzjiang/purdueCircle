@@ -18,6 +18,9 @@ import Conversations from "../objs/Converations";
 import Users from "../objs/User";
 import '../../styling/Messenger.scss';
 import messagesApi from "../../apis/apimessages";
+import userApi from "../../apis/apiusers";
+import ConcatenatedModule from "webpack/lib/optimize/ConcatenatedModule";
+import { useUserState } from "../../contexts/user";
 
 const Messenger = () => {
 
@@ -27,20 +30,30 @@ const Messenger = () => {
     //const { index } = useParams();
     const [convos, setConvos] = useState([]);
     const [newUserDM, setNewUserDM] = useState("");
+    const [newUserID, setNewUserID] = useState("");
+    const { user } = useUserState();
+
+    const [currentConvo, setCurrentConvo] = useState("");
+    let convosExist = false;
 
     useEffect(() => {
-        
+        onLoad();
 
     }, []);
 
-    const onLoad = async (thisId) => {
+    const onLoad = async () => {
         console.log("on load");
 
         try {
-            const { data } = await messagesApi.getConvos({ user_id: thisId });
+            const { data } = await messagesApi.getConvos({user_id: user.id});
             setConvos(data.convos);
 
             console.log(data);
+
+            if (convos.length > 0) {
+                convosExist = true;
+                setCurrentConvo(convos[0]);
+            }
 
         } catch (error) {
             if (error.response) {
@@ -53,8 +66,17 @@ const Messenger = () => {
         }
     }
 
-    const viewDM = () => {
-        navigate(`/dm/${id}`);
+    function viewDM(convoId) {
+        //convosExist = false;
+
+        //setCurrentConvo(newConvo);
+
+        //rerender
+        //convosExist = true;
+
+        console.log("viewing convo");
+
+        navigate(`/dm/${convoId}`);
     }
 
     const hasUnread = async () => {
@@ -64,9 +86,28 @@ const Messenger = () => {
         return false;
     }
 
-    const createConvo = async() => {
-        messagesApi.createConvo();
-        viewDM();
+    const createConvo = async(event) => {
+        try {
+            event.preventDefault();
+            //get user id
+            console.log(newUserDM);
+            const { data } = await userApi.findUser({ name: newUserDM });
+            console.log(data);
+            console.log(data.id);
+
+            //create convo
+            messagesApi.createConvo( {user_id: user.id, target_id: data.id} );
+            console.log("convo created");
+            //viewDM(data.id);
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     }
 
     return (
@@ -83,18 +124,31 @@ const Messenger = () => {
             </div>
 
             <div className="convo-list">
+                <p>current convos:</p>
                 {convos.map((convo) => (
-                    <div id="convo">
-                        <p>{convo.sec_user_id}</p>
+                    <div key={convo.id} id="convo">
+                        <p>user: {convo.sec_user_id}</p>
                         <p>Last message: </p>
-                        <p>{ hasUnread && 
-                            <p>New messages from {convo.sec_user}</p>
-                        }</p>
-                        <Button onClick={viewDM}>View DM</Button>
+                        <div>{ hasUnread && 
+                            <p>New messages from {convo.sec_user_id}</p>
+                        }</div>
+                        <button onClick={()=> viewDM(convo.id)}>View DM</button>
                         
                     </div>
                     ))}
             </div>
+
+            <div className="current-convo">
+                {
+                    convosExist &&
+                    <div>
+                        <DM convoId={currentConvo.id}/>
+                    </div>
+                }
+                
+            </div>
+
+            
 
         </Layout>
     )

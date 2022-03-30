@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   skip_before_action :authenticate_user!, only: [:create]
-  skip_before_action :authenticate_user_using_x_auth_token, only: [:create]
+  skip_before_action :authenticate_user_using_x_auth_token
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:update]
   skip_before_action :verify_authenticity_token, raise: false
@@ -34,7 +34,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
   def find_user
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:name])
     if @user
       render json: @user
     else

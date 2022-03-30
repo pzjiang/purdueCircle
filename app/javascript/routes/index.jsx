@@ -58,7 +58,7 @@ const Routing = props => {
                 <Route exact path="/editpost/:index" element={< EditPost />} />
                 <Route exact path="/viewpost/:index" element={<ViewPost />} />
                 <Route exact path="/messenger" element={<Messenger />} />
-                <Route exact path="/dm" element={<DM />} />
+                <Route exact path="/dm/:index" element={<DM />} />
                 <Route exact path="/discovery" element={<DiscoveryPage />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
