@@ -22,7 +22,7 @@ import "../../styling/Profile.scss";
 import Post from "../objs/Post";
 import postsApi from "../../apis/apiposts";
 
-import registrationApi from "../../apis/registrations";
+//import registrationApi from "../../apis/registrations";
 
 const Profile = () => {
 
@@ -31,11 +31,9 @@ const Profile = () => {
     const [last_name, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
+    const [privacy, setPrivacy] = useState(false);
 
     const [posts, setPosts] = useState([]);
-
-    const [loaded, setLoaded] = useState(false);
 
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -47,10 +45,7 @@ const Profile = () => {
     }, []);
 
     const onLoad = async () => {
-        if (loaded == true) {
-            return;
-        }
-        setLoaded(true);
+
         try {
             const {
                 data
@@ -64,10 +59,8 @@ const Profile = () => {
             setLastName(user.last_name);
             setUsername(user.username);
             setEmail(user.email);
-            if (user.phone != "") {
-                setPhone(user.phone);
-            }
-            setPhone("None Set");
+            setPrivacy(user.privacy);
+
             //console.log("successful display bio");
         } catch (error) {
             //console.log(error.response.data.error);
@@ -81,10 +74,10 @@ const Profile = () => {
         }
 
         try {
-            const { data } = await postsApi.ownPosts({ user_id: user.id, number: 5 });
+            const { data } = await postsApi.ownPosts({ user_id: user.id, number: 10 });
             //setPosts(data.response);
 
-            console.log(data);
+            //console.log(data);
             setPosts(data.posts);
 
         } catch (error) {
@@ -141,10 +134,11 @@ const Profile = () => {
                 <h3></h3>
                 <h3>Bio</h3>
                 <p> {biol}</p>
-                <h3>Phone</h3>
-                <p> [ FILTERED ] </p>
                 <h3>Email</h3>
-                <p> [ FILTERED ] </p>
+                {privacy &&
+                    <p> [ FILTERED ] </p>}
+                {privacy == false &&
+                    <p>{email}</p>}
                 <h3>Topics</h3>
                 <p> -- </p>
             </div>

@@ -207,6 +207,7 @@ const EditProfile = () => {
                 </form>
 
                 <br></br>
+                <br></br>
 
                 <button onClick={changePrivacy}> Change privacy </button>
 

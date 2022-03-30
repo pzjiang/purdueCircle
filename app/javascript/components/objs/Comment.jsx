@@ -13,9 +13,6 @@ const Comment = props => {
 
     };
 
-    const deleteComment = () => {
-
-    };
 
     return (
         <div>

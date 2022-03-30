@@ -22,6 +22,7 @@ class Api::V1::SessionsController < Api::V1::BaseController
   def destroy
     sign_out(@user)
     reset_session
+    render json: {}, status: 200
   end
 
   private

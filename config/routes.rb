@@ -64,6 +64,19 @@ Rails.application.routes.draw do
       get "userfind/:name", to: "users#find_user"
       #privacy chaing for users
       put "userprivacy/:id", to: "users#change_privacy"
+
+      #following routes
+      #creates a follower to symbolize user is now following. uses :id and :target_id
+      post "followuser", to: "users#follow_user"
+      #check if user is following another
+      get "followinguser/:id/:target_id", to: "users#is_following"
+      #unfollow a user, with :id and :target_id
+      delete "followuser/:id/:target_id", to: "users#unfollow_user"
+      #get the followers of a user, :id to find user
+      get "userfollowers", to: "users#get_followers"
+      #get the people that a user follows, :id to find user
+      get "userfollowing", to: "users#get_followed"
+      
       
     end
   end

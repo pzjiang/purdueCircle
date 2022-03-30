@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Navigate } from 'react-router';
+//import { Navigate } from 'react-router';
 //import { either, isEmpty, isNil } from 'ramda';
 import Home from "../components/pages/Home";
 import NotFound from "../components/pages/NotFound";
@@ -18,6 +18,7 @@ import { useUserDispatch } from '../contexts/user';
 import CreatePost from '../components/pages/CreatePost';
 import ViewPost from '../components/pages/ViewPost';
 import DiscoveryPage from '../components/pages/DiscoveryPage';
+import ForeignUser from '../components/pages/ForeignUser';
 
 //import NotFound from "../components/NotFound"
 
@@ -56,6 +57,7 @@ const Routing = props => {
                 <Route exact path="/editpost/:index" element={< EditPost />} />
                 <Route exact path="/viewpost/:index" element={<ViewPost />} />
                 <Route exact path="/discovery" element={<DiscoveryPage />} />
+                <Route exact path="/profile/:index" element={<ForeignUser />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>

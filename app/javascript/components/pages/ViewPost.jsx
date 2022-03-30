@@ -12,10 +12,10 @@ import {
     useParams
 } from "react-router-dom";
 import { useUserState } from "../../contexts/user";
-import authenticationApi from '../../apis/authentication';
+//import authenticationApi from '../../apis/authentication';
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
-import profileApi from "../../apis/apiprofile";
+//import profileApi from "../../apis/apiprofile";
 import topicsApi from "../../apis/apitopics";
 import commentsApi from "../../apis/apicomments";
 import '../../styling/Post.scss';
@@ -279,9 +279,9 @@ const ViewPost = () => {
     return (
         <Layout>
             <div className="expandedPost">
-            <h1>{title}</h1>
-            <br></br>
-            <br></br>
+                <h1>{title}</h1>
+                <br></br>
+                <br></br>
 
                 {
                     userId == user.id &&
@@ -289,65 +289,70 @@ const ViewPost = () => {
                         <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
                         <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
                         <button id="small_post_btn" className="like" onClick={addLike}>
-                                <i className="fa fa-heart" aria-hidden="true"></i> {likes}
+                            <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                         </button>
-                        
+
                         <br></br>
                         <br></br>
 
-                        
+
 
                     </div>
                 }
 
                 <form id="post_box_form">
 
-                <div className="column">
-                <br></br>
-            
-                <h3> Post Content:</h3>
-                <div>
-                    <p>{body}</p>
-                </div>
-            
-                <h3>Topics:</h3>
-                {topics.map((topic) => (
-                    <div><p>{topic} </p></div>
-                ))}
+                    <div className="column">
+                        <br></br>
 
-                <h3>Last Updated: </h3>
-                <p>{updated}</p>
+                        <h3> Post Content:</h3>
+                        <div>
+                            <p>{body}</p>
+                        </div>
 
-                {privacy &&
-                    <p>
-                        &nbsp; [redacted]
-                    </p>
-                }
-                {privacy == false &&
-                    <p>
-                        &nbsp; ({authorUser})
-                    </p>
-                }
+                        <h3>Topics:</h3>
+                        {topics.map((topic) => (
+                            <div><p>{topic} </p></div>
+                        ))}
 
-                <h3>Current Privacy:</h3> {privacy && <p>Private</p>} {privacy == false && <p>Public</p>}
-                <br></br>
-                <br></br>
-                <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
+                        <h3>Last Updated: </h3>
+                        <p>{updated}</p>
 
-                </div>
+                        {privacy &&
+                            <p>
+                                &nbsp; [redacted]
+                            </p>
+                        }
+                        {privacy == false &&
+                            <p>
+                                &nbsp; (<Link to={'/profile/' + authorUser}>{authorUser}</Link>)
+                            </p>
+                        }
 
-                
+                        {user.id == userId &&
+                            < div >
+                                < h3 > Current Privacy:</h3> {privacy && <p>Private</p>} {privacy == false && <p>Public</p>}
 
-                <div className="column">
-                <br></br>
-                <h3> Comments: </h3>
-                {comments.map((comment) => (
-                    <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
-                ))}
-                </div>
+                                <br></br>
+                                <br></br>
+                                <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
+                            </div>
+                        }
+
+                    </div>
+
+
+
+                    <div className="column">
+                        <br></br>
+                        <h3> Comments: </h3>
+                        {comments.map((comment) => (
+                            <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
+                        ))}
+                    </div>
 
                 </form>
-            
+
 
                 {/*
                     add in an input field to create comments
@@ -358,8 +363,8 @@ const ViewPost = () => {
                     <button type="submit" id="regular_btn"> Comment </button>
                 </form>
 
-            </div>
-        </Layout>
+            </div >
+        </Layout >
     );
 }
 

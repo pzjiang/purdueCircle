@@ -24,7 +24,7 @@ const DiscoverUsers = props => {
             User name:
             {props.firstname} {props.lastname}
             user username:
-            {props.username}
+            <Link to={"/profile/" + props.username}>{props.username} </Link>
         </div>
     )
 }
