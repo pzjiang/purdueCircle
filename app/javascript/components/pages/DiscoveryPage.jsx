@@ -140,12 +140,16 @@ const DiscoveryPage = props => {
 
             <br />
 
-            <button id="submit_button" onClick={filterTopics}> Topics Search</button>
-            <button id="submit_button" onClick={filterPosts}> Posts Search</button>
-            <button id="submit_button" onClick={filterUsers}> Users Search</button>
+            <button id="submit_button" onClick={filterTopics}> Topics </button>
+            <button id="submit_button" onClick={filterPosts}> Posts </button>
+            <button id="submit_button" onClick={filterUsers}> Users </button>
 
-            <form onSubmit={useSearch}>
-                <label>Search by {searchState}</label>
+            <br />
+            <br />
+            <br />
+
+            <form id="discoveryForm" onSubmit={useSearch}>
+                <label>Search for <p>{searchState}:</p> </label>
                 <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}></input>
                 <button id="submit_button" type="submit"> Search</button>
             </form>
