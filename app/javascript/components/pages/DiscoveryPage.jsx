@@ -136,7 +136,7 @@ const DiscoveryPage = props => {
 
             <div className="discoveryPage">
 
-            <h1 id="discovery_h1"> Edit Profile </h1>
+            <h1 id="discovery_h1"> Discover </h1>
 
             <br />
 
