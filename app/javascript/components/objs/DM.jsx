@@ -49,9 +49,10 @@ import Layout from "./Layout";
         try {
             console.log("fetching messages");
             const { data } = await messagesApi.getMessages({ convo_id: thisId });
-            console.log(data);
-            setMessages(data);
+            console.log(data.messages);
+            setMessages(data.messages);
             console.log("retrieved messages from convo");
+            console.log(messages);
 
             console.log("set second user info");
 
@@ -82,8 +83,10 @@ import Layout from "./Layout";
 
         event.preventDefault();
         try {
-            await messagesApi.sendMessage( { origin_id: user.id, target_id: 2, body: newMessage.body, convo_id: id } );
-            navigate("/");
+            const {data} = await messagesApi.sendMessage( { origin_id: user.id, target_id: 2, body: newMessage.body, convo_id: id } );
+            //navigate("/");
+            const newList = [...messages, data.newMessage];
+            setMessages(newList);
             console.log("success probably");
         } catch (error) {
             if (error.response) {
@@ -94,6 +97,8 @@ import Layout from "./Layout";
                 console.log("error", error.message);
             }
         }
+        
+        setNewMessage("");
 
     }
 
@@ -106,7 +111,7 @@ import Layout from "./Layout";
                 insert link to profile as well
             </div>
             <div className="messages">
-                {messages.length>0 && messages.map((message) => (
+                {messages.map((message) => (
                         <Message fromMe={ message.origin_id == user.id } 
                             body={message.body} 
                             id={message.id} key={message.id} />
