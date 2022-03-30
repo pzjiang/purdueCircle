@@ -11,6 +11,8 @@ class Post < ApplicationRecord
     validates :body, length: {in: 0...750}
     after_initialize :init
 
+    has_rich_text :content
+
     def init
         self.likes ||= 0
     end

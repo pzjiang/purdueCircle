@@ -1,8 +1,10 @@
 /**
  * Page for users to create posts
  */
-
+ import Trix from "trix";
 import React, { useEffect, useState } from "react";
+import { ReactTrixRTEInput } from "react-trix-rte";
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -26,37 +28,13 @@ const CreatePost = () => {
         title: '',
         body: '',
     });
+    var content = "";
     const [topics, setTopics] = useState([]);
     const [curTopic, setCurTopic] = useState("");
     const { addToast } = useToasts();
     const { user } = useUserState();
     const navigate = useNavigate();
-
-    const bold = async (event) => {
-        console.log("bold");
-
-    }
-
-    const italisize = async (event) => {
-        console.log("italisize");
-
-    }
-
-    const underscore = async (event) => {
-        console.log("underscore");
-    }
-
-    const strikethrough = async (event) => {
-        console.log("strikethrough");
-    }
-
-    const upload = async (event) => {
-        console.log("upload");
-    }
-
-    const link = async (event) => {
-        console.log("link");
-    }
+    const [value, setValue] = useState("");
 
     /*not needed function
     const post = async (event) => {
@@ -87,11 +65,17 @@ const CreatePost = () => {
 
     }
 
+    function handleChange(event, newValue) {
+        setValue(newValue); // OR custom on change listener.
+        content = newValue;
+        console.log("newValue is now: " + content);
+      }
+
     /**
      * send new post to backend
      */
     const newPost = async (event) => {
-        //console.log("creating post");
+        console.log("creating post " + content );
         event.preventDefault();
 
         //create string list of topics to pass into api request
@@ -101,7 +85,7 @@ const CreatePost = () => {
         });
 
         try {
-            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: topicList });
+            await postsApi.createPost({ post: { title: inputValues.title, body: content, user_id: user.id }, topics: topicList });
             //console.log("successful post creation");
             navigate("/");
             addToast("posted", { appearance: 'success', autoDismiss: true });
@@ -147,19 +131,8 @@ const CreatePost = () => {
                             <br></br>
                         </div>
                     ))}
-
                     <br></br>
 
-                    <div className="options">
-                        <button id="createPostBtn" onClick={bold}>Bold</button>
-                        <button id="createPostBtn" onClick={italisize}>Italicize</button>
-                        <button id="createPostBtn" onClick={underscore}>Underscore</button>
-                        <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
-                        <button id="createPostBtn" onClick={link}>Link</button>
-                        <input id="createPostBtn" type="file" />
-                    </div>
-
-                    <br></br>
 
                     <form id="createPostForm" onSubmit={newPost}>
                         <label>
@@ -170,7 +143,7 @@ const CreatePost = () => {
 
                         <label>
                             Content:
-                            <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
+                            <ReactTrixRTEInput defaultValue="<div>Content</div>" onChange={handleChange} />
                         </label>
                         <button type="submit"> Submit </button>
 
