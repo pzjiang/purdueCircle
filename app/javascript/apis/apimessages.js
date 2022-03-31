@@ -15,7 +15,7 @@ const getConvos = payload => axios.get(`api/v1/convos/${payload.user_id}`);
 //create a new convo
 //put in user_id param for logged in user, target_id for recipient
 //will fail if existing convo between them already
-const createConvo = payload => axios.put(`api/v1/convos`, payload)
+const createConvo = payload => axios.post(`api/v1/convos`, payload)
 
 //delete the convo
 const deleteConvo = payload => axios.delete(`api/v1/convos/${payload.id}`);

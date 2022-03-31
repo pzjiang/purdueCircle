@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       #message api routes
       get "messages/:convo_id", to: "convos#get_messages"
       put "sendmessage", to: "messages#send_message"
-      put "convos", to: "convos#create_convo"
+      post "convos", to: "convos#create_convo"
       get "convos/:user_id", to: "convos#get_convos"
       delete "convos/:id", to: "convos#delete_convo"
       

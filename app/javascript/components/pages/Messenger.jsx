@@ -92,6 +92,7 @@ const Messenger = () => {
     }
 
     const hasUnread = async () => {
+        return false;
         if (true) {
             return true;
         }
@@ -99,19 +100,32 @@ const Messenger = () => {
     }
 
     const createConvo = async(event) => {
+        let thisId = 0;
         try {
             event.preventDefault();
             //get user id
-            console.log(newUserDM);
+            //console.log(newUserDM);
             const { data } = await userApi.findUser({ name: newUserDM });
             console.log(data);
             console.log(data.id);
+            thisId = data.id;
 
-            //create convo
-            messagesApi.createConvo( {user_id: user.id, target_id: data.id} );
-            console.log("convo created");
-            viewDM(data.id);
+
         } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+        try {
+            const {data} = await messagesApi.createConvo( {user_id: user.id, target_id: thisId} );
+            console.log(data);
+            viewDM(data.convo.id);
+
+        }catch (error ) {
             if (error.response) {
                 console.log(error.response.data.error);
             } else if (error.request) {
@@ -137,12 +151,12 @@ const Messenger = () => {
 
             <div className="convo-list">
                 <p>current convos:</p>
-                {convos.map((convo) => (
+                {convos.reverse.map((convo) => (
                     <div key={convo.id} id="convo">
-                        <p>user: {secUser.username}</p>
+                        <p>user: {convo.second_name}<br/></p>
                         <p>Last message: </p>
                         <div>{ hasUnread && 
-                            <p>New messages from {convo.sec_user_id}</p>
+                            <p>New messages from {convo.second_name}</p>
                         }</div>
                         <button onClick={()=> viewDM(convo.id)}>View DM</button>
                         
