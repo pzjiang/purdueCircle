@@ -34,6 +34,9 @@ const Profile = () => {
     const [email, setEmail] = useState("");
     const [privacy, setPrivacy] = useState(false);
 
+
+    const [confirmed, setConfirmed] = useState("")
+
     const [topics, setTopics] = useState([]);
     const [followers, setFollowers] = useState([]);
     const [following, setFollowing] = useState([]);
@@ -66,6 +69,12 @@ const Profile = () => {
             setUsername(user.username);
             setEmail(user.email);
             setPrivacy(user.privacy);
+
+            if (user.confirmed_at != undefined) {
+                setConfirmed("Email Verfied");
+            } else {
+                setConfirmed("Email Not Verfied");
+            }
 
             //console.log("successful display bio");
         } catch (error) {
@@ -170,10 +179,10 @@ const Profile = () => {
             resetAuthTokens();
             console.log("destroyed account ");
             navigate('/');
-            addToast("Account destroyed successfully", { appearance: 'error', });
+            addToast("Account destroyed successfully", { appearance: 'error', autoDismiss: true, });
 
         } catch (error) {
-            addToast(error.response.data.error, { appearance: 'error', });
+            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true, });
         }
     }
 
@@ -218,23 +227,31 @@ const Profile = () => {
                 <h3></h3>
                 <h3>Bio</h3>
                 <p> {biol}</p>
+                <p> Confirmed: {confirmed}</p>
                 <h3>Email</h3>
-                {privacy &&
-                    <p> [ FILTERED ] </p>}
-                {privacy == false &&
-                    <p>{email}</p>}
+                {
+                    privacy &&
+                    <p> [ FILTERED ] </p>
+                }
+                {
+                    privacy == false &&
+                    <p>{email}</p>
+                }
                 <h3>Topics</h3>
                 <p> -- </p>
-                {topics.map((topic) => (
-                    <div> {topic.name} <button onClick={() => removeTopic(topic.id)}> Unfollow </button></div>
-                ))}
-            </div>
+                {
+                    topics.map((topic) => (
+                        <div> {topic.name} <button onClick={() => removeTopic(topic.id)}> Unfollow </button></div>
+                    ))
+                }
+            </div >
             <button onClick={displayPosts}> Display Posts</button>
             <button onClick={displayFollowing}>Display Following</button>
             <button onClick={displayFollowers}> Display Followers</button>
 
 
-            {display == "posts" &&
+            {
+                display == "posts" &&
                 < div className="postList">
                     {posts.reverse().map((post) => (
                         <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
@@ -242,7 +259,8 @@ const Profile = () => {
                 </div>
             }
 
-            {display == "following" &&
+            {
+                display == "following" &&
 
                 <div>following display:
                     {following.map((item) => (
@@ -253,7 +271,8 @@ const Profile = () => {
                 </div>
             }
 
-            {display == "followers" &&
+            {
+                display == "followers" &&
                 <div>followers display
                     {followers.map((item) => (
                         <div> first name: {item.first_name} last name: {item.last_name} <br></br>
@@ -276,7 +295,7 @@ const Profile = () => {
             </table>
             <br></br>
 
-        </Layout>
+        </Layout >
     );
 }
 

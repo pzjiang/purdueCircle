@@ -14,7 +14,7 @@ import "../styling/Login.scss";
 
 const Login = () => {
     const [inputValues, setInputValues] = useState({
-        email: '',
+        login: '',
         password: '',
     });
 
@@ -44,11 +44,11 @@ const Login = () => {
             //console.log("starting tests");
             const {
                 data: { auth_token, user },
-            } = await authenticationApi.login({ user: { email: inputValues.email, password: inputValues.password } });
+            } = await authenticationApi.login({ user: { login: inputValues.login, password: inputValues.password } });
             //console.log(user.email);
 
             //console.log("checkpoint 4");
-            authDispatch({ type: 'LOGIN', payload: { auth_token, email: inputValues.email } });
+            authDispatch({ type: 'LOGIN', payload: { auth_token, login: inputValues.login } });
             //console.log("checkpoint 3");
             userDispatch({ type: 'SET_USER', payload: { user } });
             //console.log("checkpoint 2");
@@ -127,7 +127,7 @@ const Login = () => {
 
                 <label>
                     <center>
-                        <input type="text" placeholder="Email" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                        <input type="text" placeholder="Email" value={inputValues.login} onChange={(e) => setInputValues({ ...inputValues, login: e.target.value })}
                         />
                     </center>
                 </label>

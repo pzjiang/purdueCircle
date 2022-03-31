@@ -17,8 +17,12 @@ import { useAuthState, useAuthDispatch } from '../contexts/auth';
 import { useUserDispatch } from '../contexts/user';
 import CreatePost from '../components/pages/CreatePost';
 import ViewPost from '../components/pages/ViewPost';
+<<<<<<< HEAD
 import DiscoveryPage from '../components/pages/DiscoveryPage';
 import ForeignUser from '../components/pages/ForeignUser';
+=======
+import Confirmation from '../components/pages/Confirmation';
+>>>>>>> 33a8d33d31a4086e07c7795bc13b96fd57ad748c
 
 //import NotFound from "../components/NotFound"
 
@@ -58,6 +62,7 @@ const Routing = props => {
                 <Route exact path="/viewpost/:index" element={<ViewPost />} />
                 <Route exact path="/discovery" element={<DiscoveryPage />} />
                 <Route exact path="/profile/:index" element={<ForeignUser />} />
+                <Route exact path="/confirmation/:token" element={<Confirmation />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>

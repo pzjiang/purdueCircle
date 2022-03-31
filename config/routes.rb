@@ -88,9 +88,10 @@ Rails.application.routes.draw do
     end
   end
 
-
+  # put '/confirmation/:confirmation_token', to: 'pages#index', as: :frontend_user_confirmation
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
   root 'pages#index'
 
   get '/*path' => 'pages#index'

@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        format.html { redirect_to profile_url(@profile), notice: "Profile was successfully created." }
+        format.html { redirect_to profile_url(@profile), notice: "Account created! Please confirm your email." }
         format.json { render :show, status: :created, location: @profile }
       else
         format.html { render :new, status: :unprocessable_entity }
