@@ -82,13 +82,13 @@ class User < ApplicationRecord
               #Rails.application.secrets.secret_key_base)
   #end
 
-  validate :validate_username
+  #validate :validate_username
 
-  def validate_username
-    if User.where(email: username).exists?
-      errors.add(:username, :invalid)
-    end
-  end
+  #def validate_username
+    #if User.where(email: username).exists?
+      #errors.add(:username, :invalid)
+    #end
+  #end
 
 
 end

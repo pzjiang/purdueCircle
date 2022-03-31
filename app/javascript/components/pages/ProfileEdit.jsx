@@ -147,9 +147,7 @@ const EditProfile = () => {
         event.preventDefault();
         try {
             const { data } = await registrationApi.update({ user: { email: user.email, username: inputValues.username, first_name: inputValues.first_name, last_name: inputValues.last_name, current_password: inputValues.currentpassword } });
-            await authenticationApi.logout();
-            authDispatch({ type: 'LOGOUT' });
-            resetAuthTokens();
+            userDispatch({ type: 'SET_USER', payload: { user: data.user } });
 
             //console.log("success");
 
@@ -171,7 +169,7 @@ const EditProfile = () => {
         <Layout>
             <div className="editProfileForm">
 
-        
+
                 <h1 id="edit_h1"> Edit Profile </h1>
 
                 <br />
@@ -194,7 +192,7 @@ const EditProfile = () => {
                 <br />
                 <br />
 
-                
+
                 <h2 id="edit_h2"> Change Password </h2>
                 <form id="profileEditForm" onSubmit={updatePassword}>
                     <label>
@@ -216,23 +214,36 @@ const EditProfile = () => {
                 <br></br>
                 <br></br>
 
-                
 
-                {/*
-            <form onSubmit={updateName} id="form">
-                <h3>Change Name:</h3>
-                <label id="password-labels">
-                    <h4>Enter Updated First Name: </h4>
+
+
+                <form onSubmit={updateAccount} id="form">
+                    <h3>Change Name:</h3>
+                    <label id="password-labels">
+                        <h4>Enter Updated First Name: </h4>
                         <input type="text" placeholder="First Name" id="label" value={inputValues.first_name} onChange={(e) => setInputValues({ ...inputValues, first_name: e.target.value })}
-                    />
+                        />
+                        <h4>Enter Updated Last Name: </h4>
+                        <input type="text" placeholder="Last Name" id="label" value={inputValues.last_name} onChange={(e) => setInputValues({ ...inputValues, last_name: e.target.value })}
+                        />
 
-                    <input type="password" placeholder="Confirm Password" value={inputValues.passwordConfirmation} onChange={(e) => setInputValues({ ...inputValues, passwordConfirmation: e.target.value })}
-                    />
-                </label>
-                <button type="submit"> Change Password </button>
+                        <h4>Enter Updated username: </h4>
+                        <input type="text" placeholder="User Name" id="label" value={inputValues.username} onChange={(e) => setInputValues({ ...inputValues, username: e.target.value })}
+                        />
 
-            </form>
-            */}
+                        <h4>Enter Updated email: </h4>
+                        <input type="text" placeholder="Email" id="label" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                        />
+
+                        <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
+                        />
+                    </label>
+                    <button type="submit"> update </button>
+
+                </form>
+
+                <br></br>
+                <br></br>
             </div>
         </Layout>
     )
