@@ -19,18 +19,35 @@
   margin-right: -20px;
 }
 
+#convos {
+  margin: 10%;
+}
+
 // DM page
 .dm {
   display: flex;
   flex-direction: column;
+
+  .delete {
+    width: auto;
+    position: absolute;
+    right: 10%;
+    top: 30%;
+  }
 }
 
 // Messages
-.messages {
+#messages {
+  position: absolute;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
   overflow-y: scroll;
   overflow-x: hidden;
   flex-grow: 1;
   padding: 20px;
+  height: 40vh;
+  width: 80vw;
 }
 
 .message.from-me .username {
@@ -68,6 +85,22 @@
   margin-bottom: 5px;
 }
 
+.backToConvos {
+  width: auto;
+  position: absolute;
+  left: 10%;
+  top: 30%;
+}
+
+//chat input
+.chat-input {
+  position: absolute;
+  top: 70vh;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 20px;
+  width: 70%;
+}
 
 .App {
   text-align: center;

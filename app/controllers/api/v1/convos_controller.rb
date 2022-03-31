@@ -15,6 +15,7 @@ class Api::V1::ConvosController < Api::V1::BaseController
 
         if @found
             respond_with_error "convo already exists", 404
+            return
         end
 
         @convo = Convo.where(sec_user_id: params[:user_id])
@@ -24,6 +25,7 @@ class Api::V1::ConvosController < Api::V1::BaseController
 
         if @found
             respond_with_error "convo already exists", 404
+            return
         end
 
         @convo = Convo.create(first_user_id: params[:user_id], sec_user_id: params[:target_id], message_number: 0)
@@ -57,6 +59,15 @@ class Api::V1::ConvosController < Api::V1::BaseController
 
         render json: {convos: @final_list}, status: 200
 
+    end
+
+    def delete_convo
+        @convo = Convo.find(params[:id])
+        if @convo.destroy!
+            render json: {}, status: 200
+        else
+            respond_with_error "no convo found", :not_found
+        end
     end
 
 

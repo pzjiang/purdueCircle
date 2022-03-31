@@ -3,7 +3,7 @@
  * Conversation between two users
  */
 
- import React, { useEffect, useState } from "react";
+ import React, { useEffect, useState, useRef } from "react";
  import {
      BrowserRouter as Router,
      Switch,
@@ -14,7 +14,6 @@
  } from "react-router-dom";
 import { useUserState } from "../../contexts/user";
 import Message from "./Message";
-import ChatInput from "./ChatInput";
 import messagesApi from "../../apis/apimessages";
 import '../../styling/Messenger.scss';
 import Layout from "./Layout";
@@ -68,13 +67,30 @@ import Layout from "./Layout";
         }
     };
 
-    const sendHandler = async() => {
-
-        
-    }
-
     function backToConvos() {
         navigate(`/messenger/`);
+    }
+
+    /*
+     * deleteConvo
+     * Delete conversation with user
+    **/
+    const deleteConvo = async () => {
+        try {
+            await messagesApi.deleteConvo({ id: id })
+            backToConvos();
+            //console.log("deleted");
+            addToast("DM successfully deleted!", { appearance: 'success', autoDismiss: true, });
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
     }
 
     const newChat = async(event) => {
@@ -84,7 +100,6 @@ import Layout from "./Layout";
         event.preventDefault();
         try {
             const {data} = await messagesApi.sendMessage( { origin_id: user.id, target_id: 2, body: newMessage.body, convo_id: id } );
-            //navigate("/");
             const newList = [...messages, data.newMessage];
             setMessages(newList);
             console.log("success probably");
@@ -102,25 +117,35 @@ import Layout from "./Layout";
 
     }
 
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+
     return (
         <Layout>
         <div className="dm">
-            <button onClick={()=> backToConvos()}>back</button>
+            <button className="backToConvos" onClick={()=> backToConvos()}>back</button>
+            <button className="delete" onClick={deleteConvo}>delete conversation</button>
             <div className="userProfile">
                 other user's info that you're talking to will go header<br></br>
                 insert link to profile as well
             </div>
-            <div className="messages">
+            <div id="messages" >
                 {messages.map((message) => (
                         <Message fromMe={ message.origin_id == user.id } 
                             body={message.body} 
                             id={message.id} key={message.id} />
                 ))}
-                <Message fromMe={true} body="fake message one to test how a long message might appear on the ui. it do be important that the text box flexes if there's a big paragraph that is written from one user to another."/>
-                <Message fromMe={true} body="hello"/>
-                <Message fromMe={false} body="hi there"/>
-                <Message fromMe={true} body="how are you doing today"/>
+                <div ref={messagesEndRef} />
             </div>
+
             <div className="chat">
                 <form className="chat-input" onSubmit={newChat}>
                 <input id="sendMessage"

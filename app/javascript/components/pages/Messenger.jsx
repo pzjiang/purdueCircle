@@ -14,7 +14,6 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import DM from "../objs/DM";
-import Conversations from "../objs/Converations";
 import Users from "../objs/User";
 import '../../styling/Messenger.scss';
 import messagesApi from "../../apis/apimessages";
@@ -30,8 +29,8 @@ const Messenger = () => {
     //const { index } = useParams();
     const [convos, setConvos] = useState([]);
     const [newUserDM, setNewUserDM] = useState("");
-    const [newUserID, setNewUserID] = useState("");
     const { user } = useUserState();
+    const [secUser, setSecUser ] = useState("");
 
     const [currentConvo, setCurrentConvo] = useState("");
     let convosExist = false;
@@ -79,6 +78,27 @@ const Messenger = () => {
         navigate(`/dm/${convoId}`);
     }
 
+
+    async function getUserInfo(userId) {
+        try {
+            //event.preventDefault();
+            const { data } = await userApi.getUser({user_id: userId});
+            setSecUser(data);
+
+            console.log(data);
+
+            //return data;
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
     const hasUnread = async () => {
         if (true) {
             return true;
@@ -98,7 +118,7 @@ const Messenger = () => {
             //create convo
             messagesApi.createConvo( {user_id: user.id, target_id: data.id} );
             console.log("convo created");
-            //viewDM(data.id);
+            viewDM(data.id);
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -127,7 +147,7 @@ const Messenger = () => {
                 <p>current convos:</p>
                 {convos.map((convo) => (
                     <div key={convo.id} id="convo">
-                        <p>user: {convo.sec_user_id}</p>
+                        <p>user: {secUser.username}</p>
                         <p>Last message: </p>
                         <div>{ hasUnread && 
                             <p>New messages from {convo.sec_user_id}</p>

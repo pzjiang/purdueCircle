@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       put "sendmessage", to: "messages#send_message"
       put "convos", to: "convos#create_convo"
       get "convos/:user_id", to: "convos#get_convos"
+      delete "convos/:id", to: "convos#delete_convo"
       
       resources :posts, only: [:show, :update,  :create, :destroy]
 
