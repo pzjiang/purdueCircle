@@ -35,8 +35,11 @@ const Profile = () => {
     const [privacy, setPrivacy] = useState(false);
 
     const [topics, setTopics] = useState([]);
-
+    const [followers, setFollowers] = useState([]);
+    const [following, setFollowing] = useState([]);
     const [posts, setPosts] = useState([]);
+
+    const [display, setDisplay] = useState("posts");
 
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -107,6 +110,37 @@ const Profile = () => {
                 console.log("error", error.message);
             }
         }
+
+        //intialize following list people that user is following
+        try {
+            const { data } = await userApi.getFollowed({ id: thisId });
+            setFollowing(data.following);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+
+        //initialize follower list people following user
+        try {
+            const { data } = await userApi.getFollowers({ id: thisId });
+            setFollowers(data.followers);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+
     }
 
     const removeTopic = async (param) => {
@@ -141,8 +175,23 @@ const Profile = () => {
         } catch (error) {
             addToast(error.response.data.error, { appearance: 'error', });
         }
+    }
 
 
+    const displayPosts = () => {
+        setDisplay("posts");
+        addToast("now displaying posts", { appearance: 'success', autoDismiss: true });
+    }
+
+
+    const displayFollowers = () => {
+        setDisplay("followers");
+        addToast("now displaying followers", { appearance: 'success', autoDismiss: true });
+    }
+
+    const displayFollowing = () => {
+        setDisplay("following");
+        addToast("now displaying following", { appearance: 'success', autoDismiss: true });
     }
 
 
@@ -180,12 +229,40 @@ const Profile = () => {
                     <div> {topic.name} <button onClick={() => removeTopic(topic.id)}> Unfollow </button></div>
                 ))}
             </div>
+            <button onClick={displayPosts}> Display Posts</button>
+            <button onClick={displayFollowing}>Display Following</button>
+            <button onClick={displayFollowers}> Display Followers</button>
 
-            <div className="postList">
-                {posts.reverse().map((post) => (
-                    <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
-                ))}
-            </div>
+
+            {display == "posts" &&
+                < div className="postList">
+                    {posts.reverse().map((post) => (
+                        <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
+                    ))}
+                </div>
+            }
+
+            {display == "following" &&
+
+                <div>following display:
+                    {following.map((item) => (
+                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
+                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        </div>
+                    ))}
+                </div>
+            }
+
+            {display == "followers" &&
+                <div>followers display
+                    {followers.map((item) => (
+                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
+                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        </div>
+                    ))}
+
+                </div>
+            }
 
             <table width="100%">
                 <tr width="100%">

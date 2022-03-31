@@ -7,7 +7,7 @@ import { setAuthHeaders } from '../apis/axios';
 import authenticationApi from '../apis/authentication';
 import { useAuthDispatch } from '../contexts/auth';
 import { useUserDispatch } from '../contexts/user';
-import { validateEmail, validatePassword, validateName } from './validations';
+//import { validateEmail, validatePassword, validateName } from './validations';
 import { useToasts } from 'react-toast-notifications';
 
 import "../styling/Login.scss";
