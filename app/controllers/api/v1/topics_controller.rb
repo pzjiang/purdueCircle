@@ -1,6 +1,6 @@
 class Api::V1::TopicsController < Api::V1::BaseController
     
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     #before_action :set_topic, only: [:pull_posts]
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false

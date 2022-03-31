@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < Api::V1::BaseController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false

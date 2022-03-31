@@ -1,13 +1,8 @@
 class Api::V1::UsersController < Api::V1::BaseController
   skip_before_action :authenticate_user!, only: [:create]
-<<<<<<< HEAD
   skip_before_action :authenticate_user_using_x_auth_token
   before_action :set_user, only: [:show, :edit, :update, :destroy, :change_privacy]
-=======
-  skip_before_action :authenticate_user_using_x_auth_token, only: [:create, :destroy]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
->>>>>>> 33a8d33d31a4086e07c7795bc13b96fd57ad748c
-  before_action :authenticate_user!, only: [:update]
+  #before_action :authenticate_user!, only: [:update]
   skip_before_action :verify_authenticity_token, raise: false
   skip_after_action :verify_authorized, raise: false
 

@@ -84,7 +84,6 @@ Rails.application.routes.draw do
       delete "followtopic/:name/:id", to: "topics#unfollow_topic"
       #get hte topics that the user follows
       get "followedtopics/:id", to: "topics#followed_topics"
-      
     end
   end
 
