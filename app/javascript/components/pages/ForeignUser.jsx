@@ -190,6 +190,7 @@ const ForeignUser = () => {
             <div id="profile">
 
                 <h1> {first_name}'s Profile </h1>
+                <br />
 
                 <br />
 
@@ -203,6 +204,9 @@ const ForeignUser = () => {
                     </div>
                 </div>
 
+                {followed == false && <button onClick={followUser}> Follow User</button>}
+                {followed && <button onClick={unfollowUser}>Unfollow User</button>}
+
                 <br />
                 <br />
                 <h3></h3>
@@ -215,8 +219,7 @@ const ForeignUser = () => {
                     <p>{email}</p>}
                 <h3>Topics</h3>
                 <p> -- </p>
-                {followed == false && <button onClick={followUser}> Follow User</button>}
-                {followed && <button onClick={unfollowUser}>Unfollow User</button>}
+                
             </div>
             <button onClick={displayPosts}> Display Posts</button>
             <button onClick={displayFollowing}>Display Following</button>

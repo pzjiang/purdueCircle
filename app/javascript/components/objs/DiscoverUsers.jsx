@@ -21,10 +21,10 @@ const DiscoverUsers = props => {
 
     return (
         <div>
-            User name:
-            {props.firstname} {props.lastname}
-            user username:
-            <Link to={"/profile/" + props.username}>{props.username} </Link>
+            User's Name: {props.firstname} {props.lastname}
+            <br />
+            Username: <Link to={"/profile/" + props.username}>{props.username} </Link>
+            <br></br>
         </div>
     )
 }

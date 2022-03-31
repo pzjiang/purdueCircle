@@ -37,7 +37,7 @@ const DiscoverTopics = props => {
         <div>
             Topic Name:
             <Link to="/"> {props.name} </Link>
-
+            <br></br>
             <button onClick={() => followTopic()}> Follow Topic</button>
             <br></br>
         </div >

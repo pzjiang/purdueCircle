@@ -161,14 +161,17 @@ const DiscoveryPage = props => {
                 {searchState == "users" &&
                     users.map((user) => (
                         user.privacy == false &&
-                        <DiscoverUsers firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
-
+                        <p> 
+                            <DiscoverUsers firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
+                        </p>
                     ))
                 }
 
                 {searchState == "topics" &&
                     topicsDisc.map((topic) => (
+                        <p> 
                         <DiscoverTopics id={user.id} name={topic.name}> </DiscoverTopics>
+                        </p>
                     ))
                 }
 
