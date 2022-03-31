@@ -180,18 +180,18 @@ const Profile = () => {
 
     const displayPosts = () => {
         setDisplay("posts");
-        addToast("now displaying posts", { appearance: 'success', autoDismiss: true });
+        addToast("Now displaying posts", { appearance: 'success', autoDismiss: true });
     }
 
 
     const displayFollowers = () => {
         setDisplay("followers");
-        addToast("now displaying followers", { appearance: 'success', autoDismiss: true });
+        addToast("Now displaying followers", { appearance: 'success', autoDismiss: true });
     }
 
     const displayFollowing = () => {
         setDisplay("following");
-        addToast("now displaying following", { appearance: 'success', autoDismiss: true });
+        addToast("Now displaying following", { appearance: 'success', autoDismiss: true });
     }
 
 
@@ -241,12 +241,13 @@ const Profile = () => {
                     ))}
                 </div>
             }
+            <br />
 
             {display == "following" &&
 
-                <div>following display:
+                <div> <h3> Following List: </h3>
                     {following.map((item) => (
-                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
+                        <div> <p> First Name: </p> {item.first_name} <p> Last Name: </p> {item.last_name} <br></br>
                             <Link to={'/profile/' + item.username}>{item.username}</Link>
                         </div>
                     ))}
@@ -254,9 +255,9 @@ const Profile = () => {
             }
 
             {display == "followers" &&
-                <div>followers display
+                <div> <h3> Followers List: </h3> 
                     {followers.map((item) => (
-                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
+                        <div> <p> First Name: </p> {item.first_name} <p> Last Name: </p> {item.last_name} <br></br>
                             <Link to={'/profile/' + item.username}>{item.username}</Link>
                         </div>
                     ))}
