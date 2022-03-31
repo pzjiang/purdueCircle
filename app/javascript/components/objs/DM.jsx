@@ -3,22 +3,22 @@
  * Conversation between two users
  */
 
- import React, { useEffect, useState, useRef } from "react";
- import {
-     BrowserRouter as Router,
-     Switch,
-     Route,
-     Link,
-     useNavigate,
-     useParams
- } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useNavigate,
+    useParams
+} from "react-router-dom";
 import { useUserState } from "../../contexts/user";
 import Message from "./Message";
 import messagesApi from "../../apis/apimessages";
 import '../../styling/Messenger.scss';
 import Layout from "./Layout";
 
- const DM = (props) => { 
+const DM = (props) => {
 
     const [messages, setMessages] = useState([]);
     const { user } = useUserState();
@@ -26,6 +26,7 @@ import Layout from "./Layout";
     const { index } = useParams();
     const navigate = useNavigate();
     const msgFromMe = false;
+    //const [secId, setSecId] = useState(0);
     const [newMessage, setNewMessage] = useState("");
 
     const [secUser, setSecUser] = useState("");
@@ -38,6 +39,7 @@ import Layout from "./Layout";
         }
         let thisId = parseInt(index, 10);
         setId(parseInt(index, 10));
+        //setSecId(props.secId);
 
         onLoad(thisId);
 
@@ -55,7 +57,7 @@ import Layout from "./Layout";
 
             console.log("set second user info");
 
-            
+
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -93,13 +95,13 @@ import Layout from "./Layout";
 
     }
 
-    const newChat = async(event) => {
+    const newChat = async (event) => {
         console.log("new chat");
         console.log(newMessage);
 
         event.preventDefault();
         try {
-            const {data} = await messagesApi.sendMessage( { origin_id: user.id, target_id: 2, body: newMessage.body, convo_id: id } );
+            const { data } = await messagesApi.sendMessage({ origin_id: user.id, target_id: 23, body: newMessage.body, convo_id: id });
             const newList = [...messages, data.newMessage];
             setMessages(newList);
             console.log("success probably");
@@ -113,7 +115,7 @@ import Layout from "./Layout";
             }
         }
 
-        setNewMessage( {...newMessage, body: ''} );
+        setNewMessage({ ...newMessage, body: '' });
 
     }
 
@@ -130,33 +132,33 @@ import Layout from "./Layout";
 
     return (
         <Layout>
-        <div className="dm">
-            <button className="backToConvos" onClick={()=> backToConvos()}>back</button>
-            <button className="delete" onClick={deleteConvo}>delete conversation</button>
-            <div className="userProfile">
-                other user's info that you're talking to will go header<br></br>
-                insert link to profile as well
-            </div>
-            <div id="messages" >
-                {messages.map((message) => (
-                        <Message fromMe={ message.origin_id == user.id } 
-                            body={message.body} 
+            <div className="dm">
+                <button className="backToConvos" onClick={() => backToConvos()}>back</button>
+                <button className="delete" onClick={deleteConvo}>delete conversation</button>
+                <div className="userProfile">
+                    other user's info that you're talking to will go header<br></br>
+                    insert link to profile as well
+                </div>
+                <div id="messages" >
+                    {messages.map((message) => (
+                        <Message fromMe={message.origin_id == user.id}
+                            body={message.body}
                             id={message.id} key={message.id} />
-                ))}
-                <div ref={messagesEndRef} />
-            </div>
+                    ))}
+                    <div ref={messagesEndRef} />
+                </div>
 
-            <div className="chat">
-                <form className="chat-input" onSubmit={newChat}>
-                <input id="sendMessage"
-                type="text"
-                value={newMessage.body}
-                onChange={(e) => setNewMessage({ ...newMessage, body: e.target.value })}
-                placeholder="Write a message..."
-                required />
-            </form>
+                <div className="chat">
+                    <form className="chat-input" onSubmit={newChat}>
+                        <input id="sendMessage"
+                            type="text"
+                            value={newMessage.body}
+                            onChange={(e) => setNewMessage({ ...newMessage, body: e.target.value })}
+                            placeholder="Write a message..."
+                            required />
+                    </form>
+                </div>
             </div>
-        </div>
         </Layout>
     );
 }

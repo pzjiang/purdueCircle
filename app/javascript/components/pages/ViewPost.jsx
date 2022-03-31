@@ -171,7 +171,8 @@ const ViewPost = () => {
      * user who owns the post changes the privacy setting
     */
 
-    const changePrivacy = async () => {
+    const changePrivacy = async (event) => {
+        event.preventDefault();
         try {
             const { data } = await postsApi.changePrivacy({ id: id });
             setPrivacy(data.privacy);
