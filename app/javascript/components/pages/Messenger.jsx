@@ -107,8 +107,8 @@ const Messenger = () => {
             //console.log(newUserDM);
             const { data } = await userApi.findUser({ name: newUserDM });
             console.log(data);
-            console.log(data.id);
-            thisId = data.id;
+            console.log(data.user.id);
+            thisId = data.user.id;
 
 
         } catch (error) {
