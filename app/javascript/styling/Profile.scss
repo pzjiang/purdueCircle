@@ -143,4 +143,17 @@ textarea {
     margin: 0 auto;
 }
 
+#small_post_btn {
+  justify-content: center;
+  font-size: 15px;
+  text-align: center;
+  font-family: s.$secondary_font;
+  font-style: bold;
+  background-color: s.$primary;
+  border-radius: 5px;
+  border-color: s.$secondary;
+  color: s.$accent;
+  padding: 8px 14px;
+}
+
 

@@ -224,14 +224,13 @@ const Profile = () => {
                 {privacy == false &&
                     <p>{email}</p>}
                 <h3>Topics</h3>
-                <p> -- </p>
                 {topics.map((topic) => (
-                    <div> {topic.name} <button onClick={() => removeTopic(topic.id)}> Unfollow </button></div>
+                    <div> <p> {topic.name} </p> <button id="small_post_btn" onClick={() => removeTopic(topic.id)}> Unfollow </button></div>
                 ))}
             </div>
-            <button onClick={displayPosts}> Display Posts</button>
-            <button onClick={displayFollowing}>Display Following</button>
-            <button onClick={displayFollowers}> Display Followers</button>
+            <button id="small_post_btn" onClick={displayPosts}> Display Posts</button>
+            <button id="small_post_btn" onClick={displayFollowing}>Display Following</button>
+            <button id="small_post_btn" onClick={displayFollowers}> Display Followers</button>
 
 
             {display == "posts" &&
@@ -247,7 +246,7 @@ const Profile = () => {
 
                 <div> <h3> Following List: </h3>
                     {following.map((item) => (
-                        <div> <p> First Name: </p> {item.first_name} <p> Last Name: </p> {item.last_name} <br></br>
+                        <div> <p> First Name: {item.first_name} Last Name: {item.last_name} </p>  <br></br>
                             <Link to={'/profile/' + item.username}>{item.username}</Link>
                         </div>
                     ))}
@@ -257,7 +256,7 @@ const Profile = () => {
             {display == "followers" &&
                 <div> <h3> Followers List: </h3> 
                     {followers.map((item) => (
-                        <div> <p> First Name: </p> {item.first_name} <p> Last Name: </p> {item.last_name} <br></br>
+                        <div> <p> First Name: {item.first_name} Last Name: {item.last_name} </p> <br></br>
                             <Link to={'/profile/' + item.username}>{item.username}</Link>
                         </div>
                     ))}
