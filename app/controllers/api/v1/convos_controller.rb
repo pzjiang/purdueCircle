@@ -32,7 +32,7 @@ class Api::V1::ConvosController < Api::V1::BaseController
         @convo = Convo.create(first_user_id: params[:user_id], sec_user_id: params[:target_id], message_number: 0, first_name: @firstuser.username, second_name: @secuser.username)
 
         if @convo.save!
-            render json: @convo, status: 200
+            render json: {convo: @convo}, status: 200
         else
             respond_with_error "Couldn't save convo with user", 404
         end
