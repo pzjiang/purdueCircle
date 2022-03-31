@@ -17,12 +17,16 @@ const getConvos = payload => axios.get(`api/v1/convos/${payload.user_id}`);
 //will fail if existing convo between them already
 const createConvo = payload => axios.put(`api/v1/convos`, payload)
 
+//delete the convo
+const deleteConvo = payload => axios.delete(`api/v1/convos/${payload.id}`);
+
 
 const messagesApi = {
     getMessages,
     sendMessage,
     getConvos,
     createConvo,
+    deleteConvo,
 
 };
 

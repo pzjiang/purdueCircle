@@ -48,7 +48,7 @@ const Post = props => {
         try {
             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: props.id });
             setLiked(data.status);
-            console.log("status retrieved successfully");
+            //console.log("status retrieved successfully");
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -70,7 +70,7 @@ const Post = props => {
             const { data } = await postsApi.incrementLike({ id: props.id, profile_id: user.id });
             setLikes(data.likes);
             setLiked(data.status);
-            console.log("changed");
+            //console.log("changed");
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -97,7 +97,7 @@ const Post = props => {
     const deletePost = async () => {
         try {
             await postsApi.deletePost({ id: id })
-            console.log("deleted");
+            //console.log("deleted");
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -124,16 +124,16 @@ const Post = props => {
 
             <p></p>
             <div className="reactions">
-                <button className="like" onClick={addLike}>
+                <button id="small_post_btn" className="like" onClick={addLike}>
                     <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                 </button>
-                <button className="comment" onClick={addComment}>
-                    <i className="fa fa-comment" aria-hidden="true"></i> comment
+                <button id="small_post_btn" className="comment" onClick={addComment}>
+                    <i className="fa fa-comment" aria-hidden="true"></i> Comment
                 </button>
-                <button className="editButton" onClick={editPost}>Edit Post
+                <button id="small_post_btn" className="editButton" onClick={editPost}>Edit
                 </button>
-                <button className="viewPost" onClick={viewPost}>
-                    view
+                <button id="small_post_btn" className="viewPost" onClick={viewPost}>
+                    View
                 </button>
             </div>
             {/*

@@ -29,12 +29,12 @@ const Navigation = () => {
             await authenticationApi.logout();
             authDispatch({ type: 'LOGOUT' });
             resetAuthTokens();
-            console.log("success");
+            //console.log("success");
             navigate('/');
             addToast("Successfully logged out!", { appearance: 'success', autoDismiss: true });
         } catch (error) {
-            console.log("error found");
-            addToast("Logout failed!", { appearance: 'error', autoDismiss: true });
+            //console.log("error found");
+            //addToast("Logout failed!", { appearance: 'error', autoDismiss: true });
             console.log(error.toString());
         }
 
@@ -44,7 +44,8 @@ const Navigation = () => {
         <div id="nav">
             <ul>
                 <li><Link to='../../'>PurdueCircle</Link></li>
-                <li><Search /></li>
+                {/*<li><Search /></li>*/}
+                <li><Link to='/discovery'>Discover</Link></li>
                 <li><Link to='/post'> New Post</Link></li>
                 <li><Link to='/profile'>Profile</Link></li>
                 <li><Link to='/messenger'>Messages</Link></li>

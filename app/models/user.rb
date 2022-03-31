@@ -5,6 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable #, authentication_keys: [:login]
 
          has_one :profile, dependent: :destroy
+         has_many :posts, dependent: :destroy
+         has_many :comments, dependent: :destroy
+         has_many :receivedmessages, :foreign_key => :target
+         has_many :sentmessages, :foreign_key => :origin
          
   
   before_save :ensure_authentication_token_is_present

@@ -18,6 +18,8 @@ import { useUserDispatch } from '../contexts/user';
 import CreatePost from '../components/pages/CreatePost';
 import ViewPost from '../components/pages/ViewPost';
 import Messenger from '../components/pages/Messenger';
+import DM from '../components/objs/DM';
+import DiscoveryPage from '../components/pages/DiscoveryPage';
 
 //import NotFound from "../components/NotFound"
 
@@ -56,6 +58,8 @@ const Routing = props => {
                 <Route exact path="/editpost/:index" element={< EditPost />} />
                 <Route exact path="/viewpost/:index" element={<ViewPost />} />
                 <Route exact path="/messenger" element={<Messenger />} />
+                <Route exact path="/dm/:index" element={<DM />} />
+                <Route exact path="/discovery" element={<DiscoveryPage />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>

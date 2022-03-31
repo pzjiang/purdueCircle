@@ -144,3 +144,26 @@ textarea {
   border-radius: 5px;
   font-size: 20px;
 }
+
+#topicinput textarea {
+  font-family: s.$secondary_font;
+  display: block;
+  height: 20px;
+  width: 100%;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  margin: 0.9vw 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+#topicinput input {
+  font-family: s.$secondary_font;
+  display: block;
+  width: 40%;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  margin: 0.9vw 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+}

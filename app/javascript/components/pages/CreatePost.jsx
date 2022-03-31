@@ -26,6 +26,8 @@ const CreatePost = () => {
         title: '',
         body: '',
     });
+    const [topics, setTopics] = useState([]);
+    const [curTopic, setCurTopic] = useState("");
     const { addToast } = useToasts();
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -56,19 +58,51 @@ const CreatePost = () => {
         console.log("link");
     }
 
+    /*not needed function
     const post = async (event) => {
         console.log("posted");
+    }
+    */
+
+    //add topic to the list
+    const topicSubmit = (event) => {
+        event.preventDefault();
+        if (curTopic == "") {
+            return;
+        }
+        topics.forEach((topic) => {
+            if (topic == curTopic) {
+                return;
+            }
+        });
+        setTopics([...topics, { name: curTopic, id: curTopic }]);
+        setCurTopic("");
+    }
+
+    const removeTopic = (param) => {
+
+        //console.log(param);
+        const newList = topics.filter((item) => item.id !== param);
+        setTopics(newList);
+
     }
 
     /**
      * send new post to backend
      */
     const newPost = async (event) => {
-        console.log("creating post");
+        //console.log("creating post");
         event.preventDefault();
+
+        //create string list of topics to pass into api request
+        const topicList = [];
+        topics.forEach((topic) => {
+            topicList.push(topic.name);
+        });
+
         try {
-            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body } });
-            console.log("successful post creation");
+            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: topicList });
+            //console.log("successful post creation");
             navigate("/");
             addToast("posted", { appearance: 'success', autoDismiss: true });
 
@@ -76,6 +110,7 @@ const CreatePost = () => {
             //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
             if (error.response) {
                 console.log(error.response.data.error);
+                addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
             } else if (error.request) {
                 console.log(error.request);
             } else {
@@ -89,51 +124,63 @@ const CreatePost = () => {
     return (
         <Layout>
             <div id="createpost">
-            <h1> New Post </h1>
+                <h1> New Post </h1>
 
-            <br />
+                <br />
 
-            <h2> Topics </h2>
+                <h2> Topics </h2>
 
-            <div className="topicSelection"> 
-                
-                <center>
-                <div id="input" contentEditable></div>
-                </center>
+                <div className="topicSelection">
 
-                <br></br>
+                    <center>
+                        <form id="topicinput" onSubmit={topicSubmit}>
+                            <input type="text" value={curTopic} onChange={(e) => setCurTopic(e.target.value)} />
+                            
+                            <button type="submit"> Submit </button>
+                        </form>
+                    </center>
 
-                <div className="options">
-                    <button id="createPostBtn" onClick={bold}>Bold</button>
-                    <button id="createPostBtn" onClick={italisize}>Italicize</button>
-                    <button id="createPostBtn" onClick={underscore}>Underscore</button>
-                    <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
-                    <button id="createPostBtn" onClick={link}>Link</button>
-                    <input id="createPostBtn" type="file" />
+                    <br></br>
+                    {topics.map((topic) => (
+                        <div>
+                            <button onClick={() => removeTopic(topic.id)}> {topic.name}</button>
+                            <br></br>
+                        </div>
+                    ))}
+
+                    <br></br>
+
+                    <div className="options">
+                        <button id="createPostBtn" onClick={bold}>Bold</button>
+                        <button id="createPostBtn" onClick={italisize}>Italicize</button>
+                        <button id="createPostBtn" onClick={underscore}>Underscore</button>
+                        <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
+                        <button id="createPostBtn" onClick={link}>Link</button>
+                        <input id="createPostBtn" type="file" />
+                    </div>
+
+                    <br></br>
+
+                    <form id="createPostForm" onSubmit={newPost}>
+                        <label>
+                            Title:
+                            <input type="text" value={inputValues.title} onChange={(e) => setInputValues({ ...inputValues, title: e.target.value })} />
+                        </label>
+                        <br />
+
+                        <label>
+                            Content:
+                            <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
+                        </label>
+                        <button type="submit"> Submit </button>
+
+                    </form>
+
                 </div>
 
                 <br></br>
 
-                <form id="createPostForm" onSubmit={newPost}>
-                    <label>
-                        Topic:
-                        <input type="text" value={inputValues.title} onChange={(e) => setInputValues({ ...inputValues, title: e.target.value })} />
-                    </label>
-                    <br />
-
-                    <label>
-                        Content:
-                        <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
-                    </label>
-                    <button type="submit"> Submit </button>
-
-                </form>
-
-            </div>
-
-            <br></br>
-
-            {/*
+                {/*
             <button onClick={post}>Post</button>
             */}
             </div>

@@ -10,6 +10,8 @@ import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
 import Layout from "../objs/Layout.jsx";
 
+import '../../styling/EditPost.scss';
+
 const EditPost = () => {
     //const [loc, setLoc] = useState(useLocation().pathname);
 
@@ -29,8 +31,8 @@ const EditPost = () => {
         //let arr = loc.split('/');
         //console.log(arr[2]);
         //console.log(typeof arr[2]);
-        console.log(index);
-        console.log(typeof index);
+        //console.log(index);
+        //console.log(typeof index);
         //console.log(parseInt(arr[2], 10));
         //console.log(parseInt(index, 10));
 
@@ -86,21 +88,25 @@ const EditPost = () => {
 
     return (
         <Layout>
+            <div className="editPostForm">
+                <h1> Edit Post </h1>
+                <br></br>
+
             <form onSubmit={onSubmit}>
+                <h2> Topic </h2>
                 <label>
-                    topic:
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
                 </label>
                 <br />
-
+                <h2> Content </h2>
                 <label>
-                    Content
                     <textarea value={body} onChange={(e) => setBody(e.target.value)}></textarea>
                 </label>
                 < br />
-                <input type="submit" value="Submit" />
+                <button type="submit" id="small_btn"> Submit </button>
 
             </form>
+            </div>
         </Layout>
     )
 }
