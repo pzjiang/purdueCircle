@@ -97,8 +97,8 @@ import Layout from "./Layout";
                 console.log("error", error.message);
             }
         }
-        
-        setNewMessage("");
+
+        setNewMessage( {...newMessage, body: ''} );
 
     }
 
@@ -123,7 +123,8 @@ import Layout from "./Layout";
             </div>
             <div className="chat">
                 <form className="chat-input" onSubmit={newChat}>
-                <input type="text"
+                <input id="sendMessage"
+                type="text"
                 value={newMessage.body}
                 onChange={(e) => setNewMessage({ ...newMessage, body: e.target.value })}
                 placeholder="Write a message..."
