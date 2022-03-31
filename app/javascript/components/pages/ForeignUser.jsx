@@ -237,25 +237,28 @@ const ForeignUser = () => {
 
             {display == "following" &&
 
-                <div>following display:
+                <div> <h3> Following List: </h3>
                     {following.map((item) => (
-                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
-                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        <div> <p> {item.first_name} {item.last_name} (<Link to={'/profile/' + item.username}>{item.username} </Link>) </p> <br></br>
+                            
                         </div>
                     ))}
                 </div>
             }
 
             {display == "followers" &&
-                <div>followers display
+                <div> <h3> Followers List: </h3> 
                     {followers.map((item) => (
-                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
-                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        <div> <p> {item.first_name}  {item.last_name} (<Link to={'/profile/' + item.username}>{item.username}</Link>) </p> <br></br>
+                            
                         </div>
                     ))}
 
                 </div>
             }
+
+                <br />
+                <br />
 
 
         </Layout >

@@ -228,9 +228,9 @@ const Profile = () => {
                     <div> <p> {topic.name} </p> <button id="small_post_btn" onClick={() => removeTopic(topic.id)}> Unfollow </button></div>
                 ))}
             </div>
-            <button id="small_post_btn" onClick={displayPosts}> Display Posts</button>
-            <button id="small_post_btn" onClick={displayFollowing}>Display Following</button>
-            <button id="small_post_btn" onClick={displayFollowers}> Display Followers</button>
+            <button onClick={displayPosts}> Display Posts</button>
+            <button onClick={displayFollowing}>Display Following</button>
+            <button onClick={displayFollowers}> Display Followers</button>
 
 
             {display == "posts" &&
@@ -246,8 +246,8 @@ const Profile = () => {
 
                 <div> <h3> Following List: </h3>
                     {following.map((item) => (
-                        <div> <p> First Name: {item.first_name} Last Name: {item.last_name} </p>  <br></br>
-                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        <div> <p>{item.first_name} {item.last_name} (<Link to={'/profile/' + item.username}>{item.username}</Link>) </p>  <br></br>
+                            
                         </div>
                     ))}
                 </div>
@@ -256,8 +256,8 @@ const Profile = () => {
             {display == "followers" &&
                 <div> <h3> Followers List: </h3> 
                     {followers.map((item) => (
-                        <div> <p> First Name: {item.first_name} Last Name: {item.last_name} </p> <br></br>
-                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        <div> <p> {item.first_name}{item.last_name} (<Link to={'/profile/' + item.username}>{item.username}</Link>) </p> <br></br>
+                            
                         </div>
                     ))}
 
