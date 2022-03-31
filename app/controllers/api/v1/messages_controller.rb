@@ -35,11 +35,12 @@ class Api::V1::MessagesController < Api::V1::BaseController
             @convo.increment!(:message_number)
         else
             respond_with_error "convo not found", 404
+            return
         end
 
     
-        if @newMessage.save
-            @convo.save
+        if @newMessage.save!
+            @convo.save!
             render json: {@newMessage}, status: 200
         else
             respond_with_error "message could not be sent", :unprocessable_entity

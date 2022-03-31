@@ -25,10 +25,11 @@ class Api::V1::ConvosController < Api::V1::BaseController
         if @found
             respond_with_error "convo already exists", 404
         end
+        @firstuser = User.find(params[:user_id])
+        @secuser = User.find(params[:target_id])
+        @convo = Convo.create(first_user_id: params[:user_id], sec_user_id: params[:target_id], message_number: 0, first_name: @firstuser.username, second_name: @secuser.username)
 
-        @convo = Convo.create(first_user_id: params[:user_id], sec_user_id: params[:target_id], message_number: 0)
-
-        if @convo.save
+        if @convo.save!
             render json: {@convo}, status: 200
         else
             respond_with_error "Couldn't save convo with user", 404
@@ -53,7 +54,7 @@ class Api::V1::ConvosController < Api::V1::BaseController
         @second_one = Convo.where(sec_user_id: params[:user_id])
         @final_list = @first_one + @second_one
 
-        @final_list.sort_by! updated_at
+        @final_list.sort_by!(&:updated_at)
 
         render json: {convos: @final_list}, status: 200
 
