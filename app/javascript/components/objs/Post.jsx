@@ -83,7 +83,8 @@ const Post = props => {
     }
 
     const addComment = () => {
-        console.log("add comment")
+        navigate(`/viewpost/${id}`);
+        console.log("add comment");
     };
 
     const savePost = () => {
