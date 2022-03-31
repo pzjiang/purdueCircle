@@ -70,8 +70,11 @@ const CreatePost = () => {
         if (curTopic == "") {
             return;
         }
+        if (topics.length > 3) {
+            return;
+        }
         topics.forEach((topic) => {
-            if (topic == curTopic) {
+            if (topic.name == curTopic) {
                 return;
             }
         });
@@ -135,7 +138,7 @@ const CreatePost = () => {
                     <center>
                         <form id="topicinput" onSubmit={topicSubmit}>
                             <input type="text" value={curTopic} onChange={(e) => setCurTopic(e.target.value)} />
-                            
+
                             <button type="submit"> Submit </button>
                         </form>
                     </center>
