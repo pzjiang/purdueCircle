@@ -7,7 +7,7 @@ class ConvoTest < ActiveSupport::TestCase
 
   test "invalid save" do
     #needs id params
-    convo = Convo.new
+    convo = Convo.create()
     assert_not convo.save
   end
 
@@ -16,5 +16,6 @@ class ConvoTest < ActiveSupport::TestCase
     users = User.last(2)
     convo = Convo.create(first_user_id: users[0].id, sec_user_id: users[1].id, message_number: 0)
     assert convo.save
+    convo.destroy
   end
 end

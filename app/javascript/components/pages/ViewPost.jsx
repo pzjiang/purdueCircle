@@ -236,6 +236,7 @@ const ViewPost = () => {
     }
 
     const deletePost = async () => {
+
         try {
             await postsApi.deletePost({ id: id })
             navigate(`/profile`);
@@ -253,6 +254,7 @@ const ViewPost = () => {
     }
 
     const removeComment = async (comment_id) => {
+
         try {
             await commentsApi.deleteComment({ id: comment_id });
             const newList = comments.filter((item) => item.id !== comment_id);
