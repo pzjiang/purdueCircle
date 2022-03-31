@@ -100,8 +100,8 @@ const Messenger = () => {
     }
 
     const createConvo = async (event) => {
-        event.preventDefault();
         let thisId = 0;
+        event.preventDefault();
         try {
             //get user id
             //console.log(newUserDM);
@@ -122,7 +122,7 @@ const Messenger = () => {
         }
         try {
             const { data } = await messagesApi.createConvo({ user_id: user.id, target_id: thisId });
-            console.log(data);
+            //console.log(data);
             viewDM(data.convo.id);
 
         } catch (error) {
@@ -151,7 +151,7 @@ const Messenger = () => {
 
             <div className="convo-list">
                 <p>current convos:</p>
-                {convos.map((convo) => (
+                {convos.reverse().map((convo) => (
                     <div key={convo.id} id="convo">
                         <p>user: {convo.second_name}<br /></p>
                         <p>Last message: </p>
