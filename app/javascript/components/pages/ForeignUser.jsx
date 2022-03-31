@@ -27,6 +27,7 @@ const ForeignUser = () => {
 
     const [posts, setPosts] = useState([]);
     const [followed, setFollowed] = useState(false);
+    const [blocked, setBlocked] = useState(false);
     const [followers, setFollowers] = useState([]);
     const [following, setFollowing] = useState([]);
     //display can either be "posts", "followers", or "following"
@@ -92,7 +93,15 @@ const ForeignUser = () => {
         //initialize the followed status
         try {
             const { data } = await userApi.isFollowing({ id: user.id, target_id: thisId });
-            setFollowed(data.status);
+            if (data.status == null) {
+
+            }
+            else if (data.status.blocked == false) {
+                setFollowed(true);
+            }
+            else {
+                setBlocked(true);
+            }
 
         } catch (error) {
             if (error.response) {

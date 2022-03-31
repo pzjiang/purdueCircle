@@ -94,7 +94,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       respond_with_error "already following this user", status: 404
       return
     end
-    @follower = Follower.create(subject: params[:id], target: params[:target_id])
+    @follower = Follower.create(subject: params[:id], target: params[:target_id], blocked: false)
     if @follower.save!
       render json: {follower: @follower}, status: 200
     else
@@ -111,11 +111,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
     end
 
-    if @follower
-      render json: {status: true}, status: 200
-    else
-      render json: {status: false}, status: 200
-    end
+    render json: {status: @follower}, status: 200
   end
 
   #used to unfollow a user

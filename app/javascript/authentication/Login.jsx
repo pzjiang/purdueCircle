@@ -18,7 +18,7 @@ const Login = () => {
         password: '',
     });
 
-    const [loading, setLoading] = useState(false);
+
     const authDispatch = useAuthDispatch();
     const userDispatch = useUserDispatch();
     const navigate = useNavigate();
@@ -40,15 +40,16 @@ const Login = () => {
         //console.log("end values");
 
         try {
-            setLoading(true);
+            //setLoading(true);
             //console.log("starting tests");
             const {
                 data: { auth_token, user },
             } = await authenticationApi.login({ user: { login: inputValues.login, password: inputValues.password } });
             //console.log(user.email);
+            console.log()
 
             //console.log("checkpoint 4");
-            authDispatch({ type: 'LOGIN', payload: { auth_token, login: inputValues.login } });
+            authDispatch({ type: 'LOGIN', payload: { auth_token, email: user.email } });
             //console.log("checkpoint 3");
             userDispatch({ type: 'SET_USER', payload: { user } });
             //console.log("checkpoint 2");
@@ -56,15 +57,17 @@ const Login = () => {
             //console.log("checkpoint 1");
             //history.push('/');
             console.log("Logged in successfully!");
-            setLoading(false);
+            //setLoading(false);
             navigate('/');
             addToast('Logged in successfully', { appearance: 'success', autoDismiss: true });
         } catch (error) {
-            console.log("some sort of error occurred");
-            console.log(error.toString());
-            addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
-        } finally {
-            setLoading(false);
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
         }
     };
     /*

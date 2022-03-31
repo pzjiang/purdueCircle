@@ -22,6 +22,7 @@ import "../../styling/Profile.scss";
 import Post from "../objs/Post";
 import postsApi from "../../apis/apiposts";
 import topicsApi from "../../apis/apitopics";
+import userApi from "../../apis/apiusers";
 
 //import registrationApi from "../../apis/registrations";
 
