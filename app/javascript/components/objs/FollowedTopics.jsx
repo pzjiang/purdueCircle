@@ -49,7 +49,7 @@ const FollowedTopics = props => {
         <Layout>
             <h1>Followed topics</h1>
             <div className="postList">
-                {posts.reverse.map((post) => (
+                {posts.reverse().map((post) => (
                     <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                 ))}
             </div>
