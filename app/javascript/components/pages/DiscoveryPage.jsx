@@ -156,22 +156,20 @@ const DiscoveryPage = props => {
                     <button id="submit_button" type="submit"> Search</button>
                 </form>
 
-                <br></br>
-                <br></br>
                 {searchState == "users" &&
                     users.map((user) => (
                         user.privacy == false &&
-                        <p> 
+                        <h3> 
                             <DiscoverUsers firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
-                        </p>
+                        </h3>
                     ))
                 }
 
                 {searchState == "topics" &&
                     topicsDisc.map((topic) => (
-                        <p> 
+                       <h3>
                         <DiscoverTopics id={user.id} name={topic.name}> </DiscoverTopics>
-                        </p>
+                        </h3>
                     ))
                 }
 
