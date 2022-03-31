@@ -50,6 +50,8 @@ Rails.application.routes.draw do
       get "topics/post/:post_id", to: "topics#post_topics"
       #discover topics through searching
       get "topicsdiscover/:name/:number", to: "topics#discover_topics"
+      #get posts belonging to topics you follow
+      get "topicsfollowedposts/:id", to: "topics#followed_topic_posts"
 
       #comment routes for show, delete, and add
 

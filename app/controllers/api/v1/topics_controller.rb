@@ -50,19 +50,37 @@ class Api::V1::TopicsController < Api::V1::BaseController
         end
     end
 
+    def followed_topic_posts
+        @user = User.find(params[:id])
+        @topics = @user.topics.all
+
+        @posts = []
+        tempposts = []
+        if @topics
+            for topic in @topics do
+                tempposts = topic.posts.all
+                tempposts.each {|element| @posts.append(element)}
+            end
+        end
+
+        render json: {posts: @posts}, status: 200
+    end
+
 
     def pull_posts
         @topic = Topic.find_by(name: params[:name])
-        begin
-            if params[:number]
-                @posts = @topic.posts.last(params[:number])
-            else
-                @posts = @topic.posts.last(10)
-            end
-        rescue
-            respond_with_error "there are not posts", :not_found
+        #begin
+        if params[:number]
+            @posts = @topic.posts.last(params[:number])
         else
+            @posts = @topic.posts.last(10)
         end
+        #rescue
+            #respond_with_error "there are not posts", :not_found
+            #return
+        #else
+        #end
+        
 
         render json: {posts: @posts}, status: 200
 

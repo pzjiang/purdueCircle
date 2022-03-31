@@ -20,6 +20,7 @@ import ViewPost from '../components/pages/ViewPost';
 import DiscoveryPage from '../components/pages/DiscoveryPage';
 import ForeignUser from '../components/pages/ForeignUser';
 import Confirmation from '../components/pages/Confirmation';
+import FollowedTopics from '../components/objs/FollowedTopics';
 
 //import NotFound from "../components/NotFound"
 
@@ -60,6 +61,7 @@ const Routing = props => {
                 <Route exact path="/discovery" element={<DiscoveryPage />} />
                 <Route exact path="/profile/:index" element={<ForeignUser />} />
                 <Route exact path="/confirmation/:token" element={<Confirmation />} />
+                <Route exact path="/followedTopics" element={<FollowedTopics />} />
                 {/*<Route exact path="/main" element={<Main />} /> */}
                 <Route exact path="*" element={<NotFound />}></Route>
             </Routes>
