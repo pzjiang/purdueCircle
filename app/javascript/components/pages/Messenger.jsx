@@ -66,15 +66,7 @@ const Messenger = () => {
     }
 
     function viewDM(convoId) {
-        //convosExist = false;
-
-        //setCurrentConvo(newConvo);
-
-        //rerender
-        //convosExist = true;
-
         console.log("viewing convo");
-
         navigate(`/dm/${convoId}`);
     }
 
