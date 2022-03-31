@@ -13,6 +13,7 @@ class User < ApplicationRecord
          has_many :usertopics, dependent: :destroy
          has_many :receivedmessages, :foreign_key => :target
          has_many :sentmessages, :foreign_key => :origin
+         has_many :topics, :through => :usertopics, :source => :topic
          
   
   before_save :ensure_authentication_token_is_present
