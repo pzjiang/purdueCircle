@@ -1,6 +1,6 @@
 class Api::V1::ProfilesController < Api::V1::BaseController
     
-    #before_action :authenticate_user!
+    before_action :authenticate_user!
     before_action :set_profile
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false

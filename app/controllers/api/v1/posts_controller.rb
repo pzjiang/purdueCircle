@@ -1,6 +1,6 @@
 class Api::V1::PostsController < Api::V1::BaseController
 
-    #before_action :authenticate_user!
+    before_action :authenticate_user!
     before_action :set_post, only: [:update, :show, :destroy, :increment_like, :change_save, :change_privacy, :get_topics] 
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
