@@ -21,6 +21,7 @@ const getFollowed = (payload) => axios.get(`api/v1/userfollowing/${payload.id}`)
 const blockUser = (payload) => axios.post(`api/v1/blockuser/${payload.id}/${payload.target_id}`);
 
 const unblockUser = (payload) => axios.delete(`api/v1/unblockuser/${payload.id}/${payload.target_id}`);
+const getUser = (payload) => axios.get(`api/v1/users/${payload.user_id}`);
 
 const userApi = {
 
@@ -34,6 +35,7 @@ const userApi = {
     getFollowed,
     blockUser,
     unblockUser,
+    getUser,
 
 }
 

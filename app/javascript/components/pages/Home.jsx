@@ -28,7 +28,7 @@ export default () => (
     </h2>
 
     <Link to="/login">
-      <button>
+      <button class="button-1">
         Sign In
       </button>
     </Link>
@@ -38,7 +38,7 @@ export default () => (
     </h2>
 
     <Link to="/signup">
-      <button>
+      <button class="button-2">
         Sign Up
       </button>
     </Link>

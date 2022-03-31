@@ -41,6 +41,13 @@ Rails.application.routes.draw do
       #changing privacy settings for a post
       put "changeprivacy/:id", to: "posts#change_privacy"
 
+      #message api routes
+      get "messages/:convo_id", to: "convos#get_messages"
+      put "sendmessage", to: "messages#send_message"
+      post "convos", to: "convos#create_convo"
+      get "convos/:user_id", to: "convos#get_convos"
+      delete "convos/:id", to: "convos#delete_convo"
+      
       resources :posts, only: [:show, :update,  :create, :destroy]
 
       #topics routes

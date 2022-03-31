@@ -17,6 +17,8 @@ import { useAuthState, useAuthDispatch } from '../contexts/auth';
 import { useUserDispatch } from '../contexts/user';
 import CreatePost from '../components/pages/CreatePost';
 import ViewPost from '../components/pages/ViewPost';
+import Messenger from '../components/pages/Messenger';
+import DM from '../components/objs/DM';
 import DiscoveryPage from '../components/pages/DiscoveryPage';
 import ForeignUser from '../components/pages/ForeignUser';
 import Confirmation from '../components/pages/Confirmation';
@@ -57,6 +59,8 @@ const Routing = props => {
                 <Route exact path="/editprofile" element={<ProfileEdit />} />
                 <Route exact path="/editpost/:index" element={< EditPost />} />
                 <Route exact path="/viewpost/:index" element={<ViewPost />} />
+                <Route exact path="/messenger" element={<Messenger />} />
+                <Route exact path="/dm/:index" element={<DM />} />
                 <Route exact path="/discovery" element={<DiscoveryPage />} />
                 <Route exact path="/profile/:index" element={<ForeignUser />} />
                 <Route exact path="/confirmation/:token" element={<Confirmation />} />

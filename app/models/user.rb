@@ -11,6 +11,8 @@ class User < ApplicationRecord
          has_many :fans, :through => :followers, :foreign_key => :target
          has_many :followings, :through => :followers, :foreign_key => :subject
          has_many :usertopics, dependent: :destroy
+         has_many :receivedmessages, :foreign_key => :target
+         has_many :sentmessages, :foreign_key => :origin
          
   
   before_save :ensure_authentication_token_is_present
