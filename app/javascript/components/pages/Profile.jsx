@@ -71,6 +71,7 @@ const Profile = () => {
             setEmail(user.email);
             setPrivacy(user.privacy);
 
+
             if (user.confirmed_at != undefined) {
                 setConfirmed("Email Verfied");
             } else {
@@ -123,7 +124,7 @@ const Profile = () => {
 
         //intialize following list people that user is following
         try {
-            const { data } = await userApi.getFollowed({ id: thisId });
+            const { data } = await userApi.getFollowed({ id: user.id });
             setFollowing(data.following);
 
         } catch (error) {
@@ -138,7 +139,7 @@ const Profile = () => {
 
         //initialize follower list people following user
         try {
-            const { data } = await userApi.getFollowers({ id: thisId });
+            const { data } = await userApi.getFollowers({ id: user.id });
             setFollowers(data.followers);
 
         } catch (error) {

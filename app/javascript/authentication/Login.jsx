@@ -46,7 +46,7 @@ const Login = () => {
                 data: { auth_token, user },
             } = await authenticationApi.login({ user: { login: inputValues.login, password: inputValues.password } });
             //console.log(user.email);
-            console.log()
+            //console.log()
 
             //console.log("checkpoint 4");
             authDispatch({ type: 'LOGIN', payload: { auth_token, email: user.email } });

@@ -171,6 +171,57 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+
+  #block the user
+  def block_user
+    begin
+      @follower = Follower.where(subject: params[:id]).find_by(target: params[:target_id])
+    rescue
+    else
+    end
+
+    if @follower
+      @follower.blocked = true
+      if @follower.save!
+        render json: {status: @follower}, status: 200
+      else
+        respond_with_error "could not block user", :unprocessable_entity
+      end
+    else
+      @follower = Follower.create(subject: params[:id], target: params[:target_id], blocked: true)
+      if @follower.save!
+        render json: {status: @follower}, status: 200
+      else
+        respond_with_error "could not block the user", :unprocessable_entity
+      end
+    end
+  end
+
+
+
+  #unblock the user
+  def unblock_user
+    begin
+      @follower = Follower.where(subject: params[:id]).find_by(target: params[:target_id])
+    rescue
+    else
+    end
+
+    if @follower
+      if @follower.blocked == false
+        respond_with_error "user not blocked", :unprocessable_entity
+        return
+      end
+      if @follower.destroy!
+        render json: {success: true}, status: 200
+      else
+        respond_with_error "could not unblock user", :unprocessable_entity
+      end
+    else
+      respond_with_error "use was not blocked", :unprocessable_entity
+    end
+  end
+
   def change_privacy
     #use put
     if @user.privacy

@@ -94,13 +94,16 @@ const ForeignUser = () => {
         try {
             const { data } = await userApi.isFollowing({ id: user.id, target_id: thisId });
             if (data.status == null) {
-
+                setFollowed(false);
+                setBlocked(false);
             }
             else if (data.status.blocked == false) {
                 setFollowed(true);
+                setBlocked(false);
             }
             else {
                 setBlocked(true);
+                setFollowed(false);
             }
 
         } catch (error) {
@@ -194,6 +197,39 @@ const ForeignUser = () => {
         setDisplay("following");
     }
 
+    const blockUser = async () => {
+        try {
+            const { data } = await userApi.blockUser({ id: user.id, target_id: id });
+            setBlocked(data.status.blocked);
+            setFollowed(false);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+    }
+
+    const unBlockUser = async () => {
+        try {
+            const { data } = await userApi.unblockUser({ id: user.id, target_id: id });
+            setBlocked(data.success == false);
+            setFollowed(false);
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+    }
+
     return (
         <Layout>
             <div id="profile">
@@ -224,8 +260,13 @@ const ForeignUser = () => {
                     <p>{email}</p>}
                 <h3>Topics</h3>
                 <p> -- </p>
-                {followed == false && <button onClick={followUser}> Follow User</button>}
-                {followed && <button onClick={unfollowUser}>Unfollow User</button>}
+                {blocked == false && <div>
+                    {followed == false && <button onClick={followUser}> Follow User</button>}
+                    {followed && <button onClick={unfollowUser}>Unfollow User</button>}
+                    <button onClick={blockUser}>Block User</button>
+                </div>
+                }
+                {blocked == true && <div> <button onClick={unBlockUser}> Unblock User</button> </div>}
             </div>
             <button onClick={displayPosts}> Display Posts</button>
             <button onClick={displayFollowing}>Display Following</button>

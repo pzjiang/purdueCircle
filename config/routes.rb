@@ -84,6 +84,13 @@ Rails.application.routes.draw do
       delete "followtopic/:name/:id", to: "topics#unfollow_topic"
       #get hte topics that the user follows
       get "followedtopics/:id", to: "topics#followed_topics"
+
+
+      #block user
+      post "blockuser/:id/:target_id", to: "users#block_user"
+      #unblock user
+      delete "unblockuser/:id/:target_id", to: "users#unblock_user"
+
     end
   end
 
