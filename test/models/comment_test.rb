@@ -5,19 +5,18 @@ class CommentTest < ActiveSupport::TestCase
   #   assert true
   # end
 
+
   test "length invalid" do 
-    user = User.last
-    post = Post.last
-    comment = Comment.create(user_id:user.id, post_id: post.id, body: "0123456789012345678901234567890123456789012345678901234567890123456789", author: user.username)
+ 
+    comment = Comment.create(user_id: 1, post_id: 1, body: "0123456789012345678901234567890123456l78901234560123456789012345678901234567890123456l789012345678901234567890123456780123456789012345678901234567890123456l789012345678901234567890123456780123456789012345678901234567890123456l789012345678901234567890123456780123456789012345678901234567890123456l789012345678901234567890123456780123456789012345678901234567890123456l789012345678901234567890123456780123456789012345678901234567890123456l7890123456789012345678901234567878901234567890123456789", author: "another username")
     assert_not comment.save
   end
 
   test "length valid" do 
-    user = User.last
-    post = Post.last
-    comment = Comment.create(user_id:user.id, post_id: post.id, body: "valid", author: user.username)
+
+    comment = Comment.create(user_id: 1, post_id: 1 , body: "valid", author: "another username")
   
-    assert comment.save
-    comment.destroy
+    assert comment.save!
+   
   end
 end

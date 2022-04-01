@@ -4,5 +4,6 @@ class Topic < ApplicationRecord
 
     has_many :posts, :through => :posttopics, :source => :post
     has_many :users, :through => :usertopics, :source => :user
+    validates_uniqueness_of :name
 end
 

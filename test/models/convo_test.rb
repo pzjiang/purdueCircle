@@ -5,6 +5,8 @@ class ConvoTest < ActiveSupport::TestCase
   #   assert true
   # end
 
+
+
   test "invalid save" do
     #needs id params
     convo = Convo.create()
@@ -13,9 +15,15 @@ class ConvoTest < ActiveSupport::TestCase
 
   test "valid save" do
     #has id params
-    users = User.last(2)
-    convo = Convo.create(first_user_id: users[0].id, sec_user_id: users[1].id, message_number: 0)
+    convo = Convo.create(first_user_id: 1, sec_user_id: 2, message_number: 0)
     assert convo.save
-    convo.destroy
   end
+
+  test "get messages" do
+
+    convo = convos(:one)
+    messages = convo.messages.all
+    assert_not messages.length ==0
+  end
+
 end

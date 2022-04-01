@@ -1,11 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+#one:
+  #first_user_id: 1
+  #sec_user_id: 1
+  #message_number: 1
+
 one:
   first_user_id: 1
-  sec_user_id: 1
-  message_number: 1
-
-two:
-  first_user_id: 1
-  sec_user_id: 1
-  message_number: 1
+  sec_user_id: 2
+  message_number: 0
+  id: 1
