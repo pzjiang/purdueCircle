@@ -14,7 +14,6 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import DM from "../objs/DM";
-import Users from "../objs/User";
 import '../../styling/Messenger.scss';
 import messagesApi from "../../apis/apimessages";
 import userApi from "../../apis/apiusers";
@@ -30,7 +29,7 @@ const Messenger = () => {
     const [convos, setConvos] = useState([]);
     const [newUserDM, setNewUserDM] = useState("");
     const { user } = useUserState();
-    const [secUser, setSecUser] = useState("");
+    //const [secUser, setSecUser] = useState("");
 
     const [currentConvo, setCurrentConvo] = useState("");
     let convosExist = false;
@@ -65,7 +64,8 @@ const Messenger = () => {
         }
     }
 
-    function viewDM(convoId) {
+    function viewDM(event, convoId) {
+        event.preventDefault();
         console.log("viewing convo");
         navigate(`/dm/${convoId}`);
     }
@@ -153,12 +153,16 @@ const Messenger = () => {
                 <p>current convos:</p>
                 {convos.reverse().map((convo) => (
                     <div key={convo.id} id="convo">
-                        <p>user: {convo.second_name}<br /></p>
+                        <p>user: {user.username}<br /></p>
                         <p>Last message: </p>
-                        <div>{hasUnread &&
+                        <div>{(hasUnread && convo.first_user_id == user.id) &&
                             <p>New messages from {convo.second_name}</p>
-                        }</div>
-                        <button onClick={() => viewDM(convo.id)}>View DM</button>
+                        }
+                            {(hasUnread && convo.sec_user_id == user.id) &&
+                                <p>New messages from {convo.first_name}</p>
+                            }
+                        </div>
+                        <button onClick={(event) => viewDM(event, convo.id)}>View DM</button>
 
                     </div>
                 ))}
