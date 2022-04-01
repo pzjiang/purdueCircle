@@ -31,7 +31,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
     
         #render json: {response: @listing}, status: 200
         @convo = Convo.find(params[:convo_id])
-        @listing = @convo.messages
+        @listing = @convo.messages.all
         if @listing
             render json: {messages: @listing}, status: 200
         else

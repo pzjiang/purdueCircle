@@ -38,17 +38,17 @@ class Api::V1::ConvosController < Api::V1::BaseController
         end
     end
 
-    def get_messages
-        @convo = Convo.find(params[:convo_id])
+   # def get_messages
+       # @convo = Convo.find(params[:convo_id])
 
-        if @convo
-            @messages = Message.where(convo_id: params[:convo_id])
-            render json: {messages: @messages}, status: 200
+        #if @convo
+            #@messages = Message.where(convo_id: params[:convo_id])
+            #render json: {messages: @messages}, status: 200
 
-        else
-            respond_with_error "this convo does not exist?", 404
-        end
-    end
+        #else
+            #respond_with_error "this convo does not exist?", 404
+        #end
+    #end
 
 
     def get_convos

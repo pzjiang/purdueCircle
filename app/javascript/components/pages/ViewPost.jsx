@@ -253,8 +253,8 @@ const ViewPost = () => {
         }
     }
 
-    const removeComment = async (comment_id) => {
-
+    const removeComment = async (event, comment_id) => {
+        event.preventDefault();
         try {
             await commentsApi.deleteComment({ id: comment_id });
             const newList = comments.filter((item) => item.id !== comment_id);

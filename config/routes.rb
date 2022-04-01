@@ -42,7 +42,7 @@ Rails.application.routes.draw do
       put "changeprivacy/:id", to: "posts#change_privacy"
 
       #message api routes
-      get "messages/:convo_id", to: "convos#get_messages"
+      get "messages/:convo_id", to: "messages#get_messages"
       put "sendmessage", to: "messages#send_message"
       post "convos", to: "convos#create_convo"
       get "convos/:user_id", to: "convos#get_convos"
