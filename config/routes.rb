@@ -33,6 +33,10 @@ Rails.application.routes.draw do
       get "posts/:number/index", to: "posts#index"
       #discover posts 
       get "postsdiscover/:search/:number", to: "posts#discover_posts"
+
+      #dealing with saving posts
+      post "savepost/:id/:user_id", to: "posts#change_save"
+      get "savepost/:id/:number", to: "posts#get_save"
       
       #saving posts implementations
       get "savedposts/:id/:number", to: "posts#get_saves"
