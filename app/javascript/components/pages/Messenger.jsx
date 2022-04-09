@@ -5,7 +5,7 @@ import {
     Switch,
     Route,
     Link,
-    useNavigate, 
+    useNavigate,
     useParams,
 } from "react-router-dom";
 import postsApi from "../../apis/apiposts";
@@ -14,7 +14,6 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import DM from "../objs/DM";
-import Users from "../objs/User";
 import '../../styling/Messenger.scss';
 import messagesApi from "../../apis/apimessages";
 import userApi from "../../apis/apiusers";
@@ -30,7 +29,7 @@ const Messenger = () => {
     const [convos, setConvos] = useState([]);
     const [newUserDM, setNewUserDM] = useState("");
     const { user } = useUserState();
-    const [secUser, setSecUser ] = useState("");
+    //const [secUser, setSecUser] = useState("");
 
     const [currentConvo, setCurrentConvo] = useState("");
     let convosExist = false;
@@ -44,7 +43,7 @@ const Messenger = () => {
         console.log("on load");
 
         try {
-            const { data } = await messagesApi.getConvos({user_id: user.id});
+            const { data } = await messagesApi.getConvos({ user_id: user.id });
             setConvos(data.convos);
 
             console.log(data);
@@ -65,7 +64,8 @@ const Messenger = () => {
         }
     }
 
-    function viewDM(convoId) {
+    function viewDM(event, convoId) {
+        event.preventDefault();
         console.log("viewing convo");
         navigate(`/dm/${convoId}`);
     }
@@ -74,7 +74,7 @@ const Messenger = () => {
     async function getUserInfo(userId) {
         try {
             //event.preventDefault();
-            const { data } = await userApi.getUser({user_id: userId});
+            const { data } = await userApi.getUser({ user_id: userId });
             setSecUser(data);
 
             console.log(data);
@@ -99,16 +99,16 @@ const Messenger = () => {
         return false;
     }
 
-    const createConvo = async(event) => {
+    const createConvo = async (event) => {
         let thisId = 0;
+        event.preventDefault();
         try {
-            event.preventDefault();
             //get user id
             //console.log(newUserDM);
             const { data } = await userApi.findUser({ name: newUserDM });
             console.log(data);
-            console.log(data.id);
-            thisId = data.id;
+            console.log(data.user.id);
+            thisId = data.user.id;
 
 
         } catch (error) {
@@ -121,11 +121,11 @@ const Messenger = () => {
             }
         }
         try {
-            const {data} = await messagesApi.createConvo( {user_id: user.id, target_id: thisId} );
-            console.log(data);
+            const { data } = await messagesApi.createConvo({ user_id: user.id, target_id: thisId });
+            //console.log(data);
             viewDM(data.convo.id);
 
-        }catch (error ) {
+        } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
             } else if (error.request) {
@@ -143,8 +143,8 @@ const Messenger = () => {
 
             <div className="newConvo">
                 <form onSubmit={createConvo}>
-                    <label>Start DM with: 
-                        <input type="text" value={newUserDM} onChange={(e) => setNewUserDM(e.target.value)}/>
+                    <label>Start DM with:
+                        <input type="text" value={newUserDM} onChange={(e) => setNewUserDM(e.target.value)} />
                     </label>
                 </form>
             </div>
@@ -153,28 +153,32 @@ const Messenger = () => {
                 <p>current convos:</p>
                 {convos.reverse().map((convo) => (
                     <div key={convo.id} id="convo">
-                        <p>user: {convo.second_name}<br/></p>
+                        <p>user: {user.username}<br /></p>
                         <p>Last message: </p>
-                        <div>{ hasUnread && 
+                        <div>{(hasUnread && convo.first_user_id == user.id) &&
                             <p>New messages from {convo.second_name}</p>
-                        }</div>
-                        <button onClick={()=> viewDM(convo.id)}>View DM</button>
-                        
+                        }
+                            {(hasUnread && convo.sec_user_id == user.id) &&
+                                <p>New messages from {convo.first_name}</p>
+                            }
+                        </div>
+                        <button onClick={(event) => viewDM(event, convo.id)}>View DM</button>
+
                     </div>
-                    ))}
+                ))}
             </div>
 
             <div className="current-convo">
                 {
                     convosExist &&
                     <div>
-                        <DM convoId={currentConvo.id}/>
+                        <DM convoId={currentConvo.id} />
                     </div>
                 }
-                
+
             </div>
 
-            
+
 
         </Layout>
     )

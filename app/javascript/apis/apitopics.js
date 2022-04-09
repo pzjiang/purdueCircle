@@ -21,6 +21,8 @@ const unfollowTopic = (payload) => axios.delete(`api/v1/followtopic/${payload.na
 
 const followedTopics = (payload) => axios.get(`api/v1/followedtopics/${payload.id}`);
 
+const followedTopicPosts = (payload) => axios.get(`api/v1/topicsfollowedposts/${payload.id}`);
+
 
 
 const topicsApi = {
@@ -30,6 +32,7 @@ const topicsApi = {
     followTopic,
     unfollowTopic,
     followedTopics,
+    followedTopicPosts,
 };
 
 export default topicsApi;

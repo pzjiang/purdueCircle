@@ -33,6 +33,10 @@ Rails.application.routes.draw do
       get "posts/:number/index", to: "posts#index"
       #discover posts 
       get "postsdiscover/:search/:number", to: "posts#discover_posts"
+
+      #dealing with saving posts
+      post "savepost/:id/:user_id", to: "posts#change_save"
+      get "savepost/:id/:number", to: "posts#get_save"
       
       #saving posts implementations
       get "savedposts/:id/:number", to: "posts#get_saves"
@@ -41,6 +45,13 @@ Rails.application.routes.draw do
       #changing privacy settings for a post
       put "changeprivacy/:id", to: "posts#change_privacy"
 
+      #message api routes
+      get "messages/:convo_id", to: "messages#get_messages"
+      put "sendmessage", to: "messages#send_message"
+      post "convos", to: "convos#create_convo"
+      get "convos/:user_id", to: "convos#get_convos"
+      delete "convos/:id", to: "convos#delete_convo"
+      
       resources :posts, only: [:show, :update,  :create, :destroy]
 
       #topics routes
@@ -50,6 +61,8 @@ Rails.application.routes.draw do
       get "topics/post/:post_id", to: "topics#post_topics"
       #discover topics through searching
       get "topicsdiscover/:name/:number", to: "topics#discover_topics"
+      #get posts belonging to topics you follow
+      get "topicsfollowedposts/:id", to: "topics#followed_topic_posts"
 
       #comment routes for show, delete, and add
 

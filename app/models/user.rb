@@ -7,10 +7,13 @@ class User < ApplicationRecord
          has_one :profile, dependent: :destroy
          has_many :posts, dependent: :destroy
          has_many :comments, dependent: :destroy
-         has_many :followers, dependent: :destroy
+         #has_many :followers, dependent: :destroy, :foreign_key => :target
          has_many :fans, :through => :followers, :foreign_key => :target
          has_many :followings, :through => :followers, :foreign_key => :subject
-         has_many :usertopics, dependent: :destroy
+         #has_many :usertopics, dependent: :destroy
+         has_many :receivedmessages, :foreign_key => :target
+         has_many :sentmessages, :foreign_key => :origin
+         has_many :topics, :through => :usertopics, :source => :topic
          
   
   before_save :ensure_authentication_token_is_present

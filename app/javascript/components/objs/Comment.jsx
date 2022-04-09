@@ -18,7 +18,7 @@ const Comment = props => {
         <div>
             <p>{props.author}:</p> {props.body}
             <br></br>
-            {props.ownComment && <button id="delete_comment_btn" onClick={() => props.removeMethod(props.id)}>Delete</button>}
+            {props.ownComment && <button id="delete_comment_btn" onClick={(event) => props.removeMethod(event, props.id)}>Delete</button>}
 
         </div>
     );

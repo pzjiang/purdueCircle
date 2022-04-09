@@ -171,7 +171,8 @@ const ViewPost = () => {
      * user who owns the post changes the privacy setting
     */
 
-    const changePrivacy = async () => {
+    const changePrivacy = async (event) => {
+        event.preventDefault();
         try {
             const { data } = await postsApi.changePrivacy({ id: id });
             setPrivacy(data.privacy);
@@ -235,6 +236,7 @@ const ViewPost = () => {
     }
 
     const deletePost = async () => {
+
         try {
             await postsApi.deletePost({ id: id })
             navigate(`/profile`);
@@ -251,7 +253,8 @@ const ViewPost = () => {
         }
     }
 
-    const removeComment = async (comment_id) => {
+    const removeComment = async (event, comment_id) => {
+        event.preventDefault();
         try {
             await commentsApi.deleteComment({ id: comment_id });
             const newList = comments.filter((item) => item.id !== comment_id);
