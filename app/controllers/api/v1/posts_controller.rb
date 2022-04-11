@@ -209,6 +209,16 @@ class Api::V1::PostsController < Api::V1::BaseController
     #get liked posts
     def get_liked
 
+        @user = User.find(params[:id])
+        @posts = @user.likedposts.all
+
+        render json: {posts: @posts}, status: 200
+    end
+
+
+    #get posts that will go on timeline (followed people, followed topics)
+    def get_timeline
+
 
     end
 

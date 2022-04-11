@@ -16,7 +16,7 @@ const likesPost = payload => axios.get(`api/v1/likespost/${payload.user_id}/${pa
 
 const ownPosts = payload => axios.get(`api/v1/ownposts/${payload.user_id}/${payload.number}/`);
 
-//note yet finished implementing
+//pass in number of posts you want to grab and the user id
 const getSaves = payload => axios.get(`api/v1/getsaves/${payload.id}/${payload.number}/`);
 
 //change the privacy setting of the post
@@ -24,6 +24,11 @@ const changePrivacy = payload => axios.put(`api/v1/changeprivacy/${payload.id}/`
 
 //search the title of posts for a "search" pattern
 const discoverPosts = payload => axios.get(`api/v1/postsdiscover/${payload.name}/${payload.number}`);
+
+//change the save status of a post
+//id is the post id, user id is the id of the logged in user
+const changeSave = payload => axios.post(`api/v1/savepost/${payload.id}/${payload.user_id}`);
+
 
 
 
@@ -38,6 +43,8 @@ const postsApi = {
     ownPosts,
     changePrivacy,
     discoverPosts,
+    getSaves,
+    changeSave,
 
 
 };
