@@ -29,6 +29,8 @@ class User < ApplicationRecord
 
   validates:email, format: {with: /\b[A-Z0-9._%a-z\-]+@purdue\.edu\z/, message: "must be a purdue.edu account"}
 
+  
+
 
   private
 

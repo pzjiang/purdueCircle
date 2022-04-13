@@ -36,7 +36,8 @@ Rails.application.routes.draw do
       get "postsdiscover/:search/:number", to: "posts#discover_posts"
 
       #timeline get posts\
-      get "timeline/:id/:number", to: "posts#get_timeline"
+      get "timetopics/:id/:number", to: "posts#get_followed_topics"
+      get "timeusers/:id/:number", to: "posts#get_followed_users"
 
       #dealing with saving posts
       post "savepost/:id/:user_id", to: "posts#change_save"

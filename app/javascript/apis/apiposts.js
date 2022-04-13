@@ -29,6 +29,11 @@ const discoverPosts = payload => axios.get(`api/v1/postsdiscover/${payload.name}
 //id is the post id, user id is the id of the logged in user
 const changeSave = payload => axios.post(`api/v1/savepost/${payload.id}/${payload.user_id}`);
 
+//time line functions
+
+const getTimeTopics = payload => axios.get(`timetopics/${payload.id}`);
+const getTimeUsers = payload => axios.get(``);
+
 
 
 
