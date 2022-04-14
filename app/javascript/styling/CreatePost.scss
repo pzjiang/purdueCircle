@@ -4,16 +4,17 @@
 
 #createpost {
   box-sizing: border-box;
-    text-align: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  
-    min-width: 100%;
-    height: 100vh;
-    position: relative;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100%;
+  height: 100vh;
+  position: relative;
+  padding-top: 50vh;
 }
 
 body {
@@ -51,7 +52,6 @@ body {
     color: s.$accent;
     padding: 8px 14px;
   }
-
 }
 
 #createpost h1 {
@@ -99,7 +99,6 @@ textarea {
 
   border: 2px solid s.$accent;
 }
-
 
 .postList {
   margin-left: 10%;

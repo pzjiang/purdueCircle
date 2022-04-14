@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Work+Sans&display=swap");
 
+//screen sizes
+$menu-width-desktop: 240px;
+$menu-width-tablet: 90px;
+$menu-width-smartphone: 230px;
+$header-height-desktop: 10vh;
+
+// $icon-url-base: "http://www.entypo.com/images/";
+// $icon-url-dashboard: "${icon-url-base}/gauge.svg";
+// $icon-url-customers: "${icon-url-base}/briefcase.svg";
+// $icon-url-users: "${icon-url-base}/users.svg";
+// $icon-url-settings: "${icon-url-base}/tools.svg";
+
 /* .scss file */
 //$bgcolor: #fff4ec;
 $bgcolor: #f2f3ec;
@@ -20,6 +32,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: $textcolor;
+  padding-left: $menu-width-desktop;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -36,7 +50,8 @@ h2 {
   color: $textcolor;
 }
 
-button {
+button,
+.newPost {
   justify-content: center;
   width: auto;
   font-size: 1em;
@@ -45,10 +60,14 @@ button {
   font-family: $secondary_font;
   font-style: bold;
   background-color: $primary;
-  border-radius: 50px;
+  border-radius: 10px;
   border: 1px solid $accent;
   color: $textcolor;
   padding: 10px 19px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .button-1 {
@@ -81,12 +100,247 @@ input {
   width: 1px;
 }
 
-/* Layout children formatting */
+// body {
+//   background: $bgcolor;
+//   margin: 0;
+//   font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+//   color: $accent;
+//   padding-left: $menu-width-desktop;
+// }
+
 #layout-children {
-  position: absolute;
-  top: 150px;
-  width: 100%;
-  height: auto;
-  z-index: 1;
-  margin-bottom: 10em;
+  position: relative;
+  //height: calc(100vh - $header-height-desktop);
+  //overflow-y: scroll;
+  background-color: black;
+
+  .helper {
+    background: rgba(0, 0, 0, 0);
+    color: $bgcolor;
+    position: absolute;
+    height: 100vh;
+    width: calc(100vw - $menu-width-desktop);
+    top: 50vh;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+
+    span {
+      color: rgba(0, 0, 0, 0.2);
+      font-size: 0.4em;
+      display: block;
+    }
+  }
+}
+
+.menu {
+  background: $primary;
+  height: 100vh;
+  width: $menu-width-desktop;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  outline: none;
+
+  .avatar {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2em 0.5em;
+    text-align: center;
+
+    img {
+      width: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid $bgcolor;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+    }
+
+    h2 {
+      font-weight: normal;
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 2em 0;
+    margin: 0;
+
+    li {
+      padding: 0.5em 1em 0.5em 3em;
+      color: $accent;
+      font-size: 0.95em;
+      font-weight: regular;
+      text-align: left;
+      text-decoration: none;
+      background-repeat: no-repeat;
+      background-position: left 15px center;
+      background-size: auto 20px;
+      transition: all 0.15s linear;
+      cursor: pointer;
+
+      :hover {
+        color: $secondary;
+      }
+
+      :focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.header {
+  background-color: $bgcolor;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100vw - $menu-width-desktop);
+  height: $header-height-desktop;
+  z-index: 5;
+  padding: 2em 0;
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+
+    li {
+      flex: 1 1 auto;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 400px) {
+  body {
+    padding-left: $menu-width-tablet;
+  }
+  .menu {
+    width: $menu-width-tablet;
+
+    .avatar {
+      padding: 0.5em;
+      position: relative;
+      img {
+        width: $menu-width-tablet - 30px;
+      }
+
+      h2 {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: $menu-width-tablet + 10px;
+        margin: 0;
+        min-width: 200px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.4);
+        transform: translate3d(-20px, -50%, 0);
+        transition: all 0.15s ease-in-out;
+      }
+
+      &:hover {
+        h2 {
+          opacity: 1;
+          transform: translate3d(0px, -50%, 0);
+        }
+      }
+    }
+
+    ul {
+      li {
+        height: calc($menu-width-tablet / 1.5);
+        background-position: center center;
+        background-size: 30px auto;
+        position: relative;
+
+        span {
+          //display:none;
+          opacity: 0;
+          position: absolute;
+          background: rgba(0, 0, 0, 0.5);
+          padding: 0.2em 0.5em;
+          border-radius: 4px;
+          top: 50%;
+          left: $menu-width-tablet - 10px;
+          transform: translate3d(-15px, -50%, 0);
+          transition: all 0.15s ease-in-out;
+
+          &:before {
+            content: "";
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 50%;
+            left: -5px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 5px solid rgba(0, 0, 0, 0.5);
+            transform: translateY(-50%);
+          }
+        }
+
+        &:hover {
+          span {
+            opacity: 1;
+            transform: translate3d(0px, -50%, 0);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  body {
+    padding-left: 0;
+  }
+
+  .menu {
+    width: $menu-width-smartphone;
+    box-shadow: 0 0 0 100em rgba(0, 0, 0, 0);
+    transform: translate3d(-$menu-width-smartphone, 0, 0);
+    transition: all 0.3s ease-in-out;
+
+    .smartphone-menu-trigger {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: 100%;
+      background: $primary;
+
+      &:before,
+      &:after {
+        content: "";
+        width: 50%;
+        height: 2px;
+        background: #fff;
+        border-radius: 10px;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+
+      &:after {
+        top: 55%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+    }
+
+    ul {
+      li {
+        padding: 1em 1em 1em 3em;
+        font-size: 1.2em;
+      }
+    }
+
+    &:focus {
+      transform: translate3d(0, 0, 0);
+      box-shadow: 0 0 0 100em rgba(0, 0, 0, 0.6);
+
+      .smartphone-menu-trigger {
+        pointer-events: none;
+      }
+    }
+  }
 }
