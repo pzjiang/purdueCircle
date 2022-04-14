@@ -6,11 +6,11 @@ $menu-width-tablet: 90px;
 $menu-width-smartphone: 230px;
 $header-height-desktop: 10vh;
 
-// $icon-url-base: "http://www.entypo.com/images/";
-// $icon-url-dashboard: "${icon-url-base}/gauge.svg";
-// $icon-url-customers: "${icon-url-base}/briefcase.svg";
-// $icon-url-users: "${icon-url-base}/users.svg";
-// $icon-url-settings: "${icon-url-base}/tools.svg";
+$icon-url-base: "http://www.entypo.com/images/";
+$icon-url-dashboard: "${icon-url-base}/gauge.svg";
+$icon-url-customers: "${icon-url-base}/briefcase.svg";
+$icon-url-users: "${icon-url-base}/users.svg";
+$icon-url-settings: "${icon-url-base}/tools.svg";
 
 /* .scss file */
 //$bgcolor: #fff4ec;
@@ -100,14 +100,6 @@ input {
   width: 1px;
 }
 
-// body {
-//   background: $bgcolor;
-//   margin: 0;
-//   font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
-//   color: $accent;
-//   padding-left: $menu-width-desktop;
-// }
-
 #layout-children {
   position: relative;
   //height: calc(100vh - $header-height-desktop);
@@ -115,8 +107,7 @@ input {
   background-color: black;
 
   .helper {
-    background: rgba(0, 0, 0, 0);
-    color: $bgcolor;
+    color: $textcolor;
     position: absolute;
     height: 100vh;
     width: calc(100vw - $menu-width-desktop);
@@ -159,6 +150,19 @@ input {
       font-weight: normal;
       margin-bottom: 0;
     }
+
+    &.icon-dashboard {
+      background-image: url($icon-url-customers);
+    }
+    &.icon-customers {
+      background-image: url($icon-url-customers);
+    }
+    &.icon-users {
+      background-image: url($icon-url-users);
+    }
+    &.icon-settings {
+      background-image: url($icon-url-settings);
+    }
   }
 
   ul {
@@ -167,8 +171,8 @@ input {
     margin: 0;
 
     li {
-      padding: 0.5em 1em 0.5em 3em;
-      color: $accent;
+      padding: 0.5em 1em 1em 3em;
+      color: $accent !important;
       font-size: 0.95em;
       font-weight: regular;
       text-align: left;
@@ -188,6 +192,12 @@ input {
       }
     }
   }
+
+  .logout {
+    position: absolute;
+    bottom: 2em;
+    left: 3em;
+  }
 }
 
 .header {
@@ -198,7 +208,7 @@ input {
   width: calc(100vw - $menu-width-desktop);
   height: $header-height-desktop;
   z-index: 5;
-  padding: 2em 0;
+  padding: 1.5em 0;
 
   ul {
     list-style: none;

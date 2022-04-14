@@ -3,7 +3,7 @@
  * Contains components that will be same across all pages
  */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "./Navigation";
 import {
     BrowserRouter as Router,
@@ -16,12 +16,45 @@ import authenticationApi from "../../apis/authentication";
 import { resetAuthTokens } from "../../apis/axios";
 import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
+import profileApi from "../../apis/apiprofile";
+import { useUserState } from "../../contexts/user";
 
 const Layout = props => {
+
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
 
     const authDispatch = useAuthDispatch();
     const navigate = useNavigate();
     const { addToast } = useToasts();
+    const { user } = useUserState();
+
+    useEffect(() => {
+        onLoad();
+    }, []);
+
+    const onLoad = async () => {
+
+        try {
+            const {
+                data
+            } = await profileApi.getprofile({ user_id: user.id });
+
+            setFirstName(user.first_name);
+            setLastName(user.last_name);
+
+        } catch (error) {
+            //console.log(error.response.data.error);
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -29,12 +62,9 @@ const Layout = props => {
             await authenticationApi.logout();
             authDispatch({ type: 'LOGOUT' });
             resetAuthTokens();
-            //console.log("success");
             navigate('/');
             addToast("Successfully logged out!", { appearance: 'success', autoDismiss: true });
         } catch (error) {
-            //console.log("error found");
-            //addToast("Logout failed!", { appearance: 'error', autoDismiss: true });
             console.log(error.toString());
         }
 
@@ -46,15 +76,15 @@ const Layout = props => {
             <div className="smartphone-menu-trigger"></div>
             <header className="avatar">
                     <img src="via.placeholder.com/150.PNG" />
-                <h2>John D.</h2>
+                <h2>{first_name} {last_name}</h2>
             </header>
             <ul>
                 <li tabIndex="0"><Link to='/profile'>Profile</Link></li>
                 <li tabIndex="0"><Link to='/discovery'>Discover</Link></li>
                 <li tabIndex="0"><Link to='/followedTopics'>Followed Topics</Link></li>
                 <li tabIndex="0"><Link to='/messenger'>Messages</Link></li>
-                <li tabIndex="0"><button onClick={handleSubmit}> Logout </button></li>
             </ul>
+            <button className="logout" onClick={handleSubmit}> Logout </button>
             </nav>
 
             <div className="header">

@@ -3,8 +3,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
 
 .Login {
-  box-sizing: border-box;
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  overflow-x: hidden;
+  overflow-y: scroll;
 
+  box-sizing: border-box;
   text-align: center;
   min-height: 100vh;
   display: flex;
@@ -14,7 +20,6 @@
 
   min-width: 100%;
   height: 100vh;
-  position: relative;
 }
 
 .Login body {
