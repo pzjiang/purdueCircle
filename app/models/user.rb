@@ -36,6 +36,7 @@ class User < ApplicationRecord
 
     def init
       self.privacy ||= false
+      self.notification_count ||= 0
     end
 
     def send_devise_notification(notification, *args)
