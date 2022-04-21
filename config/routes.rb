@@ -31,16 +31,18 @@ Rails.application.routes.draw do
       put "likes", to: "posts#increment_like"
       get "likespost/:id/:post_id", to: "profiles#likes_post"
       get "posts/:number/index", to: "posts#index"
+      get "likedposts/:number/:id", to: "posts#get_liked"
       #discover posts 
       get "postsdiscover/:search/:number", to: "posts#discover_posts"
+
+      #timeline get posts\
+      get "timetopics/:id/:number", to: "posts#get_followed_topics"
+      get "timeusers/:id/:number", to: "posts#get_followed_users"
 
       #dealing with saving posts
       post "savepost/:id/:user_id", to: "posts#change_save"
       get "savepost/:id/:number", to: "posts#get_save"
       
-      #saving posts implementations
-      get "savedposts/:id/:number", to: "posts#get_saves"
-      post "savepost", to: "posts#change_save"
 
       #changing privacy settings for a post
       put "changeprivacy/:id", to: "posts#change_privacy"

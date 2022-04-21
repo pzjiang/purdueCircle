@@ -14,6 +14,7 @@ class User < ApplicationRecord
          has_many :receivedmessages, :foreign_key => :target
          has_many :sentmessages, :foreign_key => :origin
          has_many :topics, :through => :usertopics, :source => :topic
+         has_many :likedposts, :through => :favorites, :source => :post
          
   
   before_save :ensure_authentication_token_is_present
@@ -27,6 +28,8 @@ class User < ApplicationRecord
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   validates:email, format: {with: /\b[A-Z0-9._%a-z\-]+@purdue\.edu\z/, message: "must be a purdue.edu account"}
+
+  
 
 
   private
