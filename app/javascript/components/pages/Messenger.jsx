@@ -64,8 +64,10 @@ const Messenger = () => {
         }
     }
 
-    function viewDM(event, convoId) {
-        event.preventDefault();
+    const viewDM = (event, convoId) => {
+        if (event != null) {
+            event.preventDefault();
+        }
         console.log("viewing convo");
         navigate(`/dm/${convoId}`);
     }
@@ -119,11 +121,12 @@ const Messenger = () => {
             } else {
                 console.log("error", error.message);
             }
+            return;
         }
         try {
             const { data } = await messagesApi.createConvo({ user_id: user.id, target_id: thisId });
             //console.log(data);
-            viewDM(data.convo.id);
+            viewDM(null, data.convo.id);
 
         } catch (error) {
             if (error.response) {

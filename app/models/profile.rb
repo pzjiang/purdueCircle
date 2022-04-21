@@ -5,6 +5,7 @@ class Profile < ApplicationRecord
     has_many :bookmarks, dependent: :destroy
     has_many :saved_posts, :through => :bookmarks, :source => :post
     has_many :favorites, dependent: :destroy
+    has_one_attached :avatar
     after_initialize :init
 
     def init
