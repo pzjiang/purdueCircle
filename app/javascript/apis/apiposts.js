@@ -21,6 +21,9 @@ const incrementLike = payload => axios.put(`api/v1/likes/`, payload);
 //function used to see if user has already liked the post, used on page load to determine initial status
 const likesPost = payload => axios.get(`api/v1/likespost/${payload.user_id}/${payload.post_id}/`);
 
+//function to retrieve all of your liked posts
+const getLiked = payload => axios.get(`api/v1/likedposts/${payload.number}/${payload.id}`);
+
 //get own posts 
 const ownPosts = payload => axios.get(`api/v1/ownposts/${payload.user_id}/${payload.number}/`);
 
@@ -65,6 +68,7 @@ const postsApi = {
     timeTopics,
     timeUsers,
     getSave,
+    getLiked,
 
 
 };

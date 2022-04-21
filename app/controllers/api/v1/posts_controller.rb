@@ -106,6 +106,11 @@ class Api::V1::PostsController < Api::V1::BaseController
                 add_topic "topicless", @newpost.id
             end
 
+            if params[:tagged_users]
+                #TODO
+                #generate notifications
+            end
+
             
             render json: {post: @newpost}, status: 200
         else
