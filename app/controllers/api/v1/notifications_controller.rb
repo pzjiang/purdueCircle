@@ -14,12 +14,12 @@ class Api::V1::NotificationsController < Api::V1::BaseController
         if @notification.save!
             render json: {@notification}, status: 200
         else
-            render json: {}, status: :unprocessable_entity
+            respond_with_error "notification failed", :unprocessable_entity
         end
     end
 
     #takes a number of notifications
-    def get_unread_notifications
+    def get_notifications
 
 
     end
