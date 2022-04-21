@@ -108,7 +108,8 @@ class Api::V1::PostsController < Api::V1::BaseController
 
             if params[:tagged_users]
                 #TODO
-                #generate notifications
+                #generate_notification (user_id, body, origin, source)
+                generate_notification(@user.id, "you were tagged in a post!", "post", @newpost.id)
             end
 
             
@@ -155,8 +156,8 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def increment_like
-        
-       
+        #testing_crossed()
+
         @profile = Profile.find_by(user_id: params[:user_id])
         #find a connection, not a profile
         @profile_found = @post.favorites.find_by(profile_id: @profile.id)
