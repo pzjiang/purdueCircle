@@ -7,6 +7,7 @@ const getPost = payload => axios.get(`api/v1/posts/${payload.number}/index`);
 const showPost = payload => axios.get(`api/v1/posts/${payload.id}/`);
 
 //create a post
+//to tag users, pass in array called tagged_users
 const createPost = payload => axios.post(`api/v1/posts/`, payload);
 
 //edit a specific post

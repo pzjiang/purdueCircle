@@ -109,7 +109,12 @@ class Api::V1::PostsController < Api::V1::BaseController
             if params[:tagged_users]
                 #TODO
                 #generate_notification (user_id, body, origin, source)
-                generate_notification(@user.id, "you were tagged in a post!", "post", @newpost.id)
+                params[:tagged_users].each do |tagged_user|
+                    tagged = User.find_by(username: tagged_user)
+                    if tagged
+                        generate_notification(tagged.id, "you were tagged in a post!", "post", @newpost.id)
+                    end
+                end
             end
 
             
