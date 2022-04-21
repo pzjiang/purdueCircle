@@ -93,14 +93,19 @@ class Api::V1::PostsController < Api::V1::BaseController
         @profile = @user.profile
         @newpost.profile_id = @profile.id
         @newpost.privacy = false
+        @newpost.topic_name = params[:topics]
 
         if @newpost.valid?
-            @newpost.save
             if params[:topics]
-                params[:topics].each do |topicname|
-                    add_topic topicname, @newpost.id
-                end
+                #params[:topics].each do |topicname|
+                    #add_topic topicname, @newpost.id
+                #end
+                add_topic params[:topics], @newpost.id
+            else
+                add_topic "topicless", @newpost.id
             end
+
+            @newpost.save!
             render json: {post: @newpost}, status: 200
         else
             render json: {error: @newpost.errors.full_messages.to_sentence}, status: 422

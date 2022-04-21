@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_19_024455) do
+ActiveRecord::Schema.define(version: 2022_04_21_014517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 2022_04_19_024455) do
     t.integer "profile_id"
     t.integer "user_id"
     t.boolean "privacy"
+    t.string "topic_name"
     t.index ["profile_id"], name: "index_posts_on_profile_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
