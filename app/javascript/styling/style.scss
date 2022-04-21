@@ -67,12 +67,13 @@ button,
 }
 
 a {
+  color: $accent;
   text-decoration: none;
 }
 
 .button-1 {
   background-color: $accent;
-  color: $primary;
+  color: $primary !important;
 }
 
 .button-2 {
