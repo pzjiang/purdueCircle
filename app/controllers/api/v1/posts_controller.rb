@@ -96,6 +96,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         @newpost.topic_name = params[:topics]
 
         if @newpost.valid?
+            @newpost.save!
             if params[:topics]
                 #params[:topics].each do |topicname|
                     #add_topic topicname, @newpost.id
@@ -105,7 +106,7 @@ class Api::V1::PostsController < Api::V1::BaseController
                 add_topic "topicless", @newpost.id
             end
 
-            @newpost.save!
+            
             render json: {post: @newpost}, status: 200
         else
             render json: {error: @newpost.errors.full_messages.to_sentence}, status: 422
@@ -151,7 +152,8 @@ class Api::V1::PostsController < Api::V1::BaseController
     def increment_like
         
        
-        @profile = Profile.find_by(user_id: params[:profile_id])
+        @profile = Profile.find_by(user_id: params[:user_id])
+        #find a connection, not a profile
         @profile_found = @post.favorites.find_by(profile_id: @profile.id)
 
         if @profile_found
@@ -215,7 +217,8 @@ class Api::V1::PostsController < Api::V1::BaseController
     def get_liked
 
         @user = User.find(params[:id])
-        @posts = @user.likedposts.all
+        @profile = @user.profile
+        @posts = @profile.likedposts.last(params[:number])
 
         render json: {posts: @posts}, status: 200
     end
