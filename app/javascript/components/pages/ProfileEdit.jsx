@@ -23,7 +23,7 @@ import userApi from '../../apis/apiusers';
 const EditProfile = () => {
 
     const [inputValues, setInputValues] = useState({
-        bio: '', currentpassword: '', passwordnew: '', passwordConfirmation: '', password: '', email: '', first_name: '', last_name: '', username: ''
+        bio: '', currentpassword: '', passwordnew: '', passwordConfirmation: '', password: '', email: '', first_name: '', last_name: '', username: '', avatar: null
     });
     const { addToast } = useToasts();
     const { user } = useUserState();
@@ -43,7 +43,7 @@ const EditProfile = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await profileApi.editprofile({ id: user.id, profile: { bio: inputValues.bio } });
+            await profileApi.editprofile({ id: user.id, profile: { bio: inputValues.bio, avatar: inputValues.avatar } });
             console.log("successful edit profile");
             navigate("/profile");
             addToast("Profile changed successfully", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
@@ -182,6 +182,9 @@ const EditProfile = () => {
                 <form id="profileEditForm" onSubmit={handleSubmit}>
                     <label>
                         <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                    </label>
+                    <label>
+                        <input type="file" accept="image/*" multiple={false} onChange={(e) => setInputValues({ ...inputValues, avatar: e.target.files[0] })} />
                     </label>
                     <button type="submit"> Submit </button>
 

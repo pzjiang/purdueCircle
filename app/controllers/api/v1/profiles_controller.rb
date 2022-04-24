@@ -1,21 +1,26 @@
 class Api::V1::ProfilesController < Api::V1::BaseController
-    
+    include Rails.application.routes.url_helpers
     before_action :authenticate_user!
     before_action :set_profile
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
+    
 
     
 
 
     def show
         if @profile
-            render json: {profile: @profile}
+          if @profile.avatar.has_attribute?(:filename)   
+            render json: {profile: @profile, avatar: rails_service_blob_path(@profile.avatar)}
           else
+            render json: {profile: @profile}
+          end
+        else
             render json: {error: "profile with id #{params[:id]} not found "}, status: :not_found
             #respond_with_error "Profile with id #{params[:user_id]} not found.", :not_found
-          end
+        end
     end
 
 
@@ -66,7 +71,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
         end
 
         def profile_params
-            params.require(:profile).permit(:bio)
+            params.require(:profile).permit(:bio, :avatar)
         end
 
 end
