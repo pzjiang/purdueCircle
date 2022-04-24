@@ -93,14 +93,31 @@ class Api::V1::PostsController < Api::V1::BaseController
         @profile = @user.profile
         @newpost.profile_id = @profile.id
         @newpost.privacy = false
+        @newpost.topic_name = params[:topics]
 
         if @newpost.valid?
-            @newpost.save
+            @newpost.save!
             if params[:topics]
-                params[:topics].each do |topicname|
-                    add_topic topicname, @newpost.id
+                #params[:topics].each do |topicname|
+                    #add_topic topicname, @newpost.id
+                #end
+                add_topic params[:topics], @newpost.id
+            else
+                add_topic "topicless", @newpost.id
+            end
+
+            if params[:tagged_users]
+                #TODO
+                #generate_notification (user_id, body, origin, source)
+                params[:tagged_users].each do |tagged_user|
+                    tagged = User.find_by(username: tagged_user)
+                    if tagged
+                        generate_notification(tagged.id, "you were tagged in a post!", "post", @newpost.id)
+                    end
                 end
             end
+
+            
             render json: {post: @newpost}, status: 200
         else
             render json: {error: @newpost.errors.full_messages.to_sentence}, status: 422
@@ -144,9 +161,10 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def increment_like
-        
-       
-        @profile = Profile.find_by(user_id: params[:profile_id])
+        #testing_crossed()
+
+        @profile = Profile.find_by(user_id: params[:user_id])
+        #find a connection, not a profile
         @profile_found = @post.favorites.find_by(profile_id: @profile.id)
 
         if @profile_found
@@ -210,7 +228,8 @@ class Api::V1::PostsController < Api::V1::BaseController
     def get_liked
 
         @user = User.find(params[:id])
-        @posts = @user.likedposts.all
+        @profile = @user.profile
+        @posts = @profile.likedposts.last(params[:number])
 
         render json: {posts: @posts}, status: 200
     end

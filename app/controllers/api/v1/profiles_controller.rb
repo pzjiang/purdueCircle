@@ -40,7 +40,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
 
 
     def likes_post
-      @liked = @profile.favorites.find_by(post_id: params[:post_id])
+      @liked = @profile.likedposts.find_by(id: params[:post_id])
       if @liked
         render json: {status: true}, status:200
       else

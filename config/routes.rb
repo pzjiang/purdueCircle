@@ -106,6 +106,9 @@ Rails.application.routes.draw do
       #unblock user
       delete "unblockuser/:id/:target_id", to: "users#unblock_user"
 
+      #notifications
+      
+
     end
   end
 
