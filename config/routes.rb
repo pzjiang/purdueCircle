@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
       #edit profile
       put "editprofile", to: "profiles#update"
+      put "editavatar", to: "profiles#add_avatar"
 
       #get only your own posts
       get "ownposts/:user_id/:number", to: "posts#retrieve_own"
@@ -118,6 +119,8 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  get '/*path' => 'pages#index'
+  get '/*path' => 'pages#index', constraints: lambda { |req|
+  req.path.exclude? 'rails/active_storage'
+}
 
 end

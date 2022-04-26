@@ -19,6 +19,9 @@ import "../../styling/Profile.scss";
 
 import userApi from '../../apis/apiusers';
 
+import FormData from 'form-data'
+
+
 
 const EditProfile = () => {
 
@@ -40,18 +43,45 @@ const EditProfile = () => {
 
     }, []);
 
+
+    const updateAvatar = async (event) => {
+        event.preventDefault();
+        if (inputValues.avatar != null) {
+            try {
+                let formdata = new FormData();
+                formdata.append('avatar', inputValues.avatar, user.username);
+                formdata.append('id', user.id);
+                await profileApi.editavatar(formdata);
+                navigate("/profile");
+            } catch (error) {
+                if (error.response) {
+                    console.log(error.response);
+                    addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("error", error.message);
+                }
+                return;
+            }
+        }
+
+    }
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+
         try {
-            await profileApi.editprofile({ id: user.id, profile: { bio: inputValues.bio, avatar: inputValues.avatar } });
+            await profileApi.editprofile({ id: user.id, profile: { bio: inputValues.bio } });
             console.log("successful edit profile");
             navigate("/profile");
-            addToast("Profile changed successfully", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
+            addToast("Profile changed successfully", { appearance: 'success', autoDismiss: true, /*autoDismissTimeout: 1500,*/ });
 
         } catch (error) {
             //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
             if (error.response) {
                 console.log(error.response.data.error);
+                addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
             } else if (error.request) {
                 console.log(error.request);
             } else {
@@ -183,12 +213,15 @@ const EditProfile = () => {
                     <label>
                         <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
                     </label>
-                    <label>
-                        <input type="file" accept="image/*" multiple={false} onChange={(e) => setInputValues({ ...inputValues, avatar: e.target.files[0] })} />
-                    </label>
                     <button type="submit"> Submit </button>
 
 
+                </form>
+                <form onSubmit={updateAvatar}>
+                    <label>
+                        <input type="file" accept="image/*" multiple={false} onChange={(e) => setInputValues({ ...inputValues, avatar: e.target.files[0] })} />
+                    </label>
+                    <button type="submit">Submit</button>
                 </form>
 
 
