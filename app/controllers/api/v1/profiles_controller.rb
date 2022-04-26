@@ -12,8 +12,8 @@ class Api::V1::ProfilesController < Api::V1::BaseController
 
     def show
         if @profile
-          @profile.photo = rails_blob_url(@profile.avatar)
-          @profile.save!
+          #@profile.photo = rails_blob_url(@profile.avatar)
+          #@profile.save!
           render json: {profile: @profile}
         else
             render json: {error: "profile with id #{params[:id]} not found "}, status: :not_found
@@ -28,7 +28,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
       @profile.update(avatar_params)
 
       #url_for(@profile.avatar)
-      photo = rails_blob_url(@profile.avatar, disposition: "attachment")
+      photo = rails_blob_url(@profile.avatar)
       @profile.photo = photo
       @profile.save!
 
