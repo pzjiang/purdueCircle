@@ -47,6 +47,7 @@ const ViewPost = () => {
     const [authorUser, setAuthorUser] = useState();
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState();
+    const [saved, setSaved] = useState();
 
 
     const { user } = useUserState();
@@ -96,6 +97,7 @@ const ViewPost = () => {
             setPrivacy(data.post.privacy);
             setAuthorUser(data.author);
             holdid = data.post.id;
+
             //setProfileId(data.post.profile_id);
             //return data.post.profile_id;
             /*
@@ -163,8 +165,29 @@ const ViewPost = () => {
             }
         }
 
+        //get saved
+        try {
+            console.log(thisId);
+            console.log(user.id);
+            const  { data } = await postsApi.checkSave({ post_id: thisId, id: user.id });
 
+            if (data.saved == true) {
+                setSaved("Unsave");
+                console.log("undefined");
+            } else {
+                setSaved("Save");
+                console.log("saved")
+            }
 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     };
 
     /*
@@ -227,7 +250,27 @@ const ViewPost = () => {
         }
     };
 
-    const savePost = () => {
+    const savePost = async (event) => {
+        try {
+            const { data } = await postsApi.changeSave({ post_id: id, id: user.id })
+            if (data.destroyed == true) {
+                addToast("Post Unsaved!", { appearance: 'success', autoDismiss: true, });
+                setSaved("Save");
+            } else {
+                addToast("Post Saved!", { appearance: 'success', autoDismiss: true, });
+                setSaved("Unsave");
+            }
+        } catch (error) {
+            addToast("Error Saving Post.", { appearance: 'error', autoDismiss: true, });
+
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
         console.log("save post");
     };
 
@@ -291,9 +334,9 @@ const ViewPost = () => {
                     <div className="options">
                         <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
                         <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
-                        <button id="small_post_btn" className="like" onClick={addLike}>
-                            <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                        </button>
+                        <button id="small_post_btn" className="savePost" onClick={savePost}> {saved} </button>
+                        <button id="small_post_btn" className="like" onClick={addLike}></button>
+                        <i className="fa fa-heart" aria-hidden="true"></i> {likes}
 
                         <br></br>
                         <br></br>

@@ -36,7 +36,7 @@ const Profile = () => {
     const [privacy, setPrivacy] = useState(false);
 
 
-    const [confirmed, setConfirmed] = useState("")
+    const [confirmed, setConfirmed] = useState("");
 
     const [topics, setTopics] = useState([]);
     const [followers, setFollowers] = useState([]);
