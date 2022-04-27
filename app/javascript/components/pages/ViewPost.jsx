@@ -3,6 +3,7 @@
  */
 
 import React, { useEffect, useState } from "react";
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -303,12 +304,15 @@ const ViewPost = () => {
                     </div>
                 }
 
+                <div className="column">
+
                 <form id="post_box_form">
 
-                    <div className="column">
+                    
                         <br></br>
 
                         <h3> Post Content:</h3>
+                        <br></br>
                         <div>
                             <p>{body}</p>
                         </div>
@@ -341,20 +345,23 @@ const ViewPost = () => {
                                 <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
                             </div>
                         }
-
-                    </div>
-
-
-
-                    <div className="column">
+                    
                         <br></br>
-                        <h3> Comments: </h3>
+                    
+
+                </form>
+
+                </div>
+
+                
+                <div className="column">
+                <br></br>
+                <h3> Comments: </h3>
                         {comments.map((comment) => (
                             <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
                         ))}
-                    </div>
 
-                </form>
+                </div>
 
 
                 {/*

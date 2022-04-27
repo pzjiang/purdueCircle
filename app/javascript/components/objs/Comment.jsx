@@ -16,10 +16,12 @@ const Comment = props => {
 
     return (
         <div>
-            <p>{props.author}:</p> {props.body}
+            <p>
+                {props.author}: <p id="comment_text"> {props.body} &nbsp; &nbsp; </p>
+                {props.ownComment && <button id="delete_comment_btn" onClick={(event) => props.removeMethod(event, props.id)}>Delete</button>} 
+            </p>
             <br></br>
-            {props.ownComment && <button id="delete_comment_btn" onClick={(event) => props.removeMethod(event, props.id)}>Delete</button>}
-
+            <p></p>
         </div>
     );
 }
