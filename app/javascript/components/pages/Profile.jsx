@@ -153,7 +153,7 @@ const Profile = () => {
             }
         }
 
-        //initialize follower list people following user
+        //initialize saved list 
         try {
             const { data } = await postsApi.getSaves({ id: user.id, number: 10 });
             console.log(data.saves);
@@ -169,6 +169,21 @@ const Profile = () => {
             }
         }
 
+        //initialize liked list 
+        try {
+            const { data } = await postsApi.getSaves({ id: user.id, number: 10 });
+            console.log(data.saves);
+            setSavedPosts(data.saves);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
     }
 
     const removeTopic = async (param) => {
@@ -214,17 +229,22 @@ const Profile = () => {
 
     const displayFollowers = () => {
         setDisplay("followers");
-        addToast("now displaying followers", { appearance: 'success', autoDismiss: true });
+        addToast("Now Displaying Followers.", { appearance: 'success', autoDismiss: true });
     }
 
     const displayFollowing = () => {
         setDisplay("following");
-        addToast("now displaying following", { appearance: 'success', autoDismiss: true });
+        addToast("Now Displaying Following.", { appearance: 'success', autoDismiss: true });
     }
 
     const displaySaved = () => {
         setDisplay("saved");
-        addToast("now displaying saved", { appearance: 'success', autoDismiss: true });
+        addToast("Now Displaying Your Saved Posts.", { appearance: 'success', autoDismiss: true });
+    }
+
+    const displayLiked = () => {
+        setDisplay("liked");
+        addToast("Now Displaying Your Liked Posts.", { appearance: 'success', autoDismiss: true });
     }
 
 
@@ -273,6 +293,7 @@ const Profile = () => {
             <button onClick={displayFollowing}>Display Following</button>
             <button onClick={displayFollowers}> Display Followers</button>
             <button onClick={displaySaved}> Display Saved Posts</button>
+            <button onClick={displayLiked}> Display Liked Posts</button>
 
 
             {
@@ -314,6 +335,18 @@ const Profile = () => {
                     {savedPosts.reverse().map((post) => (
                         <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                     ))}
+                </div>
+            }
+
+            {
+                display == "liked" &&
+                <div>followers display
+                    {followers.map((item) => (
+                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
+                            <Link to={'/profile/' + item.username}>{item.username}</Link>
+                        </div>
+                    ))}
+
                 </div>
             }
 
