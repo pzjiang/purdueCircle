@@ -317,7 +317,7 @@ const ViewPost = () => {
                             <p>{body}</p>
                         </div>
 
-                        <h3>Topics:</h3>
+                        <h3>Topic:</h3>
                         {topics.map((topic) => (
                             <div><p>{topic} </p></div>
                         ))}
