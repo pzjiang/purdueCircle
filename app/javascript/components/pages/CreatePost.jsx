@@ -28,7 +28,7 @@ const CreatePost = () => {
     });
     const [topics, setTopics] = useState([]);
     const [curTopic, setCurTopic] = useState("");
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState();
     const { addToast } = useToasts();
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -126,17 +126,19 @@ const CreatePost = () => {
                 }
             }
         }
-        else {
+        else if (image != null) {
             try {
                 let sentData = new FormData();
-                let post = { title: inputValues.title, body: inputValues.body, user_id: user.id };
-                sentData.append('post', post);
+                //let post = { title: inputValues.title, body: inputValues.body, user_id: user.id };
+                sentData.append('title', inputValues.title);
+                sentData.append('body', inputValues.body);
+                sentData.append('user_id', user.id);
                 sentData.append('topics', curTopic);
                 sentData.append('picture', true);
                 sentData.append('image', image);
 
 
-                await postsApi.createPost(sentData);
+                await postsApi.createPostPicture(sentData);
                 //console.log("successful post creation");
                 navigate("/");
                 addToast("posted", { appearance: 'success', autoDismiss: true });
@@ -154,8 +156,7 @@ const CreatePost = () => {
             }
         }
 
-
-    }
+    };
 
     return (
         <Layout>
@@ -193,7 +194,7 @@ const CreatePost = () => {
                         <button id="createPostBtn" onClick={underscore}>Underscore</button>
                         <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
                         <button id="createPostBtn" onClick={link}>Link</button>
-                        <input id="createPostBtn" type="file" />
+                        <input type="file" accept="image/*" multiple={false} onChange={(e) => setImage(e.target.files[0])} />
                     </div>
 
                     <br></br>
@@ -211,12 +212,6 @@ const CreatePost = () => {
                         </label>
 
 
-                        <br />
-
-                        <label>
-                            Picture (optional):
-                            <input type="file" accept="image/*" multiple={false} onChange={(e) => setImage(e.target.files[0])} />
-                        </label>
 
                         <button type="submit"> Submit </button>
 

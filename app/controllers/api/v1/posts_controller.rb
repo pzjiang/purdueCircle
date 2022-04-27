@@ -89,21 +89,32 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def create
        
-        @newpost = Post.new post_params
-        @user = current_user
-        @profile = @user.profile
-        @newpost.profile_id = @profile.id
-        @newpost.privacy = false
-        @newpost.topic_name = params[:topics]
-
+        if params[:picture] == false
+            @newpost = Post.new post_params
+            @user = current_user
+            @profile = @user.profile
+            @newpost.profile_id = @profile.id
+            @newpost.privacy = false
+            @newpost.topic_name = params[:topics]
+        else
+            @newpost = Post.new post_params_picture
+            @user = current_user
+            @profile = @user.profile
+            @newpost.profile_id = @profile.id
+            @newpost.privacy = false
+            @newpost.topic_name = params[:topics]
+        end
         
 
         if @newpost.valid?
             @newpost.save!
-            if params[:picture]
+            if params[:picture] == true
+                @newpost.picture = true
+                @newpost.image.attach(params[:image])
                 @newpost.picture_url = rails_blob_url(@newpost.image)
                 @newpost.save!
             else
+                @newpost.picture = false
                 @newpost.picture_url = ""
                 @newpost.save!
             end
@@ -298,7 +309,12 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def post_params
-        params.require(:post).permit(:title, :body, :profile_id, :user_id, :picture, :image)
+        params.require(:post).permit(:title, :body, :profile_id, :user_id)
     end
+    
+    def post_params_picture
+        params.permit(:title, :body, :profile_id, :user_id)
+    end
+    
 
 end
