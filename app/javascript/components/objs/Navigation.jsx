@@ -47,7 +47,6 @@ const Navigation = () => {
                 {/*<li><Search /></li>*/}
                 <li><Link to='/discovery'>Discover</Link></li>
                 <li><Link to='/followedTopics'>Followed Topics</Link></li>
-                <li><Link to='/post'> New Post</Link></li>
                 <li><Link to='/profile'>Profile</Link></li>
                 <li><Link to='/messenger'>Messages</Link></li>
                 <li><button onClick={handleSubmit}> Logout </button></li>

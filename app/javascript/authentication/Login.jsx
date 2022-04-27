@@ -63,10 +63,13 @@ const Login = () => {
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
+                addToast(error.response.data.error, { appearance: 'error', autoDismiss: true });
             } else if (error.request) {
                 console.log(error.request);
+                addToast(error.request, { appearance: 'error', autoDismiss: true });
             } else {
                 console.log("error", error.message);
+                addToast(error.message, { appearance: 'error', autoDismiss: true });
             }
         }
     };

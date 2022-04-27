@@ -4,21 +4,22 @@
 
 #createpost {
   box-sizing: border-box;
-    text-align: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  
-    min-width: 100%;
-    height: 100vh;
-    position: relative;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100%;
+  height: 100vh;
+  position: relative;
+  //padding-top: 50vh;
 }
 
 body {
   margin: 0;
-  padding-top: 100px;
+  padding-top: 250px;
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -51,7 +52,6 @@ body {
     color: s.$accent;
     padding: 8px 14px;
   }
-
 }
 
 #createpost h1 {
@@ -99,7 +99,6 @@ textarea {
 
   border: 2px solid s.$accent;
 }
-
 
 .postList {
   margin-left: 10%;

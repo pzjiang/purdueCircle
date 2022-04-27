@@ -1,10 +1,15 @@
 @use "style.scss" as s;
 
 .Home {
-  //position: absolute;
-  //top: 0;
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  overflow-x: hidden;
+  overflow-y: scroll;
   text-align: center;
- // min-height: 100vh;
+  width: 100%;
+  // min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
