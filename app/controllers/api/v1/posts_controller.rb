@@ -54,7 +54,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end    
 
     def add_topic (name, postid)
-        relation = Posttopic.new()
+        #relation = Posttopic.new()
         topic_name name
         relation = Posttopic.new(post_id: postid, topic_id: @topic.id)
         relation.save!

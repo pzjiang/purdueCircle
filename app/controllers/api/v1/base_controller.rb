@@ -17,9 +17,9 @@ class Api::V1::BaseController < ApplicationController
         notification = Notification.create(user_id: user_id, body: body, origin: origin, read: false, source: source)
         user.increment!(:notification_count)
         if notification.save!
-            render json: @notification, status: 200
+            return 1
         else
-          respond_with_error "notification failed", :unprocessable_entity
+            return 0
         end
       else
       end

@@ -105,11 +105,39 @@ const CreatePost = () => {
             topicList.push(topic.name);
         });
         */
+        let tagged_users = [];
+
+        let tempuser = "";
+        let tagged = false;
+        for (let i = 0; i < inputValues.body.length; i++) {
+            if (tagged == false && inputValues.body[i] == '@') {
+                tempuser = "";
+                tagged = true;
+            }
+            else if (inputValues.body[i] == '@') {
+                if (tempuser == "") {
+                    continue;
+                }
+                tagged_users.push(tempuser);
+                tempuser = "";
+            }
+            else if (tagged == true && inputValues.body[i] == ' ') {
+                tagged = false;
+                tagged_users.push(tempuser);
+                tempuser = "";
+            }
+            else if (tagged == true) {
+                tempuser += inputValues.body[i];
+            }
+        }
+        if (tempuser != "" && tagged == true) {
+            tagged_users.push(tempuser);
+        }
 
         if (image == null) {
 
             try {
-                await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: curTopic, picture: false });
+                await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: curTopic, picture: false, tagged_users: tagged_users });
                 //console.log("successful post creation");
                 navigate("/");
                 addToast("posted", { appearance: 'success', autoDismiss: true });
@@ -136,6 +164,7 @@ const CreatePost = () => {
                 sentData.append('topics', curTopic);
                 sentData.append('picture', true);
                 sentData.append('image', image);
+                //sentData.append('tagged_users', tagged_users);
 
 
                 await postsApi.createPostPicture(sentData);
