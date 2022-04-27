@@ -29,7 +29,8 @@
         try {
             //get all notifications
             const { data } = await notificationsApi.getNotifications({ user_id: user.id });
-            setConvos(data.convos);
+            setConvos(data.notifications);
+            console.log(data);
 
         } catch (error) {
             //console.log(error.response.data.error);
