@@ -14,6 +14,17 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+  #get only the user photo
+  def user_photo
+    @user = User.find(params[:id])
+    @profile = @user.profile
+    if @profile.avatar.attached
+      render json:{url: rails_blob_url(@profile.avatar)}, status: 200
+    else
+      render json: {}, status: 200
+    end
+  end
+
 
   def discover_users_name
     @searchparam = '%' + params[:name] + '%'

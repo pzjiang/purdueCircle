@@ -28,6 +28,7 @@ const CreatePost = () => {
     });
     const [topics, setTopics] = useState([]);
     const [curTopic, setCurTopic] = useState("");
+    const [image, setImage] = useState();
     const { addToast } = useToasts();
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -105,26 +106,57 @@ const CreatePost = () => {
         });
         */
 
-        try {
-            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: curTopic });
-            //console.log("successful post creation");
-            navigate("/");
-            addToast("posted", { appearance: 'success', autoDismiss: true });
+        if (image == null) {
 
-        } catch (error) {
-            //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
-            if (error.response) {
-                console.log(error.response.data.error);
-                addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log("error", error.message);
+            try {
+                await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: curTopic, picture: false });
+                //console.log("successful post creation");
+                navigate("/");
+                addToast("posted", { appearance: 'success', autoDismiss: true });
+
+            } catch (error) {
+                //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                if (error.response) {
+                    console.log(error.response.data.error);
+                    addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("error", error.message);
+                }
+            }
+        }
+        else if (image != null) {
+            try {
+                let sentData = new FormData();
+                //let post = { title: inputValues.title, body: inputValues.body, user_id: user.id };
+                sentData.append('title', inputValues.title);
+                sentData.append('body', inputValues.body);
+                sentData.append('user_id', user.id);
+                sentData.append('topics', curTopic);
+                sentData.append('picture', true);
+                sentData.append('image', image);
+
+
+                await postsApi.createPostPicture(sentData);
+                //console.log("successful post creation");
+                navigate("/");
+                addToast("posted", { appearance: 'success', autoDismiss: true });
+
+            } catch (error) {
+                //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                if (error.response) {
+                    console.log(error.response.data.error);
+                    addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("error", error.message);
+                }
             }
         }
 
-
-    }
+    };
 
     return (
         <Layout>
@@ -162,7 +194,7 @@ const CreatePost = () => {
                         <button id="createPostBtn" onClick={underscore}>Underscore</button>
                         <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
                         <button id="createPostBtn" onClick={link}>Link</button>
-                        <input id="createPostBtn" type="file" />
+                        <input type="file" accept="image/*" multiple={false} onChange={(e) => setImage(e.target.files[0])} />
                     </div>
 
                     <br></br>
@@ -178,7 +210,12 @@ const CreatePost = () => {
                             Content:
                             <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
                         </label>
+
+
+
                         <button type="submit"> Submit </button>
+
+
 
                     </form>
 

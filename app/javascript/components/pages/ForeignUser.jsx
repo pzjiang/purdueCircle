@@ -24,6 +24,7 @@ const ForeignUser = () => {
     const [email, setEmail] = useState("");
     const [privacy, setPrivacy] = useState(false);
     const [id, setId] = useState(0);
+    const [photo, setPhoto] = useState();
 
     const [posts, setPosts] = useState([]);
     const [followed, setFollowed] = useState(false);
@@ -56,6 +57,7 @@ const ForeignUser = () => {
         try {
             const { data } = await userApi.findUser({ name: index });
             setBiol(data.profile.bio);
+            setPhoto(data.profile.photo);
             setFirstName(data.user.first_name);
             setLastName(data.user.last_name);
             setUsername(data.user.username);
@@ -239,7 +241,12 @@ const ForeignUser = () => {
                 <br />
 
                 <div className="child">
-                    <span className="dot"></span>
+                    {photo == null &&
+                        <span className="dot"></span>
+                    }
+                    {photo != null &&
+                        <img class="profilepic" src={photo}></img>
+                    }
                 </div>
                 <div className="child">
                     <div id="name">

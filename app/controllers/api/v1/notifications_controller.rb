@@ -30,6 +30,10 @@ class Api::V1::NotificationsController < Api::V1::BaseController
         end
     end
 
+<<<<<<< HEAD
+=======
+    #delete notification
+>>>>>>> images
     def delete_notification
         @notification = Notification.find(params[:id])
         if @notification.destroy

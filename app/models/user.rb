@@ -14,6 +14,7 @@ class User < ApplicationRecord
          has_many :receivedmessages, :foreign_key => :target
          has_many :sentmessages, :foreign_key => :origin
          has_many :topics, :through => :usertopics, :source => :topic
+         has_many :convos, dependent: :destroy
          #has_many :likedposts, :through => :favorites, :source => :post
          
   
