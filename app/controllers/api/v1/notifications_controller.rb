@@ -30,6 +30,15 @@ class Api::V1::NotificationsController < Api::V1::BaseController
         end
     end
 
+    def delete_notification
+        @notification = Notification.find(params[:id])
+        if @notification.destroy
+            render json: {}, status: 200
+        else
+            respond_with_error "couldn't delete", :unprocessable_entity
+        end
+    end
+
     #called to mark notification as read
     def read_notification
         @user = User.find(params[:user_id])
