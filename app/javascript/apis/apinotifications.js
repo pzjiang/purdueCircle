@@ -1,16 +1,14 @@
 import axios from 'axios';
 
 //get the existing convos for the user
-const getConvos = payload => axios.get(`api/v1/convos/${payload.user_id}`);
+const getNotifications = payload => axios.get(`api/v1/notifications/${payload.user_id}`);
 
+//adds a notification for the user
+const addNotifications = payload = axios.put();
 
 const notificationsApi = {
-    getMessages,
-    sendMessage,
-    getConvos,
-    createConvo,
-    deleteConvo,
-
+    getNotifications,
+    addNotifications,
 };
 
 export default notificationsApi;
