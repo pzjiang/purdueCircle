@@ -86,6 +86,8 @@ const Main = () => {
             </div>
 
             <button onClick={handleSubmit} > Load More</button>
+            <br></br>
+            <br></br>
         </Layout>
     )
 

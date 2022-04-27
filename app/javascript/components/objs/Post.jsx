@@ -122,6 +122,8 @@ const Post = props => {
             <h1 id="post_h1">{title}</h1>
             <div>{body}</div>
 
+            <br></br>
+
             <p></p>
             <div className="reactions">
                 <button id="small_post_btn" className="like" onClick={addLike}>
