@@ -10,7 +10,7 @@ body {
 
     box-sizing: border-box;
     text-align: center;
-    min-height: 100vh;
+    min-height: 130vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,7 +81,7 @@ body {
 
     p {
         display: inline-block;
-        margin-top: -20px;
+        margin-top: -10px;
         margin-bottom: -20px;
         font-family: s.$secondary_font;
         font-style: bold;

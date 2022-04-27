@@ -312,7 +312,6 @@ const ViewPost = () => {
                         <br></br>
 
                         <h3> Post Content:</h3>
-                        <br></br>
                         <div>
                             <p>{body}</p>
                         </div>
@@ -369,9 +368,12 @@ const ViewPost = () => {
                 */
                 }
                 <form onSubmit={addComment}>
-                    <textarea value={newComment} placeholder="enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
+                    <textarea value={newComment} placeholder="Enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
                     <button type="submit" id="regular_btn"> Comment </button>
                 </form>
+
+                <br></br>
+                <br></br>
 
             </div >
         </Layout >
