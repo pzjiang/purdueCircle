@@ -44,6 +44,7 @@ const Profile = () => {
     const [following, setFollowing] = useState([]);
     const [posts, setPosts] = useState([]);
     const [savedPosts, setSavedPosts] = useState([]);
+    const [likePosts, setLikePosts] = useState([]);
 
     const [numberLoaded, setNumberLoaded] = useState(10);
 
@@ -177,9 +178,9 @@ const Profile = () => {
 
         //initialize liked list 
         try {
-            const { data } = await postsApi.getSaves({ id: user.id, number: 10 });
-            console.log(data.saves);
-            setSavedPosts(data.saves);
+            const { data } = await postsApi.getLiked({ id: user.id, number: 10 });
+            console.log(data.posts);
+            setLikedPosts(data.posts);
 
         } catch (error) {
             if (error.response) {
@@ -373,13 +374,10 @@ const Profile = () => {
 
             {
                 display == "liked" &&
-                <div>followers display
-                    {followers.map((item) => (
-                        <div> first name: {item.first_name} last name: {item.last_name} <br></br>
-                            <Link to={'/profile/' + item.username}>{item.username}</Link>
-                        </div>
+                < div className="postList">
+                    {likePosts.reverse().map((post) => (
+                        <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                     ))}
-
                 </div>
             }
 

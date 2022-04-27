@@ -44,6 +44,9 @@ Rails.application.routes.draw do
       #dealing with saving posts
       post "savepost/:id/:user_id", to: "posts#change_save"
       get "getsaves/:id/:number", to: "posts#get_saves"
+
+      #get liked list
+      get "getlikes/:id/:number", to: "posts#get_liked"
       
       get "checksave/:id/:user_id", to: "posts#check_save"
       

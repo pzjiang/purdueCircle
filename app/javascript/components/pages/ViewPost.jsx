@@ -329,29 +329,20 @@ const ViewPost = () => {
                 <br></br>
                 <br></br>
 
-
-                <div className="options">
-                    {userId == user.id &&
+                {
+                    userId == user.id &&
+                    <div className="options">
                         <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
-                    }
-                    {userId == user.id &&
                         <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
-                        <button id="small_post_btn" className="savePost" onClick={savePost}> {saved} </button>
-                        <button id="small_post_btn" className="like" onClick={addLike}><i className="fa fa-heart" aria-hidden="true"></i> {likes}</button>
-                    }
-                    {/* //This should be accessible even if you aren't the user// <button id="small_post_btn" className="like" onClick={addLike}>
+                        <button id="small_post_btn" className="like" onClick={addLike}>
                             <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                </button> */}
-                    <button id="small_post_btn" className="like" onClick={addLike}>
-                        <i className="fa fa-heart" aria-hidden="true"></i> {likes}
-                    </button>
+                        </button>
 
-                    <br></br>
-                    <br></br>
+                        <br></br>
+                        <br></br>
 
-
-
-                </div>
+                    </div>
+                }
 
 
 
