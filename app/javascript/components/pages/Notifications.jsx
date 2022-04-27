@@ -16,6 +16,7 @@
  import { useAuthDispatch } from "../../contexts/auth";
  import { useUserState } from "../../contexts/user";
  import Layout from '../objs/Layout';
+ import notificationsApi from "../../apis/apinotifications";
  
  const Notifications = () => {
 
@@ -27,6 +28,8 @@
 
         try {
             //get all notifications
+            const { data } = await notificationsApi.getNotifications({ user_id: user.id });
+            setConvos(data.convos);
 
         } catch (error) {
             //console.log(error.response.data.error);
