@@ -6,7 +6,7 @@
 .editProfileForm {
     box-sizing: border-box;
     text-align: center;
-    min-height: 100vh;
+    min-height: 180vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,6 +17,7 @@
     position: relative;
 
     h4 {
+      font-size: 18px;
       margin-bottom: 0px;
     }
 
@@ -31,6 +32,12 @@
     color: s.$textcolor;
     padding: 10px 19px;
     }
+
+    .column {
+      float: left;
+      width: 60%;
+    }
+
   }
   
 #edit_h1 {
@@ -39,23 +46,23 @@
   font-family: s.$primary_font;
   color: s.$secondary;
   text-align: center;
-  margin: 0;
+  //margin: 0;
 }
 
 #edit_h2 {
     justify-content: center;
     font-family: s.$primary_font;
-    font-size: 30px;
+    font-size: 25px;
     letter-spacing: normal;
     font-style: bold;
     text-align: center;
-    color: s.$textcolor;
+    color: s.$accent;
     margin: 0;
 }
 
 #profileEditForm form {
     text-align: center;
-    height: 100px;
+    height: 50px;
     width: 200px;
     border: solid s.$accent 5px;
   }
@@ -83,7 +90,7 @@
   #profileEditForm textarea {
     font-family: s.$secondary_font;
     display: block;
-    height: 50px;
+    height: 30px;
     width: 100%;
     padding: 0.5rem 0.8rem 0.5rem 0.8rem;
     margin: 0.9vw 0;

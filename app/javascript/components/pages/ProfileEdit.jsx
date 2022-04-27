@@ -167,6 +167,9 @@ const EditProfile = () => {
 
     return (
         <Layout>
+
+            
+
             <div className="editProfileForm">
 
 
@@ -174,8 +177,9 @@ const EditProfile = () => {
 
                 <br />
 
-                <button id="submit-button" onClick={changePrivacy}> Change Privacy </button>
+                <button id="submit-button" onClick={changePrivacy}> Change Privacy Setting</button>
 
+                <br />
                 <br />
 
                 <h2 id="edit_h2"> Edit Bio </h2>
@@ -188,11 +192,43 @@ const EditProfile = () => {
 
                 </form>
 
-
                 <br />
                 <br />
 
 
+                <div className="column">
+                <h2 id="edit_h2"> Change Name </h2>
+                <form id="profileEditForm" onSubmit={updateAccount}>
+                    <label id="password-labels">
+                        <h4>New First Name: </h4>
+                        <input type="text" placeholder="First Name" id="label" value={inputValues.first_name} onChange={(e) => setInputValues({ ...inputValues, first_name: e.target.value })}
+                        />
+                        <h4>New Last Name: </h4>
+                        <input type="text" placeholder="Last Name" id="label" value={inputValues.last_name} onChange={(e) => setInputValues({ ...inputValues, last_name: e.target.value })}
+                        />
+
+                        <h4>New Username: </h4>
+                        <input type="text" placeholder="User Name" id="label" value={inputValues.username} onChange={(e) => setInputValues({ ...inputValues, username: e.target.value })}
+                        />
+
+                        <h4>Enter Updated Email: </h4>
+                        <input type="text" placeholder="Email" id="label" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
+                        />
+
+                        <h4>Enter Password: </h4>
+                        <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
+                        />
+                    </label>
+                    <button type="submit"> Update Name </button>
+
+                </form>
+
+                <br />
+                <br />
+
+                </div>
+
+                <div className="column">
                 <h2 id="edit_h2"> Change Password </h2>
                 <form id="profileEditForm" onSubmit={updatePassword}>
                     <label>
@@ -209,38 +245,7 @@ const EditProfile = () => {
                     <button type="submit" id="submit-button"> Change Password </button>
                     <br></br>
                 </form>
-
-
-                <br></br>
-                <br></br>
-
-
-
-
-                <form onSubmit={updateAccount} id="form">
-                    <h3>Change Name:</h3>
-                    <label id="password-labels">
-                        <h4>Enter Updated First Name: </h4>
-                        <input type="text" placeholder="First Name" id="label" value={inputValues.first_name} onChange={(e) => setInputValues({ ...inputValues, first_name: e.target.value })}
-                        />
-                        <h4>Enter Updated Last Name: </h4>
-                        <input type="text" placeholder="Last Name" id="label" value={inputValues.last_name} onChange={(e) => setInputValues({ ...inputValues, last_name: e.target.value })}
-                        />
-
-                        <h4>Enter Updated username: </h4>
-                        <input type="text" placeholder="User Name" id="label" value={inputValues.username} onChange={(e) => setInputValues({ ...inputValues, username: e.target.value })}
-                        />
-
-                        <h4>Enter Updated email: </h4>
-                        <input type="text" placeholder="Email" id="label" value={inputValues.email} onChange={(e) => setInputValues({ ...inputValues, email: e.target.value })}
-                        />
-
-                        <input type="password" placeholder="Current Password" value={inputValues.currentpassword} onChange={(e) => setInputValues({ ...inputValues, currentpassword: e.target.value })}
-                        />
-                    </label>
-                    <button type="submit"> update </button>
-
-                </form>
+                </div>
 
                 <br></br>
                 <br></br>
