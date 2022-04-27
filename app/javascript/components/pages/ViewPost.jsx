@@ -335,8 +335,7 @@ const ViewPost = () => {
                         <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
                         <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
                         <button id="small_post_btn" className="savePost" onClick={savePost}> {saved} </button>
-                        <button id="small_post_btn" className="like" onClick={addLike}></button>
-                        <i className="fa fa-heart" aria-hidden="true"></i> {likes}
+                        <button id="small_post_btn" className="like" onClick={addLike}><i className="fa fa-heart" aria-hidden="true"></i> {likes}</button>
 
                         <br></br>
                         <br></br>

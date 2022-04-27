@@ -42,6 +42,7 @@ const postsApi = {
     discoverPosts,
     changeSave,
     checkSave,
+    getSaves,
 };
 
 export default postsApi;

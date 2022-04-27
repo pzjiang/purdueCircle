@@ -42,6 +42,7 @@ const Profile = () => {
     const [followers, setFollowers] = useState([]);
     const [following, setFollowing] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [savedPosts, setSavedPosts] = useState([]);
 
     const [display, setDisplay] = useState("posts");
 
@@ -152,6 +153,22 @@ const Profile = () => {
             }
         }
 
+        //initialize follower list people following user
+        try {
+            const { data } = await postsApi.getSaves({ id: user.id, number: 10 });
+            console.log(data.saves);
+            setSavedPosts(data.saves);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+
     }
 
     const removeTopic = async (param) => {
@@ -205,6 +222,11 @@ const Profile = () => {
         addToast("now displaying following", { appearance: 'success', autoDismiss: true });
     }
 
+    const displaySaved = () => {
+        setDisplay("saved");
+        addToast("now displaying saved", { appearance: 'success', autoDismiss: true });
+    }
+
 
     return (
         <Layout>
@@ -250,6 +272,7 @@ const Profile = () => {
             <button onClick={displayPosts}> Display Posts</button>
             <button onClick={displayFollowing}>Display Following</button>
             <button onClick={displayFollowers}> Display Followers</button>
+            <button onClick={displaySaved}> Display Saved Posts</button>
 
 
             {
@@ -282,6 +305,15 @@ const Profile = () => {
                         </div>
                     ))}
 
+                </div>
+            }
+
+            {
+                display == "saved" &&
+                < div className="postList">
+                    {savedPosts.reverse().map((post) => (
+                        <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
+                    ))}
                 </div>
             }
 

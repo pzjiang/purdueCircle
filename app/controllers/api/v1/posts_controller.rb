@@ -207,6 +207,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
         @user = User.find(params[:id])
         @profile = @user.profile
+        
         begin
             @saved = @profile.saved_posts.last(params[:number])
         rescue

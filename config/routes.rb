@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
       #dealing with saving posts
       post "savepost/:id/:user_id", to: "posts#change_save"
-      get "savepost/:id/:number", to: "posts#get_save"
+      get "getsaves/:id/:number", to: "posts#get_saves"
       
       get "checksave/:id/:user_id", to: "posts#check_save"
       
