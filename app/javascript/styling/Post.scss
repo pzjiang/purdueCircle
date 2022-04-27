@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
 
 body {
+  padding-top: 20%;
   background-color: #eee;
 }
 
@@ -11,16 +12,17 @@ body {
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 10px;
+  border-color: s.$accent;
   width: 80%;
   height: auto;
   margin: 5%;
   padding: 5%;
   position: relative;
 
-  h1 {
-    position: absolute;
-    top: 1em;
-    left: 2em;
+  #post_h1 {
+    top: 0.5em;
+    left: 1em;
+    text-align: left;
     display: block;
     font-size: medium;
   }

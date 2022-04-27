@@ -119,7 +119,7 @@ const Post = props => {
 
     return (
         <div id="post">
-            <h1>{title}</h1>
+            <h1 id="post_h1">{title}</h1>
             <div>{body}</div>
 
             <p></p>
