@@ -39,6 +39,8 @@ const ViewPost = () => {
     const [liked, setLiked] = useState(false);
     const [userId, setUserId] = useState();
     const [id, setId] = useState(0);
+    const [pictureUrl, setPictureUrl] = useState();
+
     //const [profileId, setProfileId] = useState();
     const { index } = useParams();
     const [topics, setTopics] = useState([]);
@@ -95,6 +97,9 @@ const ViewPost = () => {
             setUpdated(data.post.updated_at);
             setPrivacy(data.post.privacy);
             setAuthorUser(data.author);
+            if (data.post.picture) {
+                setPictureUrl(data.post.picture_url);
+            }
             holdid = data.post.id;
             //setProfileId(data.post.profile_id);
             //return data.post.profile_id;

@@ -88,6 +88,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
 
     def create
+       
         @newpost = Post.new post_params
         @user = current_user
         @profile = @user.profile
@@ -95,8 +96,17 @@ class Api::V1::PostsController < Api::V1::BaseController
         @newpost.privacy = false
         @newpost.topic_name = params[:topics]
 
+        
+
         if @newpost.valid?
             @newpost.save!
+            if params[:picture]
+                @newpost.picture_url = rails_blob_url(@newpost.image)
+                @newpost.save!
+            else
+                @newpost.picture_url = ""
+                @newpost.save!
+            end
             if params[:topics]
                 #params[:topics].each do |topicname|
                     #add_topic topicname, @newpost.id
@@ -288,7 +298,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def post_params
-        params.require(:post).permit(:title, :body, :profile_id, :user_id)
+        params.require(:post).permit(:title, :body, :profile_id, :user_id, :picture, :image)
     end
 
 end
