@@ -33,6 +33,7 @@ const Post = props => {
     const [likes, setLikes] = useState(props.likes);
     const [liked, setLiked] = useState(false);
     const [id, setId] = useState(props.id);
+    const [saved, setSaved] = useState();
     //const [loaded, setLoaded] = useState(false);
 
     const { user } = useUserState();
@@ -49,6 +50,30 @@ const Post = props => {
             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: props.id });
             setLiked(data.status);
             //console.log("status retrieved successfully");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+        // load saved
+        try {
+            console.log(props.id);
+            console.log(user.id);
+            const  { data } = await postsApi.checkSave({ post_id: props.id, id: user.id });
+
+            if (data.saved == true) {
+                setSaved("Unsave");
+                console.log("undefined");
+            } else {
+                setSaved("Save");
+                console.log("saved")
+            }
+
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -87,7 +112,27 @@ const Post = props => {
     };
 
 
-    const savePost = () => {
+    const savePost = async(event) => {
+        try {
+            const { data } = await postsApi.changeSave({ post_id: id, id: user.id })
+            if (data.destroyed == true) {
+                addToast("Post Unsaved!", { appearance: 'success', autoDismiss: true, });
+                setSaved("Save");
+            } else {
+                addToast("Post Saved!", { appearance: 'success', autoDismiss: true, });
+                setSaved("Unsave");
+            }
+        } catch (error) {
+            addToast("Error Saving Post.", { appearance: 'error', autoDismiss: true, });
+
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
         console.log("save post");
     };
 
@@ -135,10 +180,10 @@ const Post = props => {
                 <button id="small_post_btn" className="like" onClick={addLike}>
                     <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                 </button>
-                <button id="small_post_btn" className="comment" onClick={addComment}>
+                <button id="small_post_btn" className="comment" onClick={viewPost}>
                     <i className="fa fa-comment" aria-hidden="true"></i> Comment
                 </button>
-                <button id="small_post_btn" className="editButton" onClick={savePost}>Save Post
+                <button id="small_post_btn" className="editButton" onClick={savePost}>{saved}
                 </button>
                 <button id="small_post_btn" className="viewPost" onClick={viewPost}>
                     View

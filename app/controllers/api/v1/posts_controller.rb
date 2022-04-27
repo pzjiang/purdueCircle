@@ -164,6 +164,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         #testing_crossed()
 
         @profile = Profile.find_by(user_id: params[:user_id])
+        @post = Post.find(params[:id])
         #find a connection, not a profile
         @profile_found = @post.favorites.find_by(profile_id: @profile.id)
 
@@ -185,6 +186,7 @@ class Api::V1::PostsController < Api::V1::BaseController
             end
             
         end
+        @post.save!
         #@post.likes = @post.likes + 1
         
     end
@@ -203,7 +205,7 @@ class Api::V1::PostsController < Api::V1::BaseController
             @post.bookmarks.create(profile_id: @profile.id, post_id: @post.id)
             render json: {destroyed: false}, status: 200
         end
-        
+        @post.save!
     end
 
     def check_save

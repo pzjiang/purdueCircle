@@ -216,8 +216,9 @@ const ViewPost = () => {
     const addLike = async (event) => {
         //console.log("like clicked");
         event.preventDefault();
+        console.log(id);
         try {
-            const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
+            const { data } = await postsApi.incrementLike({ id: id, user_id: user.id });
             setLikes(data.likes);
             setLiked(data.status);
             //console.log("changed");
@@ -334,6 +335,7 @@ const ViewPost = () => {
                     <div className="options">
                         <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
                         <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
+                        <button id="small_post_btn" className="save" onClick={savePost}>{saved}</button>
                         <button id="small_post_btn" className="like" onClick={addLike}>
                             <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                         </button>

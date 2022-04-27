@@ -44,7 +44,7 @@ const Profile = () => {
     const [following, setFollowing] = useState([]);
     const [posts, setPosts] = useState([]);
     const [savedPosts, setSavedPosts] = useState([]);
-    const [likePosts, setLikePosts] = useState([]);
+    const [likePosts, setLikedPosts] = useState([]);
 
     const [numberLoaded, setNumberLoaded] = useState(10);
 
@@ -230,7 +230,7 @@ const Profile = () => {
 
     const displayPosts = () => {
         setDisplay("posts");
-        addToast("now displaying posts", { appearance: 'success', autoDismiss: true });
+        addToast("Now Displaying Your Posts.", { appearance: 'success', autoDismiss: true });
     }
 
 
@@ -245,11 +245,16 @@ const Profile = () => {
     }
 
     const displaySaved = () => {
+        onLoad();
+
         setDisplay("saved");
         addToast("Now Displaying Your Saved Posts.", { appearance: 'success', autoDismiss: true });
     }
 
     const displayLiked = () => {
+        //initialize liked list 
+        onLoad();
+
         setDisplay("liked");
         addToast("Now Displaying Your Liked Posts.", { appearance: 'success', autoDismiss: true });
     }

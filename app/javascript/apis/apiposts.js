@@ -17,7 +17,7 @@ const editPost = payload => axios.put(`api/v1/posts/${payload.id}`, payload);
 const deletePost = payload => axios.delete(`api/v1/posts/${payload.id}`);
 
 //change the like status of a post (user likes a post)
-const incrementLike = payload => axios.put(`api/v1/likes/`, payload);
+const incrementLike = payload => axios.put(`api/v1/likes/${payload.id}/${payload.user_id}`, payload);
 
 //function used to see if user has already liked the post, used on page load to determine initial status
 const likesPost = payload => axios.get(`api/v1/likespost/${payload.user_id}/${payload.post_id}/`);
@@ -40,7 +40,7 @@ const discoverPosts = payload => axios.get(`api/v1/postsdiscover/${payload.name}
 const checkSave = payload => axios.get(`api/v1/checksave/${payload.post_id}/${payload.id}`);
 //change the save status of a post
 //id is the post id, user id is the id of the logged in user
-const changeSave = payload => axios.post(`api/v1/savepost/${payload.id}/${payload.user_id}`);
+const changeSave = payload => axios.post(`api/v1/savepost/${payload.post_id}/${payload.id}`);
 
 //time line functions get the posts of followed topics, and the posts of followed users
 //get "timetopics/:id/:number", to: "posts#get_followed_topics"
@@ -67,10 +67,7 @@ const postsApi = {
     changeSave,
     timeTopics,
     timeUsers,
-    getSave,
     getLiked,
-
-
 };
 
 export default postsApi;

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
       get "ownposts/:user_id/:number", to: "posts#retrieve_own"
       
       #dealing with liking posts
-      put "likes", to: "posts#increment_like"
+      put "likes/:id/:user_id", to: "posts#increment_like"
       get "likespost/:id/:post_id", to: "profiles#likes_post"
       get "posts/:number/index", to: "posts#index"
       get "likedposts/:number/:id", to: "posts#get_liked"
