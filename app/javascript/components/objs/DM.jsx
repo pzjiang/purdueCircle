@@ -69,7 +69,9 @@ const DM = (props) => {
         }
     };
 
-    function backToConvos() {
+    const backToConvos = async () => {
+        event.preventDefault();
+        console.log("back to messenger");
         navigate(`/messenger/`);
     }
 
@@ -133,7 +135,7 @@ const DM = (props) => {
     return (
         <Layout>
             <div className="dm">
-                <button className="backToConvos" onClick={() => backToConvos()}>back</button>
+                <button className="backToConvos" onClick={backToConvos}>back</button>
                 <button className="delete" onClick={deleteConvo}>delete conversation</button>
                 <div className="userProfile">
                     other user's info that you're talking to will go header<br></br>

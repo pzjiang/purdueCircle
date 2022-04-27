@@ -124,6 +124,7 @@ input {
   }
 }
 
+//side bar menu
 .menu {
   background: $primary;
   height: 100vh;
@@ -131,7 +132,7 @@ input {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 10;
   outline: none;
 
   .avatar {
@@ -201,6 +202,7 @@ input {
   }
 }
 
+//top header of page
 .header {
   background-color: $bgcolor;
   position: fixed;
@@ -222,6 +224,38 @@ input {
   }
 }
 
+//notifications styling
+.notifications {
+
+  .icon .count {
+    background-color: $accent;
+  }
+
+  .container {
+    overflow: hidden;
+    height: 420px;
+    max-height: 420px;
+    min-height: 100px;
+
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 98%;
+      height: 20px;
+    }
+
+    .items {
+      position: absolute;
+      top: 36px;
+      width: 100%;
+    }
+
+  }
+
+}
+
+//flex for different screen sizes
 @media screen and (max-width: 900px) and (min-width: 400px) {
   body {
     padding-left: $menu-width-tablet;
