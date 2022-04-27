@@ -15,6 +15,8 @@ import { useToasts } from 'react-toast-notifications';
 import Layout from "../objs/Layout";
 import Post from "../objs/Post";
 import "../../styling/CreatePost.scss";
+import "../../styling/Main.scss";
+
 
 
 
@@ -79,6 +81,13 @@ const Main = () => {
             */}
 
             <h1>My Feed</h1>
+
+            <select name="selectList" id="selectList">
+                  <option value="option 1">View All</option>
+                  <option value="option 2">View Followed Topics Posts</option>
+                <option value="option 2">View Followed Users Posts</option>
+            </select>
+
             <div className="postList">
                 {posts.reverse().map((post) => (
                     <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />

@@ -143,4 +143,10 @@ textarea {
     margin: 0 auto;
 }
 
-
+select {
+  color: s.$accent;
+  font-family: s.$primary_font;
+  font-size: 18px;
+  border-radius: 4px;
+  padding: 4px;
+}

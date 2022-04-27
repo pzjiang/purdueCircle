@@ -75,7 +75,7 @@ const Profile = () => {
             if (user.confirmed_at != undefined) {
                 setConfirmed("Email Verfied");
             } else {
-                setConfirmed("Email Not Verfied");
+                setConfirmed("Email Not Verified");
             }
 
             //console.log("successful display bio");
@@ -247,6 +247,18 @@ const Profile = () => {
                     ))
                 }
             </div >
+
+            <select name="selectList" id="selectList">
+                  <option value="option 1">Display Posts</option>
+                  <option value="option 2">Display Following</option>
+                <option value="option 2">Display Followers</option>
+                <option value="option 2">View Saved Posts</option>
+            </select>
+
+            <br></br>
+            <br></br>
+            <br></br>
+
             <button onClick={displayPosts}> Display Posts</button>
             <button onClick={displayFollowing}>Display Following</button>
             <button onClick={displayFollowers}> Display Followers</button>
