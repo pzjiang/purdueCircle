@@ -43,6 +43,8 @@ const Profile = () => {
     const [following, setFollowing] = useState([]);
     const [posts, setPosts] = useState([]);
 
+    const [numberLoaded, setNumberLoaded] = useState(10);
+
     const [display, setDisplay] = useState("posts");
 
     const { user } = useUserState();
@@ -53,6 +55,8 @@ const Profile = () => {
     useEffect(() => {
         onLoad();
     }, []);
+
+
 
     const onLoad = async () => {
 
@@ -91,7 +95,7 @@ const Profile = () => {
         }
 
         try {
-            const { data } = await postsApi.ownPosts({ user_id: user.id, number: 10 });
+            const { data } = await postsApi.ownPosts({ user_id: user.id, number: numberLoaded });
             //setPosts(data.response);
 
             //console.log(data);
@@ -205,6 +209,26 @@ const Profile = () => {
         addToast("now displaying following", { appearance: 'success', autoDismiss: true });
     }
 
+    const loadMore = async () => {
+        setNumberLoaded(numberLoaded * 2);
+        try {
+            const { data } = await postsApi.ownPosts({ user_id: user.id, number: numberLoaded });
+            //setPosts(data.response);
+
+            //console.log(data);
+            setPosts(data.posts);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+    }
+
 
     return (
         <Layout>
@@ -258,6 +282,7 @@ const Profile = () => {
                     {posts.reverse().map((post) => (
                         <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                     ))}
+                    <button onSubmit={loadMore}>Load More </button>
                 </div>
             }
 

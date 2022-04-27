@@ -67,7 +67,7 @@ const Post = props => {
         console.log("like clicked");
 
         try {
-            const { data } = await postsApi.incrementLike({ id: props.id, profile_id: user.id });
+            const { data } = await postsApi.incrementLike({ id: props.id, user_id: user.id });
             setLikes(data.likes);
             setLiked(data.status);
             //console.log("changed");
@@ -86,14 +86,19 @@ const Post = props => {
         console.log("add comment")
     };
 
+
     const savePost = () => {
         console.log("save post");
     };
 
+    /*
     const editPost = () => {
         navigate(`/editpost/${id}`);
     }
+    */
 
+
+    /*
     const deletePost = async () => {
         try {
             await postsApi.deletePost({ id: id })
@@ -108,10 +113,13 @@ const Post = props => {
             }
         }
     }
+    */
 
+    /*
     const reportPost = () => {
         console.log("rep post");
     }
+    */
 
     const viewPost = () => {
         navigate(`/viewpost/${id}`);
@@ -130,7 +138,7 @@ const Post = props => {
                 <button id="small_post_btn" className="comment" onClick={addComment}>
                     <i className="fa fa-comment" aria-hidden="true"></i> Comment
                 </button>
-                <button id="small_post_btn" className="editButton" onClick={editPost}>Edit
+                <button id="small_post_btn" className="editButton" onClick={savePost}>Save Post
                 </button>
                 <button id="small_post_btn" className="viewPost" onClick={viewPost}>
                     View

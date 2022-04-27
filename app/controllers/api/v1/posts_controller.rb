@@ -93,14 +93,31 @@ class Api::V1::PostsController < Api::V1::BaseController
         @profile = @user.profile
         @newpost.profile_id = @profile.id
         @newpost.privacy = false
+        @newpost.topic_name = params[:topics]
 
         if @newpost.valid?
-            @newpost.save
+            @newpost.save!
             if params[:topics]
-                params[:topics].each do |topicname|
-                    add_topic topicname, @newpost.id
+                #params[:topics].each do |topicname|
+                    #add_topic topicname, @newpost.id
+                #end
+                add_topic params[:topics], @newpost.id
+            else
+                add_topic "topicless", @newpost.id
+            end
+
+            if params[:tagged_users]
+                #TODO
+                #generate_notification (user_id, body, origin, source)
+                params[:tagged_users].each do |tagged_user|
+                    tagged = User.find_by(username: tagged_user)
+                    if tagged
+                        generate_notification(tagged.id, "you were tagged in a post!", "post", @newpost.id)
+                    end
                 end
             end
+
+            
             render json: {post: @newpost}, status: 200
         else
             render json: {error: @newpost.errors.full_messages.to_sentence}, status: 422
@@ -144,9 +161,10 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
 
     def increment_like
-        
-       
-        @profile = Profile.find_by(user_id: params[:profile_id])
+        #testing_crossed()
+
+        @profile = Profile.find_by(user_id: params[:user_id])
+        #find a connection, not a profile
         @profile_found = @post.favorites.find_by(profile_id: @profile.id)
 
         if @profile_found
@@ -209,9 +227,43 @@ class Api::V1::PostsController < Api::V1::BaseController
     #get liked posts
     def get_liked
 
+        @user = User.find(params[:id])
+        @profile = @user.profile
+        @posts = @profile.likedposts.last(params[:number])
 
+        render json: {posts: @posts}, status: 200
     end
 
+
+    #get posts that will go on timeline ( followed topics)
+    def get_followed_topics
+        @posts = []
+        @user = User.find(params[:id])
+        @topics = @user.topics.all
+
+        @topics.each do |topic|
+            @posts.concat topic.posts.all
+        end
+        @posts.sort_by { |post| post.created_at}
+        @returned = @posts.last(params[:number])
+        render json: {posts: @returned}, status:200
+    end
+
+    #posts for timeline (followed people)
+    def get_followed_users
+        @posts = []
+        @user = User.find(params[:id])
+        @followed = @user.followings.all
+
+        @followed.each do |item|
+            @posts.concat item.posts.all
+        end
+
+        @posts.sort_by { |post| post.created_at}
+        @returned = @posts.last(params[:number])
+        render json: {posts: @returned}, status:200
+
+    end
 
     def change_privacy
         if @post.privacy

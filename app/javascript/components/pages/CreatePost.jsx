@@ -81,7 +81,7 @@ const CreatePost = () => {
         setTopics([...topics, { name: curTopic, id: curTopic }]);
         setCurTopic("");
     }
-
+    /*
     const removeTopic = (param) => {
 
         //console.log(param);
@@ -89,6 +89,7 @@ const CreatePost = () => {
         setTopics(newList);
 
     }
+    */
 
     /**
      * send new post to backend
@@ -98,13 +99,14 @@ const CreatePost = () => {
         event.preventDefault();
 
         //create string list of topics to pass into api request
-        const topicList = [];
+        /*const topicList = [];
         topics.forEach((topic) => {
             topicList.push(topic.name);
         });
+        */
 
         try {
-            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: topicList });
+            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: curTopic });
             //console.log("successful post creation");
             navigate("/");
             addToast("posted", { appearance: 'success', autoDismiss: true });
@@ -136,20 +138,21 @@ const CreatePost = () => {
                 <div className="topicSelection">
 
                     <center>
-                        <form id="topicinput" onSubmit={topicSubmit}>
+                        <form id="topicinput">
                             <input type="text" value={curTopic} onChange={(e) => setCurTopic(e.target.value)} />
 
-                            <button type="submit"> Submit </button>
+                            {/*<button type="submit"> Submit </button>*/}
                         </form>
                     </center>
 
                     <br></br>
-                    {topics.map((topic) => (
+
+                    {/*topics.map((topic) => (
                         <div>
                             <button onClick={() => removeTopic(topic.id)}> {topic.name}</button>
                             <br></br>
                         </div>
-                    ))}
+                    )) */}
 
                     <br></br>
 
