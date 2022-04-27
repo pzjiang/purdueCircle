@@ -10,6 +10,25 @@ class Api::V1::BaseController < ApplicationController
     skip_after_action :verify_authorized, raise: false
     protect_from_forgery with: :null_session
 
+
+    def generate_notification (user_id, body, origin, source)
+      user = User.find(user_id)
+      if @user
+        notification = Notification.create(user_id: user_id, body: body, origin: origin, read: false, source: source)
+        user.increment!(:notification_count)
+        if notification.save!
+            render json: @notification, status: 200
+        else
+          respond_with_error "notification failed", :unprocessable_entity
+        end
+      else
+      end
+    end
+
+    #def testing_crossed
+      #puts "test success"
+    #end
+
     private
   
       def handle_api_exceptions(exception)

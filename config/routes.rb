@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
       #edit profile
       put "editprofile", to: "profiles#update"
+      put "editavatar", to: "profiles#add_avatar"
+      get "getavatar/:id", to: "users#get_avatar"
 
       #get only your own posts
       get "ownposts/:user_id/:number", to: "posts#retrieve_own"
@@ -31,8 +33,13 @@ Rails.application.routes.draw do
       put "likes", to: "posts#increment_like"
       get "likespost/:id/:post_id", to: "profiles#likes_post"
       get "posts/:number/index", to: "posts#index"
+      get "likedposts/:number/:id", to: "posts#get_liked"
       #discover posts 
       get "postsdiscover/:search/:number", to: "posts#discover_posts"
+
+      #timeline get posts\
+      get "timetopics/:id/:number", to: "posts#get_followed_topics"
+      get "timeusers/:id/:number", to: "posts#get_followed_users"
 
       #dealing with saving posts
       post "savepost/:id/:user_id", to: "posts#change_save"
@@ -40,9 +47,6 @@ Rails.application.routes.draw do
       
       get "checksave/:id/:user_id", to: "posts#check_save"
       
-      #saving posts implementations
-      get "savedposts/:id/:number", to: "posts#get_saves"
-      post "savepost", to: "posts#change_save"
 
       #changing privacy settings for a post
       put "changeprivacy/:id", to: "posts#change_privacy"
@@ -106,6 +110,9 @@ Rails.application.routes.draw do
       #unblock user
       delete "unblockuser/:id/:target_id", to: "users#unblock_user"
 
+      #notifications
+      
+
     end
   end
 
@@ -115,6 +122,8 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  get '/*path' => 'pages#index'
+  get '/*path' => 'pages#index', constraints: lambda { |req|
+  req.path.exclude? 'rails/active_storage'
+}
 
 end
