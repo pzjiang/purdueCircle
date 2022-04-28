@@ -43,7 +43,7 @@ const Notification = (props) => {
         <div>
             {props.type} this is the type
             {props.type == 1 &&
-                <div>
+                <div style="border: thin solid black">
                     <h3>Post Notification</h3>
                     <p>Sent at: {props.timestamp}</p>
                     <br />
@@ -54,7 +54,7 @@ const Notification = (props) => {
                 </div>
             }
             {props.type == 2 &&
-                <div>
+                <div style="border: thin solid black">
                     <h3>Message Notification</h3>
                     <p>Sent at: {props.timestamp}</p>
                     <br />
