@@ -7,10 +7,15 @@
 }
 
 .chat-input {
-  position: relative;
   overflow: hidden;
   padding: 0 40px;
   flex-shrink: 0;
+  position: absolute;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 20px;
+  width: 70%;
 }
 
 .chat-input input[type="text"] {
@@ -18,6 +23,8 @@
   margin-left: -20px;
   margin-right: -20px;
 }
+
+.userProfile { opacity: 0; }
 
 #convos {
   margin: 10%;
@@ -28,20 +35,23 @@
   display: flex;
   flex-direction: column;
 
-  .delete {
-    width: auto;
-    position: absolute;
-    right: 10%;
-    top: 30%;
+  .options {
+    width: calc(100vw - s.$menu-width-desktop);
+    position: fixed;
+    top: -10vh;
+
+    div {
+      display: inline-flex;
+    }
   }
 }
 
 // Messages
 #messages {
   position: absolute;
-  top: 10vh;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   overflow-y: scroll;
   overflow-x: hidden;
   flex-grow: 1;
@@ -92,15 +102,6 @@
   top: 30%;
 }
 
-//chat input
-.chat-input {
-  position: absolute;
-  top: 70vh;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 20px;
-  width: 70%;
-}
 
 .App {
   text-align: center;

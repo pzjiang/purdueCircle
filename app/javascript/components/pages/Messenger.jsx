@@ -156,15 +156,8 @@ const Messenger = () => {
                 <p>current convos:</p>
                 {convos.reverse().map((convo) => (
                     <div key={convo.id} id="convo">
-                        <p>user: {user.username}<br /></p>
-                        <p>Last message: </p>
-                        <div>{(hasUnread && convo.first_user_id == user.id) &&
-                            <p>New messages from {convo.second_name}</p>
-                        }
-                            {(hasUnread && convo.sec_user_id == user.id) &&
-                                <p>New messages from {convo.first_name}</p>
-                            }
-                        </div>
+                        <p>user: {convo.second_name}<br/></p>
+                        
                         <button onClick={(event) => viewDM(event, convo.id)}>View DM</button>
 
                     </div>
@@ -190,3 +183,15 @@ const Messenger = () => {
 
 
 export default Messenger;
+
+/**
+ * <p>Last message: </p>
+                        <div>{(hasUnread && convo.first_user_id == user.id) &&
+                            <p>New messages from {convo.second_name}</p>
+                        }
+                            {(hasUnread && convo.sec_user_id == user.id) &&
+                                <p>New messages from {convo.first_name}</p>
+                            }
+                        </div>
+ * 
+ */

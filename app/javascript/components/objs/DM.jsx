@@ -17,6 +17,7 @@ import Message from "./Message";
 import messagesApi from "../../apis/apimessages";
 import '../../styling/Messenger.scss';
 import Layout from "./Layout";
+import usersApi from "../../apis/apiusers";
 
 const DM = (props) => {
 
@@ -61,8 +62,14 @@ const DM = (props) => {
                 setSecUser(data.id1);
             }
 
-            console.log("set second user info");
+            setSecUser(data.second_name);
 
+            /*const secID = data.sec_user_id;
+            const { newUser } = await usersApi.getUser({ user_id: secID});
+
+            console.log("got user");
+            console.log(newUser);
+            setSecUser(newUser);*/
 
         } catch (error) {
             if (error.response) {
@@ -140,14 +147,18 @@ const DM = (props) => {
 
     return (
         <Layout>
-            <div>
-                <button className="backToConvos" onClick={backToConvos}>back</button>
-                <button className="delete" onClick={deleteConvo}>delete conversation</button>
-            </div>
-            <br />
             <div className="dm">
-
-
+                <div className="options">
+                    <div>
+                    <button className="backToConvos" onClick={() => backToConvos()}>back</button>
+                    </div>
+                    <div className="userProfile">
+                        DM with {secUser}: @<Link to='' >{/*secUser.username*/}</Link>
+                    </div>
+                    <div>
+                    <button className="delete" onClick={deleteConvo}>delete conversation</button>
+                    </div>
+                </div>
                 <div id="messages" >
                     {messages.map((message) => (
                         <Message fromMe={message.origin_id == user.id}
