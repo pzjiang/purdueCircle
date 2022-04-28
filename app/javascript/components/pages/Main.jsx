@@ -30,7 +30,7 @@ const Main = () => {
     const [posts, setPosts] = useState([]);
     const [followedUsers, setUsers] = useState([]);
     const [followedTopics, setTopics] = useState([]);
-    const [numberLoaded, setNumberLoaded] = useState(4);
+    const [numberLoaded, setNumberLoaded] = useState(8);
     const [display, setDisplay] = useState("all");
     const { user } = useUserState();
 
@@ -140,8 +140,8 @@ const Main = () => {
             <h1>My Feed</h1>
 
             <select onChange={handleChange} name="selectList" id="selectList">
-                  <option value="all">View All</option>
-                  <option value="topics">View Followed Topics Posts</option>
+                <option value="all">View All</option>
+                <option value="topics">View Followed Topics Posts</option>
                 <option value="users">View Followed Users Posts</option>
             </select>
 

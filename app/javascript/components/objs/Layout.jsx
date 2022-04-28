@@ -102,7 +102,7 @@ const Layout = props => {
                 <div className="homeButton">
                     <Link to='../../'>
                         <h2>PurdueCircle</h2>
-                        </Link>
+                    </Link>
                 </div>
                 <header className="avatar">
                     {avatar == null &&
@@ -116,7 +116,7 @@ const Layout = props => {
                 <ul>
                     <li tabIndex="0"><Link to='/profile'>Profile</Link></li>
                     <li tabIndex="0"><Link to='/discovery'>Discover</Link></li>
-                    <li tabIndex="0"><Link to='/followedTopics'>Followed Topics</Link></li>
+
                     <li tabIndex="0"><Link to='/messenger'>Messages</Link></li>
                 </ul>
                 <button className="logout" onClick={handleSubmit}> Logout </button>

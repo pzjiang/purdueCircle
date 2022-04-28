@@ -78,12 +78,9 @@ const postsApi = {
     timeTopics,
     timeUsers,
     getLiked,
-<<<<<<< HEAD
     createPostPicture,
 
 
-=======
->>>>>>> origin/saving_front
 };
 
 export default postsApi;

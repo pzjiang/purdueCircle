@@ -63,6 +63,8 @@ Rails.application.routes.draw do
       
       resources :posts, only: [:show, :update,  :create, :destroy]
 
+      
+
       #topics routes
       #pull posts according to name, and the number of posts wanted
       get "topicspull/:number/:name", to: "topics#pull_posts"

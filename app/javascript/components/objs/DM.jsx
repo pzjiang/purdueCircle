@@ -75,7 +75,7 @@ const DM = (props) => {
         }
     };
 
-    const backToConvos = async () => {
+    const backToConvos = () => {
         event.preventDefault();
         console.log("back to messenger");
         navigate(`/messenger/`);
@@ -88,7 +88,7 @@ const DM = (props) => {
     const deleteConvo = async () => {
         try {
             await messagesApi.deleteConvo({ id: id })
-            backToConvos();
+            navigate("/messenger");
             //console.log("deleted");
             addToast("DM successfully deleted!", { appearance: 'success', autoDismiss: true, });
         } catch (error) {
@@ -140,13 +140,14 @@ const DM = (props) => {
 
     return (
         <Layout>
-            <div className="dm">
+            <div>
                 <button className="backToConvos" onClick={backToConvos}>back</button>
                 <button className="delete" onClick={deleteConvo}>delete conversation</button>
-                <div className="userProfile">
-                    other user's info that you're talking to will go header<br></br>
-                    insert link to profile as well
-                </div>
+            </div>
+            <br />
+            <div className="dm">
+
+
                 <div id="messages" >
                     {messages.map((message) => (
                         <Message fromMe={message.origin_id == user.id}

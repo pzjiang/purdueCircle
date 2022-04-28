@@ -89,7 +89,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
     def create
        
-        if params[:picture] == false
+        if params[:picture] != "true"
             @newpost = Post.new post_params
             @user = current_user
             @profile = @user.profile
@@ -108,7 +108,8 @@ class Api::V1::PostsController < Api::V1::BaseController
 
         if @newpost.valid?
             @newpost.save!
-            if params[:picture] == true
+            if params[:picture] == "true"
+                puts "attached blob"
                 @newpost.picture = true
                 @newpost.image.attach(params[:image])
                 @newpost.picture_url = rails_blob_url(@newpost.image)
@@ -284,22 +285,31 @@ class Api::V1::PostsController < Api::V1::BaseController
             @posts.concat topic.posts.all
         end
         @posts.sort_by { |post| post.created_at}
-        @returned = @posts.last(params[:number])
+        number = params[:number]
+        numbers = number.to_i
+        @returned = @posts.last(numbers)
         render json: {posts: @returned}, status:200
     end
 
     #posts for timeline (followed people)
     def get_followed_users
         @posts = []
-        @user = User.find(params[:id])
-        @followed = @user.followings.all
+        @followers = Follower.where(subject: params[:id]).all
+        
 
-        @followed.each do |item|
-            @posts.concat item.posts.all
+        @followers.each do |item|
+            if item.blocked == false
+                user = User.find(item.target)
+                if user
+                    @posts.concat user.posts.all
+                end
+            end
         end
 
         @posts.sort_by { |post| post.created_at}
-        @returned = @posts.last(params[:number])
+        number = params[:number]
+        numbers = number.to_i
+        @returned = @posts.last(numbers)
         render json: {posts: @returned}, status:200
 
     end

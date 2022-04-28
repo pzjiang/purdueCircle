@@ -103,7 +103,7 @@ const Post = props => {
         try {
             console.log(props.id);
             console.log(user.id);
-            const  { data } = await postsApi.checkSave({ post_id: props.id, id: user.id });
+            const { data } = await postsApi.checkSave({ post_id: props.id, id: user.id });
 
             if (data.saved == true) {
                 setSaved("Unsave");
@@ -151,7 +151,7 @@ const Post = props => {
     };
 
 
-    const savePost = async(event) => {
+    const savePost = async (event) => {
         try {
             const { data } = await postsApi.changeSave({ post_id: id, id: user.id })
             if (data.destroyed == true) {
@@ -221,7 +221,7 @@ const Post = props => {
             {topics.map((topic) => (
                 <div><p>{topic} </p></div>
             ))}
-            
+
             <div>{body}</div>
 
             <br></br>

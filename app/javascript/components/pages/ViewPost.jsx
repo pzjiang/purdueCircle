@@ -99,7 +99,7 @@ const ViewPost = () => {
             setUpdated(data.post.updated_at);
             setPrivacy(data.post.privacy);
             setAuthorUser(data.author);
-            if (data.post.picture) {
+            if (data.post.picture == true) {
                 setPictureUrl(data.post.picture_url);
             }
             holdid = data.post.id;
@@ -175,7 +175,7 @@ const ViewPost = () => {
         try {
             console.log(thisId);
             console.log(user.id);
-            const  { data } = await postsApi.checkSave({ post_id: thisId, id: user.id });
+            const { data } = await postsApi.checkSave({ post_id: thisId, id: user.id });
 
             if (data.saved == true) {
                 setSaved("Unsave");
@@ -355,72 +355,74 @@ const ViewPost = () => {
 
                 <form id="post_box_form">
 
-                    
-                        <br></br>
 
-                        <h3> Post Content:</h3>
-                        <div>
-                            <p>{body}</p>
+                    <br></br>
+
+                    <h3> Post Content:</h3>
+                    <div>
+                        <p>{body}</p>
+                    </div>
+
+                    <h3>Topic:</h3>
+                    {topics.map((topic) => (
+                        <div><p>{topic} </p></div>
+                    ))}
+
+                    <h3>Last Updated: </h3>
+                    <p>{updated}</p>
+
+                    {privacy &&
+                        <p>
+                            &nbsp; [redacted]
+                        </p>
+                    }
+                    {privacy == false &&
+                        <p>
+                            &nbsp; (<Link to={'/profile/' + authorUser}>{authorUser}</Link>)
+                        </p>
+                    }
+
+                    {user.id == userId &&
+                        < div >
+                            < h3 > Current Privacy:</h3> {privacy && <p>Private</p>} {privacy == false && <p>Public</p>}
+
+                            <br></br>
+                            <br></br>
+                            <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
                         </div>
+                    }
 
-                        <h3>Topic:</h3>
-                        {topics.map((topic) => (
-                            <div><p>{topic} </p></div>
-                        ))}
-
-                        <h3>Last Updated: </h3>
-                        <p>{updated}</p>
-
-                        {privacy &&
-                            <p>
-                                &nbsp; [redacted]
-                            </p>
-                        }
-                        {privacy == false &&
-                            <p>
-                                &nbsp; (<Link to={'/profile/' + authorUser}>{authorUser}</Link>)
-                            </p>
-                        }
-
-                        {user.id == userId &&
-                            < div >
-                                < h3 > Current Privacy:</h3> {privacy && <p>Private</p>} {privacy == false && <p>Public</p>}
-
-                                <br></br>
-                                <br></br>
-                                <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
-                            </div>
-                        }
-                    
-                        <br></br>
-                    
+                    <br></br>
+                    {pictureUrl != null &&
+                        <img src={pictureUrl} height={200} width={200}></img>
+                    }
 
                 </form>
 
-                </div>
+            </div>
 
-                
-                <div className="column">
+
+            <div className="column">
                 <br></br>
                 <h3> Comments: </h3>
-                        {comments.map((comment) => (
-                            <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
-                        ))}
+                {comments.map((comment) => (
+                    <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
+                ))}
 
-                </div>
+            </div>
 
 
-                {/*
+            {/*
                     add in an input field to create comments
                 */
-                }
-                <form onSubmit={addComment}>
-                    <textarea value={newComment} placeholder="Enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
-                    <button type="submit" id="regular_btn"> Comment </button>
-                </form>
+            }
+            <form onSubmit={addComment}>
+                <textarea value={newComment} placeholder="Enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
+                <button type="submit" id="regular_btn"> Comment </button>
+            </form>
 
-                <br></br>
-                <br></br>
+            <br></br>
+            <br></br>
 
         </Layout>
     );
