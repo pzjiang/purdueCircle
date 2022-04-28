@@ -142,11 +142,7 @@ const Login = () => {
                         <input type="password" placeholder="Password" value={inputValues.password} onChange={(e) => setInputValues({ ...inputValues, password: e.target.value })}
                         />
                     </center>
-                    <Link to='/'>
-                        <p>
-                            Forgot your password?
-                        </p>
-                    </Link>
+                    
                 </label>
 
                 <button type="submit"> Sign In </button>

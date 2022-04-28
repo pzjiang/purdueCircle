@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       #edit profile
       put "editprofile", to: "profiles#update"
       put "editavatar", to: "profiles#add_avatar"
-      get "getavatar/:id", to: "users#get_avatar"
+      get "getavatar/:id", to: "users#u"
 
       #get only your own posts
       get "ownposts/:user_id/:number", to: "posts#retrieve_own"

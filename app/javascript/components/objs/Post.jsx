@@ -211,8 +211,8 @@ const Post = props => {
 
     return (
         <div id="post">
-            <h1>{title}</h1>
-            
+            <h1 id="post_h1">{title}</h1>
+
             {privacy == false &&
                 <h3>Posted by: <Link to={'/profile/' + authorUser}>{authorUser}</Link></h3>
             }
@@ -223,6 +223,8 @@ const Post = props => {
             ))}
             
             <div>{body}</div>
+
+            <br></br>
 
             <p></p>
             <div className="reactions">

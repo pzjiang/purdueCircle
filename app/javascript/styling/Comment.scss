@@ -12,13 +12,14 @@
     border-radius: 5px;
     border-color: s.$secondary;
     color: s.$accent;
-    padding: 8px 14px;
+    padding: 6px 10px;
 }
 
 p {
     display: inline-block;
-    margin-top: -20px;
-    margin-bottom: -20px;
+    //margin: 0;
+    //margin-top: 20px;
+    //margin-bottom: 10px;
     font-family: s.$secondary_font;
     font-style: bold;
     font-weight: 10px;
@@ -26,4 +27,8 @@ p {
     border-color: s.$secondary;
     color: s.$accent;
     font-size: 17px;
+
+    #comment_text {
+        color: black;
+    }
 }

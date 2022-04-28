@@ -2,10 +2,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
 
-body {
-  background-color: #eee;
-}
-
 #post {
   display: block;
   background-color: white;
@@ -17,12 +13,16 @@ body {
   padding: 5%;
   position: relative;
 
-  h1 {
-    position: absolute;
-    top: 1em;
-    left: 2em;
+  #post_h1 {
+    top: 0.5em;
+    //left: 1em;
+    font-size: 16px;
+    text-align: left;
     display: block;
-    font-size: medium;
+  }
+
+  body {
+    background-color: #eee;
   }
 
   .reactions {

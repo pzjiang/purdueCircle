@@ -3,6 +3,7 @@
  */
 
 import React, { useEffect, useState } from "react";
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -352,10 +353,9 @@ const ViewPost = () => {
                 }
 
 
-
                 <form id="post_box_form">
 
-                    <div className="column">
+                    
                         <br></br>
 
                         <h3> Post Content:</h3>
@@ -363,7 +363,7 @@ const ViewPost = () => {
                             <p>{body}</p>
                         </div>
 
-                        <h3>Topics:</h3>
+                        <h3>Topic:</h3>
                         {topics.map((topic) => (
                             <div><p>{topic} </p></div>
                         ))}
@@ -391,20 +391,23 @@ const ViewPost = () => {
                                 <button id="small_post_btn" className="changePrivacy" onClick={changePrivacy}>Change Privacy</button>
                             </div>
                         }
-
-                    </div>
-
-
-
-                    <div className="column">
+                    
                         <br></br>
-                        <h3> Comments: </h3>
+                    
+
+                </form>
+
+                </div>
+
+                
+                <div className="column">
+                <br></br>
+                <h3> Comments: </h3>
                         {comments.map((comment) => (
                             <Comment ownComment={user.id == comment.user_id} author={comment.author} body={comment.body} id={comment.id} removeMethod={removeComment}></Comment>
                         ))}
-                    </div>
 
-                </form>
+                </div>
 
 
                 {/*
@@ -412,12 +415,14 @@ const ViewPost = () => {
                 */
                 }
                 <form onSubmit={addComment}>
-                    <textarea value={newComment} placeholder="enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
+                    <textarea value={newComment} placeholder="Enter a comment" onChange={(e) => setNewComment(e.target.value)}></textarea>
                     <button type="submit" id="regular_btn"> Comment </button>
                 </form>
 
-            </div >
-        </Layout >
+                <br></br>
+                <br></br>
+
+        </Layout>
     );
 }
 

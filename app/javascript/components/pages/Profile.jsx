@@ -47,7 +47,6 @@ const Profile = () => {
     const [likePosts, setLikedPosts] = useState([]);
 
     const [numberLoaded, setNumberLoaded] = useState(10);
-
     const [display, setDisplay] = useState("posts");
 
     const { user } = useUserState();
@@ -83,7 +82,7 @@ const Profile = () => {
             if (user.confirmed_at != undefined) {
                 setConfirmed("Email Verfied");
             } else {
-                setConfirmed("Email Not Verfied");
+                setConfirmed("Email Not Verified");
             }
 
             //console.log("successful display bio");
@@ -191,6 +190,7 @@ const Profile = () => {
                 console.log("Unidentified error", error.message);
             }
         }
+
     }
 
     const removeTopic = async (param) => {
@@ -226,6 +226,26 @@ const Profile = () => {
             addToast(error.response.data.error, { appearance: 'error', autoDismiss: true, });
         }
     }
+
+    const handleChange = (event) => {
+        console.log(event.target.value);
+        setDisplay(event.target.value);
+        if (event.target.value == 'posts') {
+            addToast("Now Displaying Posts.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value == 'following') {
+            addToast("Now Displaying Users You Are Following.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value == 'followers') {
+            addToast("Now Displaying Your Followers.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value == 'saved') {
+            onLoad();
+            setDisplay("saved");
+            addToast("Now Displaying Saved Posts.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value == 'liked') {
+            onLoad();
+            setDisplay("liked");
+            addToast("Now Displaying Liked Posts.", { appearance: 'success', autoDismiss: true });
+        }
+    };
 
 
     const displayPosts = () => {
@@ -327,6 +347,19 @@ const Profile = () => {
                     ))
                 }
             </div >
+
+            <select onChange={handleChange} name="selectList" id="selectList">
+                <option value="posts">Display Posts</option>
+                <option value="following">Display Following</option>
+                <option value="followers">Display Followers</option>
+                <option value="saved">View Saved Posts</option>
+                <option value="liked">View Liked Posts</option>
+            </select>
+
+            <br></br>
+            <br></br>
+            <br></br>
+
             <button onClick={displayPosts}> Display Posts</button>
             <button onClick={displayFollowing}>Display Following</button>
             <button onClick={displayFollowers}> Display Followers</button>
