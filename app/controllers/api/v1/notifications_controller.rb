@@ -26,7 +26,8 @@ class Api::V1::NotificationsController < Api::V1::BaseController
             @notifications = @user.notifications.last(params[:number])
             #puts params[:id]
             #puts params[:number]
-            #puts @notifications
+            puts @notifications
+            #puts Notification.last(10)
             #@testingnotif = Notification.last(10)
             #puts "testing the notifications??"
             #@testingnotif.each do |notif|

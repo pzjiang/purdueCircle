@@ -8,6 +8,7 @@ class User < ApplicationRecord
          has_many :posts, dependent: :destroy
          has_many :comments, dependent: :destroy
          #has_many :followers, dependent: :destroy, :foreign_key => :target
+         #has_many :isfans, dependent: :destroy, :source => :followers, :foreign_key => :origin
          has_many :fans, :through => :followers, :foreign_key => :target
          has_many :followings, :through => :followers, :foreign_key => :subject
          #has_many :usertopics, dependent: :destroy

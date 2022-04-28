@@ -104,8 +104,8 @@ const DM = (props) => {
     }
 
     const newChat = async (event) => {
-        console.log("new chat");
-        console.log(newMessage);
+        //console.log("new chat");
+        //console.log(newMessage);
 
         event.preventDefault();
         try {

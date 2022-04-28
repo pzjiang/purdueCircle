@@ -48,8 +48,8 @@ class Api::V1::MessagesController < Api::V1::BaseController
     def send_message
 
         #check if blocked or blocking
-        this_user = User.find(params[:origin_id])
-        blocked = this_user.fans.find_by(subject: params[:target_id])
+        this_user = Follower.where(target: params[:origin_id]).all
+        blocked = this_user.find_by(subject: params[:target_id])
 
         if blocked
             if blocked.blocked == true
@@ -57,7 +57,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
             end
         end
 
-        blocked = this_user.followings.find_by(target: params[:target_id])
+        blocked = this_user.find_by(target: params[:target_id])
 
         if blocked
             if blocked.blocked == true
@@ -65,15 +65,19 @@ class Api::V1::MessagesController < Api::V1::BaseController
             end
         end
 
-        #check if target is private, can't message if they aren't following you 
+        #check if target is private
         target_user = User.find(params[:target_id])
         if target_user.privacy == true
-            blocked = target_user.following.find_by (target: params[:origin_id])
+            this_user = Follower.where(subject: params[:target_id]).all
+            
+            blocked = this_user.find_by(target: params[:user_id] )
+            
             if blocked
             else
                 respond_with_error "user is private", :unprocessable_entity
             end
         end
+
         
         #logic for actually sending the message
         @newMessage = Message.create(origin_id: params[:origin_id], target_id: params[:target_id], body: params[:body], convo_id: params[:convo_id])

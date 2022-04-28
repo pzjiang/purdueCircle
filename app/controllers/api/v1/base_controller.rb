@@ -13,12 +13,15 @@ class Api::V1::BaseController < ApplicationController
 
     def generate_notification (user_id, body, origin, source)
       user = User.find(user_id)
-      if @user
+      if user
         notification = Notification.create(user_id: user_id, body: body, origin: origin, read: false, source: source)
-        user.increment!(:notification_count)
+        
         if notification.save!
+            user.increment!(:notification_count)
+            puts "notification successful"
             return 1
         else
+            puts "notification fail"
             return 0
         end
       else
