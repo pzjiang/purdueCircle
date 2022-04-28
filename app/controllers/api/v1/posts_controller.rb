@@ -185,6 +185,7 @@ class Api::V1::PostsController < Api::V1::BaseController
         #testing_crossed()
 
         @profile = Profile.find_by(user_id: params[:user_id])
+        @post = Post.find(params[:id])
         #find a connection, not a profile
         @profile_found = @post.favorites.find_by(profile_id: @profile.id)
 
@@ -206,22 +207,38 @@ class Api::V1::PostsController < Api::V1::BaseController
             end
             
         end
+        @post.save!
         #@post.likes = @post.likes + 1
         
     end
 
     def change_save
         @user = User.find(params[:user_id])
+        @post = Post.find(params[:id])
         @profile = @user.profile
         @profile_found = @post.bookmarks.find_by(profile_id: @profile.id)
 
         if @profile_found
-            @profile_found.destroy 
+            @profile_found.destroy
+            @post.save!
             render json: {destroyed: true}, status: 200
         else
             @post.bookmarks.create(profile_id: @profile.id, post_id: @post.id)
             render json: {destroyed: false}, status: 200
+        end
+        @post.save!
+    end
 
+    def check_save
+        @post = Post.find(params[:id])
+        @user = User.find(params[:user_id])
+        @profile = @user.profile
+        @profile_found = @post.bookmarks.find_by(profile_id: @profile.id)
+
+        if @profile_found
+            render json: {saved: true}, status: 200
+        else
+            render json: {saved: false}, status: 200
         end
         
     end
@@ -231,6 +248,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
         @user = User.find(params[:id])
         @profile = @user.profile
+        
         begin
             @saved = @profile.saved_posts.last(params[:number])
         rescue
