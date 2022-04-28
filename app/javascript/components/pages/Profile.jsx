@@ -228,18 +228,21 @@ const Profile = () => {
     }
 
     const handleChange = (event) => {
-        setDisplay({ display: event.target.value });
-        if (event.target.value = 'posts') {
+        console.log(event.target.value);
+        setDisplay(event.target.value);
+        if (event.target.value == 'posts') {
             addToast("Now Displaying Posts.", { appearance: 'success', autoDismiss: true });
-        } else if (event.target.value = 'following') {
+        } else if (event.target.value == 'following') {
             addToast("Now Displaying Users You Are Following.", { appearance: 'success', autoDismiss: true });
-        } else if (event.target.value = 'followers') {
+        } else if (event.target.value == 'followers') {
             addToast("Now Displaying Your Followers.", { appearance: 'success', autoDismiss: true });
-        } else if (event.target.value = 'saved') {
+        } else if (event.target.value == 'saved') {
             onLoad();
+            setDisplay("saved");
             addToast("Now Displaying Saved Posts.", { appearance: 'success', autoDismiss: true });
-        } else if (event.target.value = 'liked') {
+        } else if (event.target.value == 'liked') {
             onLoad();
+            setDisplay("liked");
             addToast("Now Displaying Liked Posts.", { appearance: 'success', autoDismiss: true });
         }
     };
