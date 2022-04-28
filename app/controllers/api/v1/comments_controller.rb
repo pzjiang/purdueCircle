@@ -13,7 +13,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
             #create a notification for the post owner
             @post = Post.find(params[:post_id])
             @postowner = @post.user
-            generate_notification(params[:user_id], "your post has a new comment by" + @user.first_name, "post", params[:post_id])
+            generate_notification(params[:user_id], "your post has a new comment by" + @user.first_name, 1, params[:post_id])
 
             render json: {comment: @comment}, status: 200
         else
