@@ -19,11 +19,14 @@ import "../../styling/Profile.scss";
 
 import userApi from '../../apis/apiusers';
 
+import FormData from 'form-data'
+
+
 
 const EditProfile = () => {
 
     const [inputValues, setInputValues] = useState({
-        bio: '', currentpassword: '', passwordnew: '', passwordConfirmation: '', password: '', email: '', first_name: '', last_name: '', username: ''
+        bio: '', currentpassword: '', passwordnew: '', passwordConfirmation: '', password: '', email: '', first_name: '', last_name: '', username: '', avatar: null
     });
     const { addToast } = useToasts();
     const { user } = useUserState();
@@ -34,6 +37,7 @@ const EditProfile = () => {
     const [name, setName] = useState(true);
     const [bio, setBio] = useState(false);
     const [password, setPassword] = useState(false);
+    const [avatar, setAvatar] = useState(false);
 
 
 
@@ -45,18 +49,45 @@ const EditProfile = () => {
 
     }, []);
 
+
+    const updateAvatar = async (event) => {
+        event.preventDefault();
+        if (inputValues.avatar != null) {
+            try {
+                let formdata = new FormData();
+                formdata.append('avatar', inputValues.avatar, user.username);
+                formdata.append('id', user.id);
+                await profileApi.editavatar(formdata);
+                navigate("/profile");
+            } catch (error) {
+                if (error.response) {
+                    console.log(error.response);
+                    addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("error", error.message);
+                }
+                return;
+            }
+        }
+
+    }
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+
         try {
             await profileApi.editprofile({ id: user.id, profile: { bio: inputValues.bio } });
             console.log("successful edit profile");
             navigate("/profile");
-            addToast("Profile changed successfully", { appearance: 'success', /*autoDismissTimeout: 1500,*/ });
+            addToast("Profile changed successfully", { appearance: 'success', autoDismiss: true, /*autoDismissTimeout: 1500,*/ });
 
         } catch (error) {
             //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
             if (error.response) {
                 console.log(error.response.data.error);
+                addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
             } else if (error.request) {
                 console.log(error.request);
             } else {
@@ -176,6 +207,7 @@ const EditProfile = () => {
         setBio(false);
         setName(false);
         setPassword(false);
+        setAvatar(false);
 
         if (event.target.value  == 'name') {
             setName(true);
@@ -186,6 +218,9 @@ const EditProfile = () => {
         else if (event.target.value  == 'bio') {
             setBio(true);
         }
+        else if (event.target.value == 'avatar') {
+            setAvatar(true);
+        }
     };
 
     return (
@@ -195,7 +230,26 @@ const EditProfile = () => {
 
                 <br />
 
-                <button id="submit-button" onClick={changePrivacy}> Change Privacy Setting</button>
+                <button id="submit-button" onClick={changePrivacy}> Change Privacy </button>
+
+                <br />
+
+                <h2 id="edit_h2"> Edit Bio </h2>
+                <form id="profileEditForm" onSubmit={handleSubmit}>
+                    <label>
+                        <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
+                    </label>
+                    <button type="submit"> Submit </button>
+
+
+                </form>
+                <form onSubmit={updateAvatar}>
+                    <label>
+                        <input type="file" accept="image/*" multiple={false} onChange={(e) => setInputValues({ ...inputValues, avatar: e.target.files[0] })} />
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
+
 
                 <br />
                 <br />
@@ -204,6 +258,7 @@ const EditProfile = () => {
                     <option value="name">Change Name</option>
                     <option value="bio">Change Bio</option>
                     <option value="password">Change Password</option>
+                    <option value="avatar">Change Avatar</option>
                 </select>
 
                 <br></br>
@@ -275,6 +330,16 @@ const EditProfile = () => {
                         <button type="submit" id="submit-button"> Change Password </button>
                         <br></br>
                     </form>
+                    </div>
+                }
+                { avatar == true &&
+                    <div className="column">
+                        <form onSubmit={updateAvatar}>
+                            <label>
+                                <input type="file" accept="image/*" multiple={false} onChange={(e) => setInputValues({ ...inputValues, avatar: e.target.files[0] })} />
+                            </label>
+                            <button type="submit">Submit</button>
+                        </form>
                     </div>
                 }
             </div>

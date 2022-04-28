@@ -48,6 +48,7 @@ const ViewPost = () => {
     const [authorUser, setAuthorUser] = useState();
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState();
+    const [saved, setSaved] = useState();
 
 
     const { user } = useUserState();
@@ -97,6 +98,7 @@ const ViewPost = () => {
             setPrivacy(data.post.privacy);
             setAuthorUser(data.author);
             holdid = data.post.id;
+
             //setProfileId(data.post.profile_id);
             //return data.post.profile_id;
             /*
@@ -164,8 +166,29 @@ const ViewPost = () => {
             }
         }
 
+        //get saved
+        try {
+            console.log(thisId);
+            console.log(user.id);
+            const  { data } = await postsApi.checkSave({ post_id: thisId, id: user.id });
 
+            if (data.saved == true) {
+                setSaved("Unsave");
+                console.log("undefined");
+            } else {
+                setSaved("Save");
+                console.log("saved")
+            }
 
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     };
 
     /*
@@ -194,8 +217,9 @@ const ViewPost = () => {
     const addLike = async (event) => {
         //console.log("like clicked");
         event.preventDefault();
+        console.log(id);
         try {
-            const { data } = await postsApi.incrementLike({ id: id, profile_id: user.id });
+            const { data } = await postsApi.incrementLike({ id: id, user_id: user.id });
             setLikes(data.likes);
             setLiked(data.status);
             //console.log("changed");
@@ -228,7 +252,27 @@ const ViewPost = () => {
         }
     };
 
-    const savePost = () => {
+    const savePost = async (event) => {
+        try {
+            const { data } = await postsApi.changeSave({ post_id: id, id: user.id })
+            if (data.destroyed == true) {
+                addToast("Post Unsaved!", { appearance: 'success', autoDismiss: true, });
+                setSaved("Save");
+            } else {
+                addToast("Post Saved!", { appearance: 'success', autoDismiss: true, });
+                setSaved("Unsave");
+            }
+        } catch (error) {
+            addToast("Error Saving Post.", { appearance: 'error', autoDismiss: true, });
+
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
         console.log("save post");
     };
 
@@ -292,6 +336,7 @@ const ViewPost = () => {
                     <div className="options">
                         <button id="small_post_btn" className="edit" onClick={editPost}>Edit Post</button>
                         <button id="small_post_btn" className="delete" onClick={deletePost}>Delete Post</button>
+                        <button id="small_post_btn" className="save" onClick={savePost}>{saved}</button>
                         <button id="small_post_btn" className="like" onClick={addLike}>
                             <i className="fa fa-heart" aria-hidden="true"></i> {likes}
                         </button>
@@ -299,12 +344,9 @@ const ViewPost = () => {
                         <br></br>
                         <br></br>
 
-
-
                     </div>
                 }
 
-                <div className="column">
 
                 <form id="post_box_form">
 
@@ -375,8 +417,7 @@ const ViewPost = () => {
                 <br></br>
                 <br></br>
 
-            </div >
-        </Layout >
+        </Layout>
     );
 }
 

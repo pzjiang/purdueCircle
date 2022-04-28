@@ -101,7 +101,7 @@ const DM = (props) => {
 
         event.preventDefault();
         try {
-            const { data } = await messagesApi.sendMessage({ origin_id: user.id, target_id: 23, body: newMessage.body, convo_id: id });
+            const { data } = await messagesApi.sendMessage({ origin_id: user.id, target_id: user.id, body: newMessage.body, convo_id: id });
             const newList = [...messages, data.newMessage];
             setMessages(newList);
             console.log("success probably");

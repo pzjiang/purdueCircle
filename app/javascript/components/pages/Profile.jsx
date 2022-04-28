@@ -34,8 +34,10 @@ const Profile = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [privacy, setPrivacy] = useState(false);
+    const [photo, setPhoto] = useState();
 
-    const [confirmed, setConfirmed] = useState("")
+
+    const [confirmed, setConfirmed] = useState("");
 
     const [topics, setTopics] = useState([]);
     const [followers, setFollowers] = useState([]);
@@ -44,6 +46,7 @@ const Profile = () => {
     const [savedPosts, setSavedPosts] = useState([]);
     const [likePosts, setLikedPosts] = useState([]);
 
+    const [numberLoaded, setNumberLoaded] = useState(10);
     const [display, setDisplay] = useState("posts");
 
     const { user } = useUserState();
@@ -54,6 +57,8 @@ const Profile = () => {
     useEffect(() => {
         onLoad();
     }, []);
+
+
 
     const onLoad = async () => {
 
@@ -66,6 +71,7 @@ const Profile = () => {
             //console.log(data.profile.bio);
             //console.log(user);
             setBiol(data.profile.bio);
+            setPhoto(data.profile.photo);
             setFirstName(user.first_name);
             setLastName(user.last_name);
             setUsername(user.username);
@@ -92,7 +98,7 @@ const Profile = () => {
         }
 
         try {
-            const { data } = await postsApi.ownPosts({ user_id: user.id, number: 10 });
+            const { data } = await postsApi.ownPosts({ user_id: user.id, number: numberLoaded });
             //setPosts(data.response);
 
             //console.log(data);
@@ -241,18 +247,53 @@ const Profile = () => {
 
     const displayPosts = () => {
         setDisplay("posts");
-        addToast("now displaying posts", { appearance: 'success', autoDismiss: true });
+        addToast("Now Displaying Your Posts.", { appearance: 'success', autoDismiss: true });
     }
 
 
     const displayFollowers = () => {
         setDisplay("followers");
-        addToast("now displaying followers", { appearance: 'success', autoDismiss: true });
+        addToast("Now Displaying Followers.", { appearance: 'success', autoDismiss: true });
     }
 
     const displayFollowing = () => {
         setDisplay("following");
-        addToast("now displaying following", { appearance: 'success', autoDismiss: true });
+        addToast("Now Displaying Following.", { appearance: 'success', autoDismiss: true });
+    }
+
+    const displaySaved = () => {
+        onLoad();
+
+        setDisplay("saved");
+        addToast("Now Displaying Your Saved Posts.", { appearance: 'success', autoDismiss: true });
+    }
+
+    const displayLiked = () => {
+        //initialize liked list 
+        onLoad();
+
+        setDisplay("liked");
+        addToast("Now Displaying Your Liked Posts.", { appearance: 'success', autoDismiss: true });
+    }
+
+    const loadMore = async () => {
+        setNumberLoaded(numberLoaded * 2);
+        try {
+            const { data } = await postsApi.ownPosts({ user_id: user.id, number: numberLoaded });
+            //setPosts(data.response);
+
+            //console.log(data);
+            setPosts(data.posts);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
     }
 
 
@@ -265,7 +306,12 @@ const Profile = () => {
                 <br />
 
                 <div className="child">
-                    <span className="dot"></span>
+                    {photo == null &&
+                        <span className="dot"></span>
+                    }
+                    {photo != null &&
+                        <img class="profilepic" src={photo}></img>
+                    }
                 </div>
                 <div className="child">
                     <div id="name">
@@ -279,7 +325,8 @@ const Profile = () => {
                 <h3></h3>
                 <h3>Bio</h3>
                 <p> {biol}</p>
-                <p> Confirmed: {confirmed}</p>
+                <br></br>
+                <h3> Confirmed: {confirmed}</h3>
                 <h3>Email</h3>
                 {
                     privacy &&
@@ -313,6 +360,8 @@ const Profile = () => {
             <button onClick={displayPosts}> Display Posts</button>
             <button onClick={displayFollowing}>Display Following</button>
             <button onClick={displayFollowers}> Display Followers</button>
+            <button onClick={displaySaved}> Display Saved Posts</button>
+            <button onClick={displayLiked}> Display Liked Posts</button>
 
 
             {
@@ -321,6 +370,7 @@ const Profile = () => {
                     {posts.reverse().map((post) => (
                         <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
                     ))}
+                    <button onSubmit={loadMore}>Load More </button>
                 </div>
             }
 
@@ -365,7 +415,6 @@ const Profile = () => {
                     ))}
                 </div>
             }
-
 
             <table width="100%">
                 <tr width="100%">
