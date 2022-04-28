@@ -17,6 +17,7 @@ import Message from "./Message";
 import messagesApi from "../../apis/apimessages";
 import '../../styling/Messenger.scss';
 import Layout from "./Layout";
+import usersApi from "../../apis/apiusers";
 
 const DM = (props) => {
 
@@ -55,8 +56,14 @@ const DM = (props) => {
             console.log("retrieved messages from convo");
             console.log(messages);
 
-            console.log("set second user info");
+            setSecUser(data.second_name);
 
+            /*const secID = data.sec_user_id;
+            const { newUser } = await usersApi.getUser({ user_id: secID});
+
+            console.log("got user");
+            console.log(newUser);
+            setSecUser(newUser);*/
 
         } catch (error) {
             if (error.response) {
@@ -133,11 +140,16 @@ const DM = (props) => {
     return (
         <Layout>
             <div className="dm">
-                <button className="backToConvos" onClick={() => backToConvos()}>back</button>
-                <button className="delete" onClick={deleteConvo}>delete conversation</button>
-                <div className="userProfile">
-                    other user's info that you're talking to will go header<br></br>
-                    insert link to profile as well
+                <div className="options">
+                    <div>
+                    <button className="backToConvos" onClick={() => backToConvos()}>back</button>
+                    </div>
+                    <div className="userProfile">
+                        DM with {secUser}: @<Link to='' >{/*secUser.username*/}</Link>
+                    </div>
+                    <div>
+                    <button className="delete" onClick={deleteConvo}>delete conversation</button>
+                    </div>
                 </div>
                 <div id="messages" >
                     {messages.map((message) => (
