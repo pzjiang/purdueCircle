@@ -28,6 +28,7 @@ const CreatePost = () => {
     });
     const [topics, setTopics] = useState([]);
     const [curTopic, setCurTopic] = useState("");
+    const [image, setImage] = useState();
     const { addToast } = useToasts();
     const { user } = useUserState();
     const navigate = useNavigate();
@@ -104,27 +105,89 @@ const CreatePost = () => {
             topicList.push(topic.name);
         });
         */
+        let tagged_users = [];
 
-        try {
-            await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: curTopic });
-            //console.log("successful post creation");
-            navigate("/");
-            addToast("posted", { appearance: 'success', autoDismiss: true });
+        let tempuser = "";
+        let tagged = false;
+        for (let i = 0; i < inputValues.body.length; i++) {
+            if (tagged == false && inputValues.body[i] == '@') {
+                tempuser = "";
+                tagged = true;
+            }
+            else if (inputValues.body[i] == '@') {
+                if (tempuser == "") {
+                    continue;
+                }
+                tagged_users.push(tempuser);
+                tempuser = "";
+            }
+            else if (tagged == true && inputValues.body[i] == ' ') {
+                tagged = false;
+                tagged_users.push(tempuser);
+                tempuser = "";
+            }
+            else if (tagged == true) {
+                tempuser += inputValues.body[i];
+            }
+        }
+        if (tempuser != "" && tagged == true) {
+            tagged_users.push(tempuser);
+        }
 
-        } catch (error) {
-            //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
-            if (error.response) {
-                console.log(error.response.data.error);
-                addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log("error", error.message);
+        tagged_users = [...new Set(tagged_users)];
+
+        if (image == null) {
+
+            try {
+                await postsApi.createPost({ post: { title: inputValues.title, body: inputValues.body, user_id: user.id }, topics: curTopic, picture: false, tagged_users: tagged_users });
+                //console.log("successful post creation");
+                navigate("/");
+                addToast("posted", { appearance: 'success', autoDismiss: true });
+
+            } catch (error) {
+                //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                if (error.response) {
+                    console.log(error.response.data.error);
+                    addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("error", error.message);
+                }
+            }
+        }
+        else if (image != null) {
+            try {
+                let sentData = new FormData();
+                //let post = { title: inputValues.title, body: inputValues.body, user_id: user.id };
+                sentData.append('title', inputValues.title);
+                sentData.append('body', inputValues.body);
+                sentData.append('user_id', user.id);
+                sentData.append('topics', curTopic);
+                sentData.append('picture', true);
+                sentData.append('image', image);
+                //sentData.append('tagged_users', tagged_users);
+
+
+                await postsApi.createPostPicture(sentData);
+                //console.log("successful post creation");
+                navigate("/");
+                addToast("posted", { appearance: 'success', autoDismiss: true });
+
+            } catch (error) {
+                //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                if (error.response) {
+                    console.log(error.response.data.error);
+                    addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log("error", error.message);
+                }
             }
         }
 
-
-    }
+    };
 
     return (
         <Layout>
@@ -162,7 +225,7 @@ const CreatePost = () => {
                         <button id="createPostBtn" onClick={underscore}>Underscore</button>
                         <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
                         <button id="createPostBtn" onClick={link}>Link</button>
-                        <input id="createPostBtn" type="file" />
+                        <input type="file" accept="image/*" multiple={false} onChange={(e) => setImage(e.target.files[0])} />
                     </div>
 
                     <br></br>
@@ -178,7 +241,12 @@ const CreatePost = () => {
                             Content:
                             <textarea value={inputValues.body} onChange={(e) => setInputValues({ ...inputValues, body: e.target.value })}></textarea>
                         </label>
+
+
+
                         <button type="submit"> Submit </button>
+
+
 
                     </form>
 

@@ -24,12 +24,23 @@ class Api::V1::NotificationsController < Api::V1::BaseController
         @user = User.find(params[:id])
         if @user
             @notifications = @user.notifications.last(params[:number])
+            #puts params[:id]
+            #puts params[:number]
+            #puts @notifications
+            #@testingnotif = Notification.last(10)
+            #puts "testing the notifications??"
+            #@testingnotif.each do |notif|
+                #puts notif.user_id
+                #tempuser = User.find(notif.user_id)
+                #puts tempuser.username
+            #end
             render json: {notifications: @notifications}, status: 200
         else
             respond_with_error "no user found", :unprocessable_entity
         end
     end
 
+    #delete notification
     def delete_notification
         @notification = Notification.find(params[:id])
         if @notification.destroy
@@ -37,6 +48,15 @@ class Api::V1::NotificationsController < Api::V1::BaseController
         else
             respond_with_error "couldn't delete", :unprocessable_entity
         end
+    end
+
+    def delete_all_notifications
+        @user = User.find(params[:id])
+        @notifications = @user.notifications.all
+        @notifications.each do |notification|
+            notification.destroy
+        end
+        render json: {}, status: 200
     end
 
     #called to mark notification as read

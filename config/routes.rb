@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
       #edit profile
       put "editprofile", to: "profiles#update"
+      put "editavatar", to: "profiles#add_avatar"
+      get "getavatar/:id", to: "users#get_avatar"
 
       #get only your own posts
       get "ownposts/:user_id/:number", to: "posts#retrieve_own"
@@ -107,9 +109,10 @@ Rails.application.routes.draw do
       delete "unblockuser/:id/:target_id", to: "users#unblock_user"
 
       #notifications
-      get "notifications/:id", to: "notifications#get_notifications"
+      get "notifications/:id/:number", to: "notifications#get_notifications"
       delete "notifications/:id", to: "notifications#delete_notification"
       put "notifications/:id", to: "notifications#read_notification"
+      delete "notificationsall/:id", to: "notifications#delete_all_notifications"
       
 
     end
@@ -121,6 +124,8 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  get '/*path' => 'pages#index'
+  get '/*path' => 'pages#index', constraints: lambda { |req|
+  req.path.exclude? 'rails/active_storage'
+}
 
 end

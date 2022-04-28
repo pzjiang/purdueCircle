@@ -10,6 +10,14 @@ const showPost = payload => axios.get(`api/v1/posts/${payload.id}/`);
 //to tag users, pass in array called tagged_users
 const createPost = payload => axios.post(`api/v1/posts/`, payload);
 
+const createPostPicture = payload => axios.post(`api/v1/posts/`, payload, {
+    headers: {
+        'accept': 'application/json',
+        'Accept-Language': 'en-US,en;q=0.8',
+        'Content-Type': `multipart/form-data; boundary=${payload._boundary}`,
+    }
+});
+
 //edit a specific post
 const editPost = payload => axios.put(`api/v1/posts/${payload.id}`, payload);
 
@@ -70,6 +78,7 @@ const postsApi = {
     timeUsers,
     getSave,
     getLiked,
+    createPostPicture,
 
 
 };

@@ -54,7 +54,7 @@ class Api::V1::PostsController < Api::V1::BaseController
     end    
 
     def add_topic (name, postid)
-        relation = Posttopic.new()
+        #relation = Posttopic.new()
         topic_name name
         relation = Posttopic.new(post_id: postid, topic_id: @topic.id)
         relation.save!
@@ -88,15 +88,36 @@ class Api::V1::PostsController < Api::V1::BaseController
 
 
     def create
-        @newpost = Post.new post_params
-        @user = current_user
-        @profile = @user.profile
-        @newpost.profile_id = @profile.id
-        @newpost.privacy = false
-        @newpost.topic_name = params[:topics]
+       
+        if params[:picture] == false
+            @newpost = Post.new post_params
+            @user = current_user
+            @profile = @user.profile
+            @newpost.profile_id = @profile.id
+            @newpost.privacy = false
+            @newpost.topic_name = params[:topics]
+        else
+            @newpost = Post.new post_params_picture
+            @user = current_user
+            @profile = @user.profile
+            @newpost.profile_id = @profile.id
+            @newpost.privacy = false
+            @newpost.topic_name = params[:topics]
+        end
+        
 
         if @newpost.valid?
             @newpost.save!
+            if params[:picture] == true
+                @newpost.picture = true
+                @newpost.image.attach(params[:image])
+                @newpost.picture_url = rails_blob_url(@newpost.image)
+                @newpost.save!
+            else
+                @newpost.picture = false
+                @newpost.picture_url = ""
+                @newpost.save!
+            end
             if params[:topics]
                 #params[:topics].each do |topicname|
                     #add_topic topicname, @newpost.id
@@ -112,7 +133,7 @@ class Api::V1::PostsController < Api::V1::BaseController
                 params[:tagged_users].each do |tagged_user|
                     tagged = User.find_by(username: tagged_user)
                     if tagged
-                        generate_notification(tagged.id, "you were tagged in a post!", "post", @newpost.id)
+                        generate_notification(tagged.id, "you were tagged in a post!", 1, @newpost.id)
                     end
                 end
             end
@@ -290,5 +311,10 @@ class Api::V1::PostsController < Api::V1::BaseController
     def post_params
         params.require(:post).permit(:title, :body, :profile_id, :user_id)
     end
+    
+    def post_params_picture
+        params.permit(:title, :body, :profile_id, :user_id)
+    end
+    
 
 end

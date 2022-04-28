@@ -10,6 +10,11 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
         @comment = Comment.new(user_id: params[:user_id], post_id: params[:post_id], body: params[:body], author: @user.username)
         if @comment.save!
+            #create a notification for the post owner
+            @post = Post.find(params[:post_id])
+            @postowner = @post.user
+            generate_notification(params[:user_id], "your post has a new comment by" + @user.first_name, 1, params[:post_id])
+
             render json: {comment: @comment}, status: 200
         else
             respond_with_error "comment could not be added", status: 404

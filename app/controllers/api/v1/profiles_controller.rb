@@ -1,31 +1,57 @@
 class Api::V1::ProfilesController < Api::V1::BaseController
-    
+    include Rails.application.routes.url_helpers
     before_action :authenticate_user!
     before_action :set_profile
     skip_before_action :authenticate_user_using_x_auth_token
     skip_before_action :verify_authenticity_token, raise: false
     skip_after_action :verify_authorized, raise: false
+    
 
     
 
 
     def show
         if @profile
-            render json: {profile: @profile}
-          else
+          #@profile.photo = rails_blob_url(@profile.avatar)
+          #@profile.save!
+          render json: {profile: @profile}
+        else
             render json: {error: "profile with id #{params[:id]} not found "}, status: :not_found
             #respond_with_error "Profile with id #{params[:user_id]} not found.", :not_found
-          end
+        end
     end
 
 
-   
+    def add_avatar
+      @profile.avatar.purge
+
+      @profile.update(avatar_params)
+
+      #url_for(@profile.avatar)
+      photo = rails_blob_url(@profile.avatar)
+      @profile.photo = photo
+      @profile.save!
+
+      #puts "at the end"
+
+      puts @profile.avatar.attached?
+      render json: {}, status: 200
+    end
 
     def update
         if @profile.blank?
             respond_with_error "Profile with id #{params[:id]} not found.", :not_found
       
           elsif @profile.update(profile_params)
+            #if params[:avatar]
+              #@profile.avatar.destroy  if @profile.avatar.present?
+              #@profile.avatar.attach(params[:avatar])
+              #photo = rails_service_blob_url(@profile.avatar)
+              #puts @profile.avatar.record_type
+              #puts "hello did it work?"
+              #@profile.photo = photo
+              #@profile.save!
+            #end
             render json: @profile
       
           else
@@ -69,4 +95,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
             params.require(:profile).permit(:bio)
         end
 
+        def avatar_params
+          params.permit(:avatar)
+        end
 end

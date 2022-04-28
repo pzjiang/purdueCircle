@@ -34,6 +34,7 @@ const Profile = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [privacy, setPrivacy] = useState(false);
+    const [photo, setPhoto] = useState();
 
 
     const [confirmed, setConfirmed] = useState("")
@@ -69,6 +70,7 @@ const Profile = () => {
             //console.log(data.profile.bio);
             //console.log(user);
             setBiol(data.profile.bio);
+            setPhoto(data.profile.photo);
             setFirstName(user.first_name);
             setLastName(user.last_name);
             setUsername(user.username);
@@ -239,7 +241,12 @@ const Profile = () => {
                 <br />
 
                 <div className="child">
-                    <span className="dot"></span>
+                    {photo == null &&
+                        <span className="dot"></span>
+                    }
+                    {photo != null &&
+                        <img class="profilepic" src={photo}></img>
+                    }
                 </div>
                 <div className="child">
                     <div id="name">
@@ -253,7 +260,8 @@ const Profile = () => {
                 <h3></h3>
                 <h3>Bio</h3>
                 <p> {biol}</p>
-                <p> Confirmed: {confirmed}</p>
+                <br></br>
+                <h3> Confirmed: {confirmed}</h3>
                 <h3>Email</h3>
                 {
                     privacy &&

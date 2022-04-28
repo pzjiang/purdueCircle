@@ -12,13 +12,16 @@ class Api::V1::BaseController < ApplicationController
 
 
     def generate_notification (user_id, body, origin, source)
-      notification = Notification.create(user_id: user_id, body: body, origin: origin, read: false, source: source)
-      user = User.find(params[:user_id])
-      user.increment!(:notification_count)
-      if notification.save!
-          render json: @notification, status: 200
+      user = User.find(user_id)
+      if @user
+        notification = Notification.create(user_id: user_id, body: body, origin: origin, read: false, source: source)
+        user.increment!(:notification_count)
+        if notification.save!
+            return 1
+        else
+            return 0
+        end
       else
-          respond_with_error "notification failed", :unprocessable_entity
       end
     end
 
