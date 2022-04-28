@@ -88,6 +88,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
     
         if @newMessage.save!
             @convo.save!
+            generate_notification(params[:target_id], "you have a new message from " + target_user.first_name , "convo", @convo.id)
             render json: {newMessage: @newMessage}, status: 200
         else
             respond_with_error "message could not be sent", :unprocessable_entity
