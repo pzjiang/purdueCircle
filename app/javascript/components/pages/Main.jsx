@@ -58,13 +58,15 @@ const Main = () => {
             }
         }
 
+        console.log("user.id: " + user.id);
+
         // followed topics
         try {
             const { data } = await postsApi.timeTopics({ number: numberLoaded, id: user.id });
             //setPosts(data.response);
 
-            console.log(data);
-            setTopics(data.returned);
+            console.log("complete: " + data);
+            setTopics(data.posts);
 
         } catch (error) {
             if (error.response) {
@@ -81,8 +83,8 @@ const Main = () => {
             const { data } = await postsApi.timeUsers({ number: numberLoaded, id: user.id });
             //setPosts(data.response);
 
-            console.log(data);
-            setUsers(data.returned);
+            console.log("finished: " + data);
+            setUsers(data.posts);
 
         } catch (error) {
             if (error.response) {
