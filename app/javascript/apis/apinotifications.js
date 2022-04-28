@@ -4,11 +4,11 @@ import axios from 'axios';
 const getNotifications = payload => axios.get(`api/v1/notifications/${payload.user_id}`);
 
 //adds a notification for the user
-const addNotifications = payload = axios.put();
+//const addNotifications = payload = axios.put();
 
 const notificationsApi = {
     getNotifications,
-    addNotifications,
+    //addNotifications,
 };
 
 export default notificationsApi;

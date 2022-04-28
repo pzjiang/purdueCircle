@@ -112,10 +112,6 @@ const Layout = props => {
 
             <div className="header">
                 <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
                     <li> 
                         <Notifications data={notifs}
                             header={{
