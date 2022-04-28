@@ -16,6 +16,7 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { resetAuthTokens } from "../../apis/axios";
 import { useToasts } from 'react-toast-notifications';
 import postsApi from "../../apis/apiposts";
+import topicsApi from "../../apis/apitopics";
 import '../../styling/Post.scss';
 
 const Post = props => {
@@ -32,8 +33,12 @@ const Post = props => {
     const [body, setBody] = useState(props.body);
     const [likes, setLikes] = useState(props.likes);
     const [liked, setLiked] = useState(false);
-    const [id, setId] = useState(props.id);
+    const [topics, setTopics] = useState([]);
+    const [authorUser, setAuthorUser] = useState();
     const [saved, setSaved] = useState();
+    const [id, setId] = useState(0);
+    const [privacy, setPrivacy] = useState(false);
+
     //const [loaded, setLoaded] = useState(false);
 
     const { user } = useUserState();
@@ -46,10 +51,44 @@ const Post = props => {
     }, []);
 
     const onLoad = async () => {
+        // get author
+        try {
+            const { data } = await postsApi.showPost({ id: props.id });
+            setAuthorUser(data.author);
+            setPrivacy(data.post.privacy);
+            setId(props.id);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+        // pull likes
         try {
             const { data } = await postsApi.likesPost({ user_id: user.id, post_id: props.id });
             setLiked(data.status);
             //console.log("status retrieved successfully");
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("error", error.message);
+            }
+        }
+
+        // get topics
+        try {
+            const { data } = await topicsApi.pullTopics({ post_id: props.id });
+            console.log(data.topics);
+            setTopics(data.topics);
+
         } catch (error) {
             if (error.response) {
                 console.log(error.response.data.error);
@@ -173,6 +212,16 @@ const Post = props => {
     return (
         <div id="post">
             <h1>{title}</h1>
+            
+            {privacy == false &&
+                <h3>Posted by: <Link to={'/profile/' + authorUser}>{authorUser}</Link></h3>
+            }
+
+            <h3>Topics:</h3>
+            {topics.map((topic) => (
+                <div><p>{topic} </p></div>
+            ))}
+            
             <div>{body}</div>
 
             <p></p>
