@@ -29,7 +29,7 @@ const DM = (props) => {
     //const [secId, setSecId] = useState(0);
     const [newMessage, setNewMessage] = useState("");
 
-    const [secUser, setSecUser] = useState("");
+    const [secUser, setSecUser] = useState();
 
     useEffect(() => {
 
@@ -54,6 +54,12 @@ const DM = (props) => {
             setMessages(data.messages);
             console.log("retrieved messages from convo");
             console.log(messages);
+            if (data.id1 == user.id) {
+                setSecUser(data.id2);
+            }
+            else {
+                setSecUser(data.id1);
+            }
 
             console.log("set second user info");
 
@@ -103,7 +109,7 @@ const DM = (props) => {
 
         event.preventDefault();
         try {
-            const { data } = await messagesApi.sendMessage({ origin_id: user.id, target_id: user.id, body: newMessage.body, convo_id: id });
+            const { data } = await messagesApi.sendMessage({ origin_id: user.id, target_id: secUser, body: newMessage.body, convo_id: id });
             const newList = [...messages, data.newMessage];
             setMessages(newList);
             console.log("success probably");

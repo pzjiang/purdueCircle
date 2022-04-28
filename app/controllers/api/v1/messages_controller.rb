@@ -34,7 +34,7 @@ class Api::V1::MessagesController < Api::V1::BaseController
         @listing = @convo.messages.all
         
         if @listing
-            render json: {messages: @listing}, status: 200
+            render json: {messages: @listing, id1: @convo.first_user_id, id2: @convo.sec_user_id}, status: 200
         else
             respond_with_error "no messages found", :not_found
         end
@@ -46,7 +46,36 @@ class Api::V1::MessagesController < Api::V1::BaseController
     end
 
     def send_message
+
+        #check if blocked or blocking
+        this_user = User.find(params[:origin_id])
+        blocked = this_user.fans.find_by(subject: params[:target_id])
+
+        if blocked
+            if blocked.blocked == true
+                respond_with_error "you are blocked", :unprocessable_entity
+            end
+        end
+
+        blocked = this_user.followings.find_by(target: params[:target_id])
+
+        if blocked
+            if blocked.blocked == true
+                respond_with_error "you block them", :unprocessable_entity
+            end
+        end
+
+        #check if target is private, can't message if they aren't following you 
+        target_user = User.find(params[:target_id])
+        if target_user.privacy == true
+            blocked = target_user.following.find_by (target: params[:origin_id])
+            if blocked
+            else
+                respond_with_error "user is private", :unprocessable_entity
+            end
+        end
         
+        #logic for actually sending the message
         @newMessage = Message.create(origin_id: params[:origin_id], target_id: params[:target_id], body: params[:body], convo_id: params[:convo_id])
         @convo = Convo.find(params[:convo_id])
         if @convo
