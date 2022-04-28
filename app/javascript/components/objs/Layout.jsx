@@ -100,7 +100,9 @@ const Layout = props => {
             <nav className="menu">
                 <div className="smartphone-menu-trigger"></div>
                 <div className="homeButton">
-                    <Link to='../../'>PurdueCircle</Link>
+                    <Link to='../../'>
+                        <h2>PurdueCircle</h2>
+                        </Link>
                 </div>
                 <header className="avatar">
                     {avatar == null &&
@@ -138,7 +140,7 @@ const Layout = props => {
                             }}
                         />
                         */}
-                        <Link to='/notifications'><img src={logo} height={50} width={50}></img></Link>
+                        <Link to='/notifications'><img src={logo} height={25} width={25}></img></Link>
                     </li>
                     <li><Link to='/post' className="button-1 newPost"> New Post</Link></li>
                 </ul>

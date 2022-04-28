@@ -220,11 +220,6 @@ const CreatePost = () => {
                     <br></br>
 
                     <div className="options">
-                        <button id="createPostBtn" onClick={bold}>Bold</button>
-                        <button id="createPostBtn" onClick={italisize}>Italicize</button>
-                        <button id="createPostBtn" onClick={underscore}>Underscore</button>
-                        <button id="createPostBtn" onClick={strikethrough}>Strikethrough</button>
-                        <button id="createPostBtn" onClick={link}>Link</button>
                         <input type="file" accept="image/*" multiple={false} onChange={(e) => setImage(e.target.files[0])} />
                     </div>
 
