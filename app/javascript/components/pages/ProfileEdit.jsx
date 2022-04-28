@@ -182,7 +182,17 @@ const EditProfile = () => {
                 <br />
                 <br />
 
+                <select name="selectList" id="selectList">
+                    <option value="option 1">Change Name</option>
+                    <option value="option 2">Change Bio</option>
+                    <option value="option 2">Change Password</option>
+                </select>
+
+                <br />
+                <br />
+
                 <h2 id="edit_h2"> Edit Bio </h2>
+                <h3>Fill out the field below to edit your account bio. </h3>
                 <form id="profileEditForm" onSubmit={handleSubmit}>
                     <label>
                         <textarea placeholder="Enter a bio" value={inputValues.bio} onChange={(e) => setInputValues({ ...inputValues, bio: e.target.value })}></textarea>
@@ -198,6 +208,7 @@ const EditProfile = () => {
 
                 <div className="column">
                 <h2 id="edit_h2"> Change Name </h2>
+                <h3>Fill out the fields below to edit your first and/or last name. </h3>
                 <form id="profileEditForm" onSubmit={updateAccount}>
                     <label id="password-labels">
                         <h4>New First Name: </h4>
@@ -230,6 +241,7 @@ const EditProfile = () => {
 
                 <div className="column">
                 <h2 id="edit_h2"> Change Password </h2>
+                <h3>Fill out the fields below to update your current password. </h3>
                 <form id="profileEditForm" onSubmit={updatePassword}>
                     <label>
                         <h4>Enter Your Current Password: </h4>
