@@ -35,13 +35,14 @@ const Profile = () => {
     const [email, setEmail] = useState("");
     const [privacy, setPrivacy] = useState(false);
 
-
     const [confirmed, setConfirmed] = useState("")
 
     const [topics, setTopics] = useState([]);
     const [followers, setFollowers] = useState([]);
     const [following, setFollowing] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [savedPosts, setSavedPosts] = useState([]);
+    const [likePosts, setLikedPosts] = useState([]);
 
     const [display, setDisplay] = useState("posts");
 
@@ -152,6 +153,38 @@ const Profile = () => {
             }
         }
 
+        //initialize saved list 
+        try {
+            const { data } = await postsApi.getSaves({ id: user.id, number: 10 });
+            console.log(data.saves);
+            setSavedPosts(data.saves);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+
+        //initialize liked list 
+        try {
+            const { data } = await postsApi.getLiked({ id: user.id, number: 10 });
+            console.log(data.posts);
+            setLikedPosts(data.posts);
+
+        } catch (error) {
+            if (error.response) {
+                console.log(error.response.data.error);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log("Unidentified error", error.message);
+            }
+        }
+
     }
 
     const removeTopic = async (param) => {
@@ -187,6 +220,23 @@ const Profile = () => {
             addToast(error.response.data.error, { appearance: 'error', autoDismiss: true, });
         }
     }
+
+    const handleChange = (event) => {
+        setDisplay({ display: event.target.value });
+        if (event.target.value = 'posts') {
+            addToast("Now Displaying Posts.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value = 'following') {
+            addToast("Now Displaying Users You Are Following.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value = 'followers') {
+            addToast("Now Displaying Your Followers.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value = 'saved') {
+            onLoad();
+            addToast("Now Displaying Saved Posts.", { appearance: 'success', autoDismiss: true });
+        } else if (event.target.value = 'liked') {
+            onLoad();
+            addToast("Now Displaying Liked Posts.", { appearance: 'success', autoDismiss: true });
+        }
+    };
 
 
     const displayPosts = () => {
@@ -248,11 +298,12 @@ const Profile = () => {
                 }
             </div >
 
-            <select name="selectList" id="selectList">
-                  <option value="option 1">Display Posts</option>
-                  <option value="option 2">Display Following</option>
-                <option value="option 2">Display Followers</option>
-                <option value="option 2">View Saved Posts</option>
+            <select onChange={handleChange} name="selectList" id="selectList">
+                <option value="posts">Display Posts</option>
+                <option value="following">Display Following</option>
+                <option value="followers">Display Followers</option>
+                <option value="saved">View Saved Posts</option>
+                <option value="liked">View Liked Posts</option>
             </select>
 
             <br></br>
@@ -296,6 +347,25 @@ const Profile = () => {
 
                 </div>
             }
+
+            {
+                display == "saved" &&
+                < div className="postList">
+                    {savedPosts.reverse().map((post) => (
+                        <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
+                    ))}
+                </div>
+            }
+
+            {
+                display == "liked" &&
+                < div className="postList">
+                    {likePosts.reverse().map((post) => (
+                        <Post title={post.title} body={post.body} likes={post.likes} liked={false} id={post.id} key={post.id} />
+                    ))}
+                </div>
+            }
+
 
             <table width="100%">
                 <tr width="100%">
