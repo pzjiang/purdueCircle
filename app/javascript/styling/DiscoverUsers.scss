@@ -1,0 +1,19 @@
+@use "style.scss"as s;
+
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+
+.dot {
+    height: 60px;
+    width: 60px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    justify-content: center;
+  }
+
+  .profilepic {
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    display: inline-block;
+  }

@@ -43,6 +43,7 @@ const DiscoveryPage = props => {
         setSearchNumber(10);
     }, []);
 
+    
     const onLoad = () => {
 
     }
@@ -158,10 +159,12 @@ const DiscoveryPage = props => {
 
                 <br></br>
                 <br></br>
+                
+                
                 {searchState == "users" &&
                     users.map((user) => (
                         user.privacy == false &&
-                        <DiscoverUsers firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
+                        <DiscoverUsers userid={user.id} firstname={user.first_name} lastname={user.last_name} username={user.username}> </DiscoverUsers>
 
                     ))
                 }
