@@ -109,9 +109,10 @@ Rails.application.routes.draw do
       delete "unblockuser/:id/:target_id", to: "users#unblock_user"
 
       #notifications
-      get "notifications/:id", to: "notifications#get_notifications"
+      get "notifications/:id/:number", to: "notifications#get_notifications"
       delete "notifications/:id", to: "notifications#delete_notification"
       put "notifications/:id", to: "notifications#read_notification"
+      delete "notificationsall/:id", to: "notifications#delete_all_notifications"
       
 
     end

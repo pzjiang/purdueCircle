@@ -18,25 +18,28 @@ import { useAuthDispatch } from "../../contexts/auth";
 import { useToasts } from 'react-toast-notifications';
 import profileApi from "../../apis/apiprofile";
 import { useUserState } from "../../contexts/user";
-import Notifications from "react-notifications-menu";
+//import Notifications from "react-notifications-menu";
+import notificationsApi from "../../apis/apinotifications";
+import logo from "../../assets/default_bell";
+
 
 const DEFAULT_NOTIFICATION = {
     image:
-      "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
+        "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
     message: "Notification one.",
     detailPage: "/events",
     receivedTime: "12h ago"
-  };
+};
+
 
 const Layout = props => {
 
     //user profile
     const { user } = useUserState();
-    const [first_name, setFirstName] = useState("");
-    const [last_name, setLastName] = useState("");
+    const [avatar, setAvatar] = useState();
 
     //notification menu
-    const [notifs, setNotifs] = useState([DEFAULT_NOTIFICATION])
+    const [notifs, setNotifs] = useState(DEFAULT_NOTIFICATION)
 
     //toast notifications
     const authDispatch = useAuthDispatch();
@@ -54,8 +57,10 @@ const Layout = props => {
                 data
             } = await profileApi.getprofile({ user_id: user.id });
 
-            setFirstName(user.first_name);
-            setLastName(user.last_name);
+            if (data.profile.photo != null && data.profile.photo != "") {
+                setAvatar(data.profile.photo);
+            }
+
 
         } catch (error) {
             //console.log(error.response.data.error);
@@ -98,8 +103,13 @@ const Layout = props => {
                     <Link to='../../'>PurdueCircle</Link>
                 </div>
                 <header className="avatar">
+                    {avatar == null &&
                         <img src="via.placeholder.com/150.PNG" />
-                    <h2>{first_name} {last_name}</h2>
+                    }
+                    {avatar != null &&
+                        <img src={avatar} width={100} height={100} ></img>
+                    }
+                    <h2>{user.first_name} {user.last_name}</h2>
                 </header>
                 <ul>
                     <li tabIndex="0"><Link to='/profile'>Profile</Link></li>
@@ -108,7 +118,7 @@ const Layout = props => {
                     <li tabIndex="0"><Link to='/messenger'>Messages</Link></li>
                 </ul>
                 <button className="logout" onClick={handleSubmit}> Logout </button>
-                </nav>
+            </nav>
 
             <div className="header">
                 <ul>
@@ -116,25 +126,28 @@ const Layout = props => {
                     <li></li>
                     <li></li>
                     <li></li>
-                    <li> 
+                    <li>
+                        {/*
                         <Notifications data={notifs}
                             header={{
-                                title: "Notifications",
-                                option: {text: "View All", onClick: () => viewAll() }
+                                title: "Notifications Menu",
+                                option: { text: "View All", onClick: () => viewAll() }
                             }}
                             markAsRead={(notifs) => {
-                              console.log(notifs);
+                                console.log(notifs);
                             }}
                         />
+                        */}
+                        <Link to='/notifications'><img src={logo} height={50} width={50}></img></Link>
                     </li>
                     <li><Link to='/post' className="button-1 newPost"> New Post</Link></li>
                 </ul>
-                
+
             </div>
 
             <div id="layout-children">
                 <div className="helper">
-                {props.children}
+                    {props.children}
                 </div>
             </div>
 

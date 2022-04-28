@@ -134,6 +134,8 @@ const CreatePost = () => {
             tagged_users.push(tempuser);
         }
 
+        tagged_users = [...new Set(tagged_users)];
+
         if (image == null) {
 
             try {
@@ -146,7 +148,7 @@ const CreatePost = () => {
                 //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
                 if (error.response) {
                     console.log(error.response.data.error);
-                    addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                    addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
                 } else if (error.request) {
                     console.log(error.request);
                 } else {
@@ -176,7 +178,7 @@ const CreatePost = () => {
                 //addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
                 if (error.response) {
                     console.log(error.response.data.error);
-                    addToast(error.response.data.error, { appearance: 'error', /*autoDismissTimeout: 1500,*/ });
+                    addToast(error.response.data.error, { appearance: 'error', autoDismiss: true,/*autoDismissTimeout: 1500,*/ });
                 } else if (error.request) {
                     console.log(error.request);
                 } else {
