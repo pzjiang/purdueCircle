@@ -3,6 +3,8 @@ import axios from 'axios';
 //get a number of posts, not filtering by anything
 const getPost = payload => axios.get(`api/v1/posts/${payload.number}/index`);
 
+
+
 //get the information of a specific post of id
 const showPost = payload => axios.get(`api/v1/posts/${payload.id}/`);
 
